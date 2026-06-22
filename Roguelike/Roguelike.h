@@ -1,8 +1,27 @@
-﻿// Roguelike.h : включаемый файл для стандартных системных включаемых файлов
-// или включаемые файлы для конкретного проекта.
+﻿#pragma once
 
-#pragma once
+class Menu;
 
-#include <iostream>
+class Roguelike
+{
+public:
+	Roguelike();
+	~Roguelike();
 
-// TODO: установите здесь ссылки на дополнительные заголовки, требующиеся для программы.
+private:
+	bool bIsRunning;
+	int screenWidth;
+	int screenHeight;
+
+	Menu* GameMenu;
+
+public:
+	void Ini();
+	void Run();
+	void Update();
+	void Cleanup();
+	void InputTick();
+
+	void StopRunning();
+
+};
