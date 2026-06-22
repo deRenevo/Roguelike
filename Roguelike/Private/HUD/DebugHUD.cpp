@@ -5,10 +5,6 @@
 
 void DebugHUD::Draw()
 {
-
-	//int fps = GetFPS();
-
-	
 	DrawUtility::DrawTextWithTwoColor(
 		std::string("FPS: " + std::to_string(GetFPS())).c_str(),
 		15,
