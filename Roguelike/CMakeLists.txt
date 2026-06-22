@@ -19,10 +19,12 @@ FetchContent_MakeAvailable(raylib)
 add_executable (Roguelike 
 "main.cpp"
 "Roguelike.h" "Roguelike.cpp" 
-"Public/Utility/Draw/DrawUtility.h" "Private/Utility/Draw/DrawUtility.cpp" 
-"Public/UI/Menu.h" "Private/UI/Menu.cpp"
-"Public/Input/InputMenu.h" "Private/Input/InputMenu.cpp"
-"Public/UI/Widgets/Button.h" "Private/UI/Widgets/Button.cpp")
+ "Public/Core/Scene/SceneManager.h" "Private/Core/Scene/SceneManager.cpp" 
+ "Public/Core/Scene/Scene.h" "Private/Core/Scene/Scene.cpp" 
+ "Public/Core/Scene/SceneFactory.h" "Private/Core/Scene/SceneFactory.cpp" 
+ "Private/Core/HUD/HUD.cpp" "Public/Core/HUD/HUD.h" 
+ "Public/Scene/MenuScene.h" "Private/Scene/MenuScene.cpp"
+ "Public/Core/Utility/Draw/DrawUtility.h" "Private/Core/Utility/Draw/DrawUtility.cpp" "Public/Core/HUD/HUDFactory.h" "Private/Core/HUD/HUDFactory.cpp" "Public/HUD/DebugHUD.h" "Private/HUD/DebugHUD.cpp")
 
 target_include_directories(Roguelike PRIVATE 
     ${CMAKE_CURRENT_SOURCE_DIR}/Public

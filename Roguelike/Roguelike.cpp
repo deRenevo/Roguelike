@@ -1,31 +1,29 @@
 ﻿#include"raylib.h"
 
-#include <UI/Menu.h>
 #include <Roguelike.h>
-
-
-Roguelike::Roguelike() : bIsRunning(false), screenWidth(0), screenHeight(0)
-{
-    
-}
-
-Roguelike::~Roguelike()
-{
-}
+#include <Core/Scene/SceneManager.h>
+#include <Core/Scene/SceneFactory.h>
+#include <Core/HUD/HUDFactory.h>
 
 void Roguelike::Ini()
 {
     const int monitor = GetCurrentMonitor();
-    screenWidth = GetMonitorWidth(monitor);
-    screenHeight = GetMonitorHeight(monitor);
+    const int screenWidth = GetMonitorWidth(monitor);
+    const int screenHeight = GetMonitorHeight(monitor);
 
     SetConfigFlags(FLAG_FULLSCREEN_MODE | FLAG_VSYNC_HINT);
     InitWindow(screenWidth, screenHeight, "Roguelike");
-    SetTargetFPS(60); //! next edit in menu settings
+    SetTargetFPS(60); //-> take it later from the settings
+
+    SceneManager::GetInstance().LoadScene(
+        SceneFactory::CreateScene(SceneFactory::ESceneList::Menu)
+    );
+
+    SceneManager::GetInstance().LoadHUD(
+        HUDFactory::CreateHUD(HUDFactory::EHUDList::Debug)
+    );
+
     bIsRunning = true;
-
-    GameMenu = new Menu();
-
     Run();
 }
 
@@ -33,49 +31,18 @@ void Roguelike::Run()
 {
     while (bIsRunning && !WindowShouldClose())
     {
-        Update();
-    }
+        float deltaTime = GetFrameTime();
 
-}
+        SceneManager::GetInstance().Tick(deltaTime);
 
-void Roguelike::Update()
-{
-    InputTick();
-
-    BeginDrawing();
-    ClearBackground(BLACK);
-
-    GameMenu->Update();
-
-    EndDrawing();
-}
-
-void Roguelike::Cleanup()
-{
-    if (bIsRunning)
-    {
-        CloseWindow();
-        bIsRunning = false;
+        BeginDrawing();
+        ClearBackground(BLACK);
+        SceneManager::GetInstance().Draw();
+        EndDrawing();
     }
 }
 
-void Roguelike::InputTick()
+Roguelike::~Roguelike()
 {
-    int key = GetKeyPressed();
-
-    GameMenu->InputTick(key);
-
-    switch (key)
-    {
-    case KEY_ESCAPE:
-        StopRunning();
-        break;
-    default:
-        break;
-    }
-}
-
-void Roguelike::StopRunning()
-{
-    bIsRunning = false;
+    CloseWindow();
 }
