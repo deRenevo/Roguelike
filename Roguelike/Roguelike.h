@@ -3,13 +3,16 @@
 class Roguelike
 {
 public:
-	~Roguelike();
+	Roguelike() = default;
+	~Roguelike() = default;
 
+	static Roguelike& GetInstance();
 private:
-	bool bIsRunning;
+	bool bIsRunning = false;
 
 public:
 	void Ini();
+	void Stop();
 
 private:
 	void Run();

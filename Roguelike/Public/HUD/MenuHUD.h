@@ -1,15 +1,13 @@
-#include "raylib.h"
-
 #include <Core/HUD/HUD.h>
 
+class CanvasPanel;
 class Button;
 
-class DebugHUD : public HUD
+class MenuHUD : public HUD
 {
-	Button* GoodButton;
+	CanvasPanel* CanvaPanel;
+	Button* StartButton;
 protected:
 	virtual void HUDConstruction() override;
 	virtual void Draw() override;
-	virtual void Tick(float DeltaTime) override;
 };
-

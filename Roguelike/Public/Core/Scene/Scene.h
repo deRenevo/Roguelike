@@ -1,5 +1,7 @@
 #pragma once
 
+#include "raylib.h"
+
 class Scene
 {
 public:
@@ -16,4 +18,5 @@ protected:
 	virtual void SceneConstruction(); //-> processed when changing priced
 	virtual void PreSceneConstruction(); //-> processed before SceneConstruction
 	virtual void PostSceneConstruction(); //-> processed after SceneConstruction
+	virtual void Destroy();
 };

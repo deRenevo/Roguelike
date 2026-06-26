@@ -5,6 +5,8 @@
 #include <Core/Scene/SceneFactory.h>
 #include <Core/HUD/HUDFactory.h>
 
+#include <iostream>
+
 void Roguelike::Ini()
 {
     const int monitor = GetCurrentMonitor();
@@ -14,12 +16,13 @@ void Roguelike::Ini()
     SetConfigFlags(FLAG_FULLSCREEN_MODE | FLAG_VSYNC_HINT);
     InitWindow(screenWidth, screenHeight, "Roguelike");
     SetTargetFPS(60); //-> take it later from the settings
+    SetExitKey(0);
 
     SceneManager::GetInstance().LoadScene(
         SceneFactory::CreateScene(SceneFactory::ESceneList::Menu)
     );
 
-    SceneManager::GetInstance().LoadHUD(
+    SceneManager::GetInstance().AddToViewport(
         HUDFactory::CreateHUD(HUDFactory::EHUDList::Debug)
     );
 
@@ -27,22 +30,35 @@ void Roguelike::Ini()
     Run();
 }
 
+void Roguelike::Stop()
+{
+    bIsRunning = false;
+}
+
 void Roguelike::Run()
 {
+
     while (bIsRunning && !WindowShouldClose())
     {
         float deltaTime = GetFrameTime();
 
+        int keyPressed = GetKeyPressed();
+        
         SceneManager::GetInstance().Tick(deltaTime);
+        SceneManager::GetInstance().KeyPressEvent(keyPressed);
 
         BeginDrawing();
         ClearBackground(BLACK);
         SceneManager::GetInstance().Draw();
         EndDrawing();
     }
+
+    //SceneManager::GetInstance().LoadScene(nullptr);
+    CloseWindow();
 }
 
-Roguelike::~Roguelike()
+Roguelike& Roguelike::GetInstance()
 {
-    CloseWindow();
+    static Roguelike roguelike;
+    return roguelike;
 }

@@ -10,8 +10,7 @@ using namespace std;
 int main()
 {
 	printf("Hello Roguelike");
-
-	Roguelike Game;
-	Game.Ini();
+	
+	Roguelike::GetInstance().Ini();
 	return 0;
 }
