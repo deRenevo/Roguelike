@@ -1,19 +1,20 @@
 #include <Core/Widgets/WidgetsElements/Container.h>
 
 #include <iostream>
+#include <algorithm>
 
-void Container::OnExit()
+void WContainer::OnExit()
 {
     for (auto& child : Children)
-    {
+    {       
         child->OnExit();
     }
     Children.clear();
 }
 
-void Container::Tick(float DeltaTime)
+void WContainer::Tick(float DeltaTime)
 {
-    Widget::Tick(DeltaTime);
+    WWidget::Tick(DeltaTime);
 
     for (auto& child : Children)
     {
@@ -22,21 +23,21 @@ void Container::Tick(float DeltaTime)
     }
 }
 
-void Container::Draw()
+void WContainer::Draw()
 {
-    Widget::Draw();
+    WWidget::Draw();
     for (auto& child : Children)
     {
         child->DoDraw();
     }
 }
 
-void Container::Construction()
+void WContainer::Construction()
 {
         
 }
 
-void Container::OnChildAdded(Widget* widget)
+void WContainer::OnChildAdded(WWidget* widget)
 {
 }
 
@@ -44,7 +45,7 @@ void Container::OnChildAdded(Widget* widget)
  * => getter and setter
 */
 
-void Container::AddChild(std::unique_ptr<Widget> widget)
+void WContainer::AddChild(std::unique_ptr<WWidget> widget)
 {
     if (!widget) return;
     widget->SetParent(this);
@@ -55,7 +56,7 @@ void Container::AddChild(std::unique_ptr<Widget> widget)
 }
 
 
-void Container::RemoveChild(Widget* widget)
+void WContainer::RemoveChild(WWidget* widget)
 {
     if (!widget) return;
 
@@ -69,7 +70,7 @@ void Container::RemoveChild(Widget* widget)
     }
 }
 
-void Container::ClearChildren()
+void WContainer::ClearChildren()
 {
     for (auto& child : Children)
     {

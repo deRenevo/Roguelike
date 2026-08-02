@@ -2,33 +2,38 @@
 
 #include <iostream>
 
-void Widget::OnEnter()
+void WWidget::OnEnter()
 {
 	Construction();
 }
 
-void Widget::OnExit()
+void WWidget::OnExit()
 {
 	
 }
 
-void Widget::Tick(float DeltaTime)
+void WWidget::Tick(float DeltaTime)
 {
 	
 }
 
-void Widget::Draw()
+Vector2 WWidget::AutoSize()
 {
-	
+	return Vector2(0,0);
 }
 
-void Widget::DoTick(float DeltaTime)
+void WWidget::Draw() 
+{
+
+}
+
+void WWidget::DoTick(float DeltaTime)
 {
 	if (!bIsVisible) return; // then remove to Enum class with Widget state
 	Tick(DeltaTime);
 }
 
-void Widget::DoDraw()
+void WWidget::DoDraw()
 {
 	if (!bIsVisible) return; // then remove to Enum class with Widget state
 	Draw();
@@ -38,7 +43,7 @@ void Widget::DoDraw()
  * => setter and getter
 */
 
-void Widget::SetWorldLocation(Vector2 location)
+void WWidget::SetWorldLocation(Vector2 location)
 {
 	if (Parent)
 	{
@@ -52,29 +57,30 @@ void Widget::SetWorldLocation(Vector2 location)
 	}
 }
 
-void Widget::SetLocalLocation(Vector2 location)
+void WWidget::SetLocalLocation(Vector2 location)
 {
 	Bound.x = location.x;
 	Bound.y = location.y;
 }
 
-void Widget::SetVisible(bool isVisible)
+void WWidget::SetVisible(bool isVisible)
 {
 	bIsVisible = isVisible;
 }
 
-void Widget::SetSize(Vector2 size)
+void WWidget::SetSize(Vector2 size)
 {
+	bIsAutoSize = false;
 	Bound.width = size.x;
 	Bound.height = size.y;
 }
 
-void Widget::SetParent(Widget* parent)
+void WWidget::SetParent(WWidget* parent)
 {
 	Parent = parent;
 }
 
-void Widget::SetBound(Rectangle bound)
+void WWidget::SetBound(Rectangle bound)
 {
 	std::cout << "SetBound called: x=" << bound.x
 		<< " y=" << bound.y
@@ -84,22 +90,39 @@ void Widget::SetBound(Rectangle bound)
 	Bound = bound;
 }
 
-Rectangle Widget::GetLocalBound()
+void WWidget::SetAutoSize(bool autoSize)
+{
+	bIsAutoSize = autoSize;
+	if (bIsAutoSize)
+	{
+		Vector2 Size = AutoSize();
+		Bound.width = Size.x;
+		Bound.height = Size.y;
+	}
+}
+
+void WWidget::SetWidgetSyle(FWidgetStyle widgetStyle)
+{
+	WidgetStyle = widgetStyle;
+}
+
+
+Rectangle WWidget::GetLocalBound()
 {
 	return Bound;
 }
 
-Rectangle Widget::GetWorldBound()
+Rectangle WWidget::GetWorldBound()
 {
 	return Rectangle(GetWorldLocation().x, GetWorldLocation().y, Bound.width, Bound.height);
 }
 
-Widget* Widget::GetParent()
+WWidget* WWidget::GetParent()
 {
 	return Parent;
 }
 
-Vector2 Widget::GetWorldLocation()
+Vector2 WWidget::GetWorldLocation()
 {
 	if (Parent)
 	{
@@ -111,17 +134,53 @@ Vector2 Widget::GetWorldLocation()
 	return Vector2(Bound.x, Bound.y);
 }
 
-Vector2 Widget::GetLocalLocation()
+Vector2 WWidget::GetLocalLocation()
 {
 	return Vector2(Bound.x, Bound.y);
 }
 
-Vector2 Widget::GetSize()
+Vector2 WWidget::GetSize()
 {
 	return Vector2(Bound.width, Bound.height);
 }
 
-bool Widget::GetVisible()
+Vector2 WWidget::GetWidgetLocationWithAligment()
+{
+    Vector2 Size = GetSize();
+	Vector2 Location = GetWorldLocation();
+	Vector2 AligmentLocation;
+
+	switch (WidgetStyle.WidgetVerticalAligment)
+	{
+	case EWidgetVerticalAlignment::Top:
+		AligmentLocation.y = Location.y;
+		break;
+	case EWidgetVerticalAlignment::Center:
+		AligmentLocation.y = Location.y - Size.y/2;
+		break;
+	case EWidgetVerticalAlignment::Bottom:
+		AligmentLocation.y = Location.y - Size.y;
+		break;
+	}
+
+	switch (WidgetStyle.WidgetHorizontalAligment)
+	{
+	case EWidgetHorizontalAlignment::Left:
+		AligmentLocation.x = Location.x;
+		break;
+
+	case EWidgetHorizontalAlignment::Center:
+		AligmentLocation.x = Location.x - Size.x/2;
+		break;
+
+	case EWidgetHorizontalAlignment::Right:
+		AligmentLocation.x = Location.x - Size.x;
+		break;
+	}
+	return AligmentLocation;
+}
+
+bool WWidget::GetVisible()
 {
 	return bIsVisible;
 }

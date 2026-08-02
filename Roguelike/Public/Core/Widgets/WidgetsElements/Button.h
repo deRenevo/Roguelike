@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Raylib.h"
+#include "raylib.h"
 
 #include <Core/Widgets/WidgetsElements/Widget.h>
 #include <Core/Utility/Struct.h>
@@ -8,7 +8,7 @@
 #include <memory>
 
 
-class Button : public Widget
+class WButton : public WWidget
 {
 	enum class EButtonStatus
 	{
@@ -26,7 +26,7 @@ class Button : public Widget
 
 public:
 
-	Button(const char* text = "Hello Rogalice",
+	WButton(const char* text = "Hello Rogalice",
 		Rectangle bound = Rectangle(0, 0, 100, 40),
 		bool IsCenter = false,
 		std::function<void()> callback = nullptr

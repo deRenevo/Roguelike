@@ -1,4 +1,5 @@
 #include <Core/Scene/SceneManager.h>
+#include <algorithm>
 
 void SceneManager::LoadScene(std::unique_ptr<Scene> scene)
 {
@@ -22,30 +23,6 @@ void SceneManager::LoadScene(std::unique_ptr<Scene> scene)
 
 	std::cout << "LoadScene | LoadScene END\n";
 }
-/*
-void SceneManager::LoadHUD(std::unique_ptr<HUD> hud)
-{
-	std::cout << "Load hud \n";
-
-	if (!hud)
-	{
-		std::cout << "SceneManager::LoadHUD | hud is not valid \n";
-		return;
-	}
-	
-	if (CorrectHUD)
-	{
-		CorrectHUD->OnExit();
-	}
-
-	CorrectHUD = std::move(hud);
-
-	if (CorrectHUD)
-	{
-		std::cout << "Load hud OnEnter\n";
-		CorrectHUD->OnEnter();
-	}
-}*/
 
 void SceneManager::AddToViewport(std::unique_ptr<HUD> hud)
 {

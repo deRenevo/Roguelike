@@ -2,8 +2,9 @@
 
 #include <Core/Scene/Scene.h>
 #include <vector>
-#include <Core/Widgets/WidgetsElements/Button.h>
+
 class MenuHUD;
+class WButton;
 
 
 
@@ -23,7 +24,7 @@ public:
 private:
 	EMenuState MenuState;
 	MenuHUD* MenuHud;
-	Button* bt;
+	WButton* bt;
 
 public:
 	void ToMainMenu();
@@ -39,8 +40,7 @@ private:
 	void DrawStartMenu();
 
 	void OnCliced();
-
-	//=>Setter and getter
+	
 public:
 	void SetMenuState(EMenuState state);
 

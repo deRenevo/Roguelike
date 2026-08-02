@@ -1,16 +1,27 @@
 #pragma once
 
+#include <Core/Utility/Struct.h>
+
 #include "raylib.h"
 
-class Widget
+struct FWidgetStyle
+{
+	EWidgetVerticalAlignment WidgetVerticalAligment = EWidgetVerticalAlignment::Top;
+	EWidgetHorizontalAlignment WidgetHorizontalAligment = EWidgetHorizontalAlignment::Left;
+};
+
+class WWidget
 {
 	Rectangle Bound;
-	Widget* Parent = nullptr;
+	WWidget* Parent = nullptr;
 	bool bIsVisible = true;
+	bool bIsAutoSize = false;
+
+	FWidgetStyle WidgetStyle = FWidgetStyle();
 
 public:
-	Widget() = default; 
-	virtual ~Widget() = default;
+	WWidget() = default; 
+	virtual ~WWidget() = default;
 
 	void OnEnter(); // -> Loading resources
 	virtual void OnExit(); // -> Cleaning up resources
@@ -21,6 +32,7 @@ protected:
 	virtual void Construction() = 0; //-> processed when changing priced
 	virtual void Draw();
 	virtual void Tick(float DeltaTime); //-> every frame is processed
+	virtual Vector2 AutoSize();
 
 	/*
 	 * => getter and setter
@@ -31,15 +43,20 @@ public:
 	void SetLocalLocation(Vector2 location);
 	void SetVisible(bool isVisible);
 	void SetSize(Vector2 size);
-	void SetParent(Widget* parent);
+	void SetParent(WWidget* parent);
 	void SetBound(Rectangle bound);
+	void SetAutoSize(bool autoSize);
+	void SetWidgetSyle(FWidgetStyle widgetStyle);
 	
 	
 	Rectangle GetLocalBound();
 	Rectangle GetWorldBound();
-	Widget* GetParent();
+	WWidget* GetParent();
 	Vector2 GetWorldLocation();
 	Vector2 GetLocalLocation();
-	Vector2 GetSize();
+	virtual Vector2 GetSize();
+
+	virtual Vector2 GetWidgetLocationWithAligment();
+
 	bool GetVisible();
 };

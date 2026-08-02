@@ -1,13 +1,18 @@
+#pragma once
+
 #include <Core/HUD/HUD.h>
 
-class CanvasPanel;
-class Button;
+class WCanvasPanel;
+class WButton;
+class WRichText;
 
 class MenuHUD : public HUD
 {
-	CanvasPanel* CanvaPanel;
-	Button* StartButton;
+	WCanvasPanel* CanvaPanel;
+	WButton* StartButton;
+	WRichText* TileText;
+	WRichText* SubtitleText;
+	WRichText* ExitText;
 protected:
 	virtual void HUDConstruction() override;
-	virtual void Draw() override;
 };

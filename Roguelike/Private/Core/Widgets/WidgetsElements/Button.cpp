@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-Button::Button(const char* text, Rectangle bound, bool IsCenter, std::function<void()> callback) :
+WButton::WButton(const char* text, Rectangle bound, bool IsCenter, std::function<void()> callback) :
 	Text(text), OnClickCallback(callback)
 {
 	if (bIsCenter)
@@ -15,15 +15,15 @@ Button::Button(const char* text, Rectangle bound, bool IsCenter, std::function<v
 	SetBound(bound);
 }
 
-void Button::Construction()
+void WButton::Construction()
 {
 }
 
-void Button::Draw()
+void WButton::Draw()
 {
 	switch (BtState)
 	{
-	case Button::EButtonStatus::Normal:
+	case WButton::EButtonStatus::Normal:
 		DrawRectangleRec(GetLocalBound(), ButtonStyle.Normal.BaseColor);
 
 		DrawRectangleLinesEx(GetLocalBound(), ButtonStyle.Normal.BorderWidth, ButtonStyle.Normal.BorderColor);
@@ -33,7 +33,7 @@ void Button::Draw()
 
 		break;
 
-	case Button::EButtonStatus::Hovered:
+	case WButton::EButtonStatus::Hovered:
 		DrawRectangleRec(GetLocalBound(), ButtonStyle.Hovered.BaseColor);
 
 		DrawRectangleLinesEx(GetLocalBound(), ButtonStyle.Hovered.BorderWidth, ButtonStyle.Hovered.BorderColor);
@@ -43,7 +43,7 @@ void Button::Draw()
 
 		break;
 
-	case Button::EButtonStatus::Clicked:
+	case WButton::EButtonStatus::Clicked:
 		DrawRectangleRec(GetLocalBound(), ButtonStyle.Clicked.BaseColor);
 
 		DrawRectangleLinesEx(GetLocalBound(), ButtonStyle.Clicked.BorderWidth, ButtonStyle.Clicked.BorderColor);
@@ -58,7 +58,7 @@ void Button::Draw()
 	}
 }
 
-void Button::Tick(float DeltaTime)
+void WButton::Tick(float DeltaTime)
 {
 	if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && CheckCollisionPointRec(GetMousePosition(), GetLocalBound()))
 	{
@@ -79,12 +79,12 @@ void Button::Tick(float DeltaTime)
 	}
 }
 
-void Button::SetOnClick(std::function<void()> callback)
+void WButton::SetOnClick(std::function<void()> callback)
 {
 	OnClickCallback = callback;
 }
 
-void Button::SetStyle(const FButtonStyle& buttonStyle)
+void WButton::SetStyle(const FButtonStyle& buttonStyle)
 {
 	ButtonStyle = buttonStyle;
 }

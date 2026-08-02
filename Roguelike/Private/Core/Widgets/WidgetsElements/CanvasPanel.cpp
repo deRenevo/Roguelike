@@ -1,7 +1,7 @@
 #include <Core/Widgets/WidgetsElements/CanvasPanel.h>
 #include <iostream>
 
-void CanvasPanel::Construction()
+void WCanvasPanel::Construction()
 {
 	std::cout << "CanvasPanel::Construction" << std::endl;
 	Rectangle bound =
@@ -14,7 +14,12 @@ void CanvasPanel::Construction()
 	SetBound(bound);
 }
 
-void CanvasPanel::Draw()
+void WCanvasPanel::Draw()
 {
-	Container::Draw();
+	WContainer::Draw();
+}
+
+Vector2 WCanvasPanel::GetSize()
+{
+    return Vector2(GetScreenWidth(), GetScreenHeight());
 }

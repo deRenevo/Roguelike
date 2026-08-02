@@ -63,7 +63,7 @@ void HUD::PostHUDConstruction()
 {
 }
 
-void HUD::SetRootWidget(Widget* rootWidget)
+void HUD::SetRootWidget(WWidget* rootWidget)
 {
 	std::cout << "SetRootWidget";
 
@@ -81,7 +81,7 @@ void HUD::SetIsVisible(bool isVisible)
 	bIsVisible = isVisible;
 }
 
-Widget* HUD::GetRootWidget()
+WWidget* HUD::GetRootWidget()
 {
 	return RootWidget.get();
 }

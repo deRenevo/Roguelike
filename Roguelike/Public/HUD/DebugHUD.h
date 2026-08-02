@@ -2,11 +2,11 @@
 
 #include <Core/HUD/HUD.h>
 
-class Button;
+class WButton;
 
 class DebugHUD : public HUD
 {
-	Button* GoodButton;
+	WButton* GoodButton;
 protected:
 	virtual void HUDConstruction() override;
 	virtual void Draw() override;

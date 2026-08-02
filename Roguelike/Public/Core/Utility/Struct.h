@@ -2,6 +2,8 @@
 
 #include "raylib.h"
 
+#include <string>
+
 struct FTextStyle 
 {
 	int FontSize = 24;
@@ -36,4 +38,25 @@ struct FButtonStyle
     };
 
 	FTextStyle TextStyle;
+};
+
+struct FRichTextSigmentStyle
+{
+    std::string Text = " ";
+    Color TextColor =  RAYWHITE;
+    int TextSize = 24;
+};
+
+enum class EWidgetVerticalAlignment 
+{
+    Top,
+    Center,
+    Bottom
+};
+
+enum class EWidgetHorizontalAlignment 
+{
+    Right,
+    Center,
+    Left
 };

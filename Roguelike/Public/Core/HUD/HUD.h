@@ -5,7 +5,7 @@
 
 class HUD
 {
-    std::unique_ptr<Widget> RootWidget;
+    std::unique_ptr<WWidget> RootWidget;
     bool bIsVisible = true;
     bool bIsInitialized = false;
 
@@ -26,9 +26,9 @@ protected:
     virtual void Draw();
 
     
-    void SetRootWidget(Widget* rootWidget);
+    void SetRootWidget(WWidget* rootWidget);
     void SetIsVisible(bool isVisible);
 
-    Widget* GetRootWidget();
+    WWidget* GetRootWidget();
     bool GetIsVisible();
 };

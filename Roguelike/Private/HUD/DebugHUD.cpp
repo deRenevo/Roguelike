@@ -8,7 +8,7 @@
 
 void DebugHUD::HUDConstruction()
 {
-	CanvasPanel* panel = new CanvasPanel();
+	WCanvasPanel* panel = new WCanvasPanel();
 	SetRootWidget(panel);
 }
 

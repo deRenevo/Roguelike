@@ -65,8 +65,8 @@ void MenuScene::Draw()
 
 void MenuScene::DrawStartMenu()
 {
-	
-	const char* Title = "Roguelike";
+	/*
+	const char* Title = "s";
 	const int FontSize = 48;
 	const int TextWidth = MeasureText(Title, FontSize);
 
@@ -99,7 +99,7 @@ void MenuScene::DrawStartMenu()
 		{2},
 		20,
 		RAYWHITE,
-		SKYBLUE);
+		SKYBLUE);*/
 }
 
 void MenuScene::OnCliced()

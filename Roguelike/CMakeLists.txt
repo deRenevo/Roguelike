@@ -19,16 +19,22 @@ FetchContent_MakeAvailable(raylib)
 add_executable (Roguelike 
 "main.cpp"
 "Roguelike.h" "Roguelike.cpp" 
- "Public/Core/Scene/SceneManager.h" "Private/Core/Scene/SceneManager.cpp" 
- "Public/Core/Scene/Scene.h" "Private/Core/Scene/Scene.cpp" 
- "Public/Core/Scene/SceneFactory.h" "Private/Core/Scene/SceneFactory.cpp" 
- "Private/Core/HUD/HUD.cpp" "Public/Core/HUD/HUD.h" 
- "Public/Scene/MenuScene.h" "Private/Scene/MenuScene.cpp"
- "Public/Core/Utility/Draw/DrawUtility.h" "Private/Core/Utility/Draw/DrawUtility.cpp" 
- "Public/Core/HUD/HUDFactory.h" "Private/Core/HUD/HUDFactory.cpp"
- "Public/HUD/DebugHUD.h" "Private/HUD/DebugHUD.cpp" 
- "Public/Core/Widgets/WidgetsElements/Button.h" "Private/Core/Widgets/WidgetsElements/Button.cpp" 
- "Public/Core/Widgets/WidgetsElements/Widget.h" "Private/Core/Widgets/WidgetsElements/Widget.cpp" "Public/Core/Widgets/WidgetsElements/Container.h" "Private/Core/Widgets/WidgetsElements/Container.cpp" "Public/Core/Utility/Struct.h" "Private/Core/Utility/Struct.cpp" "Public/Core/Widgets/WidgetsElements/CanvasPanel.h" "Private/Core/Widgets/WidgetsElements/CanvasPanel.cpp" "Public/HUD/MenuHUD.h" "Private/HUD/MenuHUD.cpp")
+"Public/Core/Scene/SceneManager.h" "Private/Core/Scene/SceneManager.cpp" 
+"Public/Core/Scene/Scene.h" "Private/Core/Scene/Scene.cpp" 
+"Public/Core/Scene/SceneFactory.h" "Private/Core/Scene/SceneFactory.cpp" 
+"Private/Core/HUD/HUD.cpp" "Public/Core/HUD/HUD.h" 
+"Public/Scene/MenuScene.h" "Private/Scene/MenuScene.cpp"
+"Public/Core/Utility/Draw/DrawUtility.h" "Private/Core/Utility/Draw/DrawUtility.cpp" 
+"Public/Core/HUD/HUDFactory.h" "Private/Core/HUD/HUDFactory.cpp"
+"Public/HUD/DebugHUD.h" "Private/HUD/DebugHUD.cpp" 
+"Public/Core/Widgets/WidgetsElements/Button.h" "Private/Core/Widgets/WidgetsElements/Button.cpp" 
+"Public/Core/Widgets/WidgetsElements/Widget.h" "Private/Core/Widgets/WidgetsElements/Widget.cpp"
+"Public/Core/Widgets/WidgetsElements/Container.h" "Private/Core/Widgets/WidgetsElements/Container.cpp"
+"Public/Core/Utility/Struct.h" "Private/Core/Utility/Struct.cpp"
+"Public/Core/Widgets/WidgetsElements/CanvasPanel.h" "Private/Core/Widgets/WidgetsElements/CanvasPanel.cpp"
+"Public/HUD/MenuHUD.h" "Private/HUD/MenuHUD.cpp"
+"Public/Core/Widgets/WidgetsElements/RichText.h" "Private/Core/Widgets/WidgetsElements/RichText.cpp"
+)
 
 target_include_directories(Roguelike PRIVATE 
     ${CMAKE_CURRENT_SOURCE_DIR}/Public

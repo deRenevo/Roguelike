@@ -4,13 +4,13 @@
 #include <vector>
 #include <memory>
 
-class Container : public Widget
+class WContainer : public WWidget
 {
-	std::vector<std::unique_ptr<Widget>> Children;
+	std::vector<std::unique_ptr<WWidget>> Children;
 	
 public:
-	virtual ~Container() = default;
-	Container() = default;
+	virtual ~WContainer() = default;
+	WContainer() = default;
 
 
 	virtual void OnExit() override; // -> Cleaning up resources
@@ -19,14 +19,14 @@ public:
 
 protected:
 	virtual void Construction() override;
-	virtual void OnChildAdded(Widget* widget);
+	virtual void OnChildAdded(WWidget* widget);
 
 public:
 	/*
 	 * =>getter and setter
 	*/
 
-	void AddChild(std::unique_ptr<Widget> widget);
-	void RemoveChild(Widget* widget);
+	void AddChild(std::unique_ptr<WWidget> widget);
+	void RemoveChild(WWidget* widget);
 	void ClearChildren();
 };
