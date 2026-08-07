@@ -4,22 +4,17 @@
 void WCanvasPanel::Construction()
 {
 	std::cout << "CanvasPanel::Construction" << std::endl;
-	Rectangle bound =
+	Rectangle Bound =
 	{
 		0,
 		0,
 		GetScreenWidth(),
 		GetScreenHeight()
 	};
-	SetBound(bound);
+	SetBound(Bound);
 }
 
 void WCanvasPanel::Draw()
 {
 	WContainer::Draw();
-}
-
-Vector2 WCanvasPanel::GetSize()
-{
-    return Vector2(GetScreenWidth(), GetScreenHeight());
 }

@@ -144,41 +144,52 @@ Vector2 WWidget::GetSize()
 	return Vector2(Bound.width, Bound.height);
 }
 
-Vector2 WWidget::GetWidgetLocationWithAligment()
+Vector2 WWidget::GetWorldWidgetLocationWithAlignment()
 {
     Vector2 Size = GetSize();
 	Vector2 Location = GetWorldLocation();
-	Vector2 AligmentLocation;
+	Vector2 AlignmentLocation;
 
-	switch (WidgetStyle.WidgetVerticalAligment)
+	switch (WidgetStyle.WidgetVerticalAlignment)
 	{
 	case EWidgetVerticalAlignment::Top:
-		AligmentLocation.y = Location.y;
+		AlignmentLocation.y = Location.y;
 		break;
 	case EWidgetVerticalAlignment::Center:
-		AligmentLocation.y = Location.y - Size.y/2;
+		AlignmentLocation.y = Location.y - Size.y/2;
 		break;
 	case EWidgetVerticalAlignment::Bottom:
-		AligmentLocation.y = Location.y - Size.y;
+		AlignmentLocation.y = Location.y - Size.y;
 		break;
 	}
 
-	switch (WidgetStyle.WidgetHorizontalAligment)
+	switch (WidgetStyle.WidgetHorizontalAlignment)
 	{
 	case EWidgetHorizontalAlignment::Left:
-		AligmentLocation.x = Location.x;
+		AlignmentLocation.x = Location.x;
 		break;
 
 	case EWidgetHorizontalAlignment::Center:
-		AligmentLocation.x = Location.x - Size.x/2;
+		AlignmentLocation.x = Location.x - Size.x/2;
 		break;
 
 	case EWidgetHorizontalAlignment::Right:
-		AligmentLocation.x = Location.x - Size.x;
+		AlignmentLocation.x = Location.x - Size.x;
 		break;
 	}
-	return AligmentLocation;
+	return AlignmentLocation;
 }
+
+Rectangle WWidget::GetWorldBoundWithAlignment()
+{
+	Rectangle Bound = GetWorldBound();
+	Vector2 Location = GetWorldWidgetLocationWithAlignment();
+
+	Bound.x = Location.x;
+	Bound.y = Location.y;
+    return Bound;
+}
+
 
 bool WWidget::GetVisible()
 {

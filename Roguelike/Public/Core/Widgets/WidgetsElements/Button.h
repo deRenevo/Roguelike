@@ -19,7 +19,6 @@ class WButton : public WWidget
 
 	const char* Text;
 	FButtonStyle ButtonStyle;
-	bool bIsCenter;
 	std::function<void()> OnClickCallback;
 
 	EButtonStatus BtState = EButtonStatus::Normal;
@@ -28,7 +27,6 @@ public:
 
 	WButton(const char* text = "Hello Rogalice",
 		Rectangle bound = Rectangle(0, 0, 100, 40),
-		bool IsCenter = false,
 		std::function<void()> callback = nullptr
 		);
 

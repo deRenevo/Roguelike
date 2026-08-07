@@ -55,7 +55,7 @@ namespace
         return lines;
     }
 
-    bool SameStyle(const FRichTextSigmentStyle& a, const FRichTextSigmentStyle& b)
+    bool SameStyle(const FRichTextSegmentStyle& a, const FRichTextSegmentStyle& b)
     {
         return a.TextSize == b.TextSize &&
                a.TextColor.r == b.TextColor.r &&
@@ -101,7 +101,7 @@ WRichText::WRichText(const std::string& Text, Vector2& Location, const FRichText
 
 void WRichText::UpdateText(const std::string& Text)
 {
-    RichTextSigments.clear();
+    RichTextSegments.clear();
 
     MaxStringLenghts = -1;
 
@@ -111,7 +111,7 @@ void WRichText::UpdateText(const std::string& Text)
         return;
     }
 
-    FRichTextSigmentStyle CurrentStyle = FRichTextSigmentStyle();
+    FRichTextSegmentStyle CurrentStyle = FRichTextSegmentStyle();
 
     std::size_t i = 0;
 
@@ -146,9 +146,9 @@ void WRichText::UpdateText(const std::string& Text)
         }
 
         std::string RawTag = Text.substr(i + 1, CloseBracket - i - 1);
-        std::string Teg = Trim(RawTag);
+        std::string Tag = Trim(RawTag);
 
-        bool ParsedTag = ApplyTag(Teg, CurrentStyle);
+        bool ParsedTag = ApplyTag(Tag, CurrentStyle);
 
         if (ParsedTag)
         {
@@ -185,7 +185,7 @@ void WRichText::RebuildLayout()
     CachedLayoutLines.clear();
     CachedMaxLineWidth = 0;
 
-    if (RichTextSigments.empty())
+    if (RichTextSegments.empty())
     {
         MaxStringLenghts = 0;
         bLayoutDirty = false;
@@ -205,9 +205,9 @@ void WRichText::RebuildLayout()
         CurrentLine = FLayoutLine();
     };
 
-    for (std::size_t SegmentIndex = 0; SegmentIndex < RichTextSigments.size(); ++SegmentIndex)
+    for (std::size_t SegmentIndex = 0; SegmentIndex < RichTextSegments.size(); ++SegmentIndex)
     {
-        const FRichTextSigmentStyle& Segment = RichTextSigments[SegmentIndex];
+        const FRichTextSegmentStyle& Segment = RichTextSegments[SegmentIndex];
 
         if (Segment.Text.empty())
             continue;
@@ -254,49 +254,38 @@ void WRichText::RebuildLayout()
     bLayoutDirty = false;
 }
 
-std::vector<FRichTextStringStyle> WRichText::GetStringsStyle(std::vector<FRichTextSigmentStyle> Sigments)
-{
-    FRichTextStringStyle StringStyle;
-    for (const FRichTextSigmentStyle& Sigment : Sigments)
-    {
-
-    }
-    
-    return std::vector<FRichTextStringStyle>();
-}
-
 void WRichText::AppendText(
-    const std::string& Text,
-    const FRichTextSigmentStyle& Style
+    const std::string& text,
+    const FRichTextSegmentStyle& style
 )
 {
-    if (Text.empty())
+    if (text.empty())
         return;
 
-    if (!RichTextSigments.empty() && SameStyle(RichTextSigments.back(), Style))
+    if (!RichTextSegments.empty() && SameStyle(RichTextSegments.back(), style))
     {
-        RichTextSigments.back().Text += Text;
+        RichTextSegments.back().Text += text;
         return;
     }
 
-    FRichTextSigmentStyle Segment = Style;
-    Segment.Text = Text;
+    FRichTextSegmentStyle Segment = style;
+    Segment.Text = text;
 
-    RichTextSigments.push_back(Segment);
+    RichTextSegments.push_back(Segment);
 }
 
 bool WRichText::ApplyTag(
-    const std::string& TagText,
-    FRichTextSigmentStyle& CurrentStyle
+    const std::string& tagText,
+    FRichTextSegmentStyle& currentStyle
 )
 {
-    if (TagText.empty())
+    if (tagText.empty())
         return false;
 
     std::vector<std::string> Parts;
     std::string Current;
 
-    for (char Char : TagText)
+    for (char Char : tagText)
     {
         if (Char == ',' || Char == ';')
         {
@@ -315,7 +304,7 @@ bool WRichText::ApplyTag(
 
     for (const std::string& Part : Parts)
     {
-        if (ApplyTagPart(Part, CurrentStyle))
+        if (ApplyTagPart(Part, currentStyle))
         {
             ParsedAnything = true;
         }
@@ -325,11 +314,11 @@ bool WRichText::ApplyTag(
 }
 
 bool WRichText::ApplyTagPart(
-    const std::string& TagPart,
-    FRichTextSigmentStyle& CurrentStyle
+    const std::string& tagPart,
+    FRichTextSegmentStyle& currentStyle
 )
 {
-    std::string Part = Trim(TagPart);
+    std::string Part = Trim(tagPart);
 
     if (Part.empty())
         return false;
@@ -347,7 +336,7 @@ bool WRichText::ApplyTagPart(
         UpperPart == "RESET" ||
         UpperPart == "/RESET")
     {
-        CurrentStyle = FRichTextSigmentStyle();
+        currentStyle = FRichTextSegmentStyle();
         return true;
     }
 
@@ -394,37 +383,37 @@ bool WRichText::ApplyTagPart(
     {
         if (ResetPropertyIfNoValue)
         {
-            CurrentStyle = FRichTextSigmentStyle();
+            currentStyle = FRichTextSegmentStyle();
             return true;
         }
 
         return false;
     }
 
-    ERichTeg TagType = CheckTeg(Key);
+    ERichTag TagType = CheckTag(Key);
 
-    if (TagType == ERichTeg::None)
+    if (TagType == ERichTag::None)
         return false;
 
-    if (TagType == ERichTeg::Color)
+    if (TagType == ERichTag::Color)
     {
         if (ResetPropertyIfNoValue && Value.empty())
         {
-            CurrentStyle.TextColor = FRichTextSigmentStyle().TextColor;
+            currentStyle.TextColor = FRichTextSegmentStyle().TextColor;
         }
         else
         {
-            CurrentStyle.TextColor = CheckColorTegValue(Value);
+            currentStyle.TextColor = CheckColorTagValue(Value);
         }
 
         return true;
     }
 
-    if (TagType == ERichTeg::Size)
+    if (TagType == ERichTag::Size)
     {
         if (ResetPropertyIfNoValue && Value.empty())
         {
-            CurrentStyle.TextSize = FRichTextSigmentStyle().TextSize;
+            currentStyle.TextSize = FRichTextSegmentStyle().TextSize;
             return true;
         }
 
@@ -441,7 +430,7 @@ bool WRichText::ApplyTagPart(
 
         if (NewSize > 0 && NewSize <= 512)
         {
-            CurrentStyle.TextSize = NewSize;
+            currentStyle.TextSize = NewSize;
         }
 
         return true;
@@ -450,49 +439,49 @@ bool WRichText::ApplyTagPart(
     return false;
 }
 
-ERichTeg WRichText::CheckTeg(const std::string &TegText)
+ERichTag WRichText::CheckTag(const std::string &tagText)
 {
-    const std::string Tag = ToUpper(TegText);
+    const std::string Tag = ToUpper(tagText);
 
     if (Tag == "COLOR" || Tag == "COLOUR")
-        return ERichTeg::Color;
+        return ERichTag::Color;
 
     if (Tag == "SIZE" || Tag == "FONTSIZE")
-        return ERichTeg::Size;
+        return ERichTag::Size;
 
-    return ERichTeg::None;
+    return ERichTag::None;
 }
 
-Color WRichText::CheckColorTegValue(const std::string& TegValueText)
+Color WRichText::CheckColorTagValue(const std::string& tagValueText)
 {
-    const std::string ColorTeg = ToUpper(TegValueText);
+    const std::string ColorTag = ToUpper(tagValueText);
 
-    if (ColorTeg == "LIGHTGRAY") return LIGHTGRAY;
-    else if (ColorTeg == "GRAY") return GRAY;
-    else if (ColorTeg == "DARKGRAY") return DARKGRAY;
-    else if (ColorTeg == "YELLOW") return YELLOW;
-    else if (ColorTeg == "GOLD") return GOLD;
-    else if (ColorTeg == "ORANGE") return ORANGE;
-    else if (ColorTeg == "PINK") return PINK;
-    else if (ColorTeg == "RED") return RED;
-    else if (ColorTeg == "MAROON") return MAROON;
-    else if (ColorTeg == "GREEN") return GREEN;
-    else if (ColorTeg == "LIME") return LIME;
-    else if (ColorTeg == "DARKGREEN") return DARKGREEN;
-    else if (ColorTeg == "SKYBLUE") return SKYBLUE;
-    else if (ColorTeg == "BLUE") return BLUE;
-    else if (ColorTeg == "DARKBLUE") return DARKBLUE;
-    else if (ColorTeg == "PURPLE") return PURPLE;
-    else if (ColorTeg == "VIOLET") return VIOLET;
-    else if (ColorTeg == "DARKPURPLE") return DARKPURPLE;
-    else if (ColorTeg == "BEIGE") return BEIGE;
-    else if (ColorTeg == "BROWN") return BROWN;
-    else if (ColorTeg == "DARKBROWN") return DARKBROWN;
-    else if (ColorTeg == "WHITE") return WHITE;
-    else if (ColorTeg == "BLACK") return BLACK;
-    else if (ColorTeg == "BLANK") return BLANK;
-    else if (ColorTeg == "MAGENTA") return MAGENTA;
-    else if (ColorTeg == "RAYWHITE") return RAYWHITE;
+    if (ColorTag == "LIGHTGRAY") return LIGHTGRAY;
+    else if (ColorTag == "GRAY") return GRAY;
+    else if (ColorTag == "DARKGRAY") return DARKGRAY;
+    else if (ColorTag == "YELLOW") return YELLOW;
+    else if (ColorTag == "GOLD") return GOLD;
+    else if (ColorTag == "ORANGE") return ORANGE;
+    else if (ColorTag == "PINK") return PINK;
+    else if (ColorTag == "RED") return RED;
+    else if (ColorTag == "MAROON") return MAROON;
+    else if (ColorTag == "GREEN") return GREEN;
+    else if (ColorTag == "LIME") return LIME;
+    else if (ColorTag == "DARKGREEN") return DARKGREEN;
+    else if (ColorTag == "SKYBLUE") return SKYBLUE;
+    else if (ColorTag == "BLUE") return BLUE;
+    else if (ColorTag == "DARKBLUE") return DARKBLUE;
+    else if (ColorTag == "PURPLE") return PURPLE;
+    else if (ColorTag == "VIOLET") return VIOLET;
+    else if (ColorTag == "DARKPURPLE") return DARKPURPLE;
+    else if (ColorTag == "BEIGE") return BEIGE;
+    else if (ColorTag == "BROWN") return BROWN;
+    else if (ColorTag == "DARKBROWN") return DARKBROWN;
+    else if (ColorTag == "WHITE") return WHITE;
+    else if (ColorTag == "BLACK") return BLACK;
+    else if (ColorTag == "BLANK") return BLANK;
+    else if (ColorTag == "MAGENTA") return MAGENTA;
+    else if (ColorTag == "RAYWHITE") return RAYWHITE;
 
     return RAYWHITE;
 }
@@ -508,7 +497,7 @@ void WRichText::Draw()
 
     int ContainerWidth = CachedMaxLineWidth;
 
-    Vector2 WorldPosition = GetWidgetLocationWithAligment();
+    Vector2 WorldPosition = GetWorldWidgetLocationWithAlignment();
 
     const int StartX = static_cast<int>(WorldPosition.x);
     int StartY = static_cast<int>(WorldPosition.y);
@@ -540,10 +529,10 @@ void WRichText::Draw()
 
         for (const FLayoutPart& Part : Line.Parts)
         {
-            if (Part.SegmentIndex >= RichTextSigments.size())
+            if (Part.SegmentIndex >= RichTextSegments.size())
                 continue;
 
-            const FRichTextSigmentStyle& Segment = RichTextSigments[Part.SegmentIndex];
+            const FRichTextSegmentStyle& Segment = RichTextSegments[Part.SegmentIndex];
 
             int OffsetY = 0;
 

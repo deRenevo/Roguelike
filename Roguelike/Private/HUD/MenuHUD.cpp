@@ -8,16 +8,8 @@
 
 void MenuHUD::HUDConstruction()
 {
-	CanvaPanel = new WCanvasPanel();
-	SetRootWidget(CanvaPanel);
-
-	StartButton = new WButton("Start", Rectangle(100, 200, 100, 200));
-	StartButton->SetWorldLocation(Vector2{ 100, 200 });
-	StartButton->SetOnClick([this]() {
-		std::cout << "Start clicked!\n";
-		});
-
-	CanvaPanel->AddChild(std::unique_ptr<WWidget>(StartButton));
+	WCanvasPanel* CanvasPanel = new WCanvasPanel();
+	SetRootWidget(std::unique_ptr<WWidget>(CanvasPanel));
 
 
 	const int ScreenW = GetScreenWidth();
@@ -26,7 +18,8 @@ void MenuHUD::HUDConstruction()
         std::string TitleRich =
             "[Size=50][Color=RAYWHITE]Roguelike[/Color][/Size]\n[Size=24]Press [Color=SKYBLUE][Size=28]SPACE[Size=24][/Color] to open the menu[/Size]";
 
-        Vector2 TitlePos = {
+        Vector2 TitlePos = 
+        {
             (float)ScreenW / 2.0f,
             (float)ScreenH / 2.0f
         };
@@ -35,16 +28,16 @@ void MenuHUD::HUDConstruction()
         Style.VerticalAlignment = EWidgetVerticalAlignment::Center;
         Style.HorizontalAlignment = EWidgetHorizontalAlignment::Center;
 
-        TileText = new WRichText(TitleRich, TitlePos, Style);
+        WRichText* TileText = new WRichText(TitleRich, TitlePos, Style);
         TileText->SetAutoSize(true);
 
 
 
         FWidgetStyle WidgetStyle;
-        WidgetStyle.WidgetHorizontalAligment = EWidgetHorizontalAlignment::Center;
-        WidgetStyle.WidgetVerticalAligment = EWidgetVerticalAlignment::Center;
+        WidgetStyle.WidgetHorizontalAlignment = EWidgetHorizontalAlignment::Center;
+        WidgetStyle.WidgetVerticalAlignment = EWidgetVerticalAlignment::Center;
         TileText->SetWidgetSyle(WidgetStyle);
-        CanvaPanel->AddChild(std::unique_ptr<WWidget>(TileText));
+        CanvasPanel->AddChild(std::unique_ptr<WWidget>(TileText));
     }
 
     {
@@ -56,8 +49,24 @@ void MenuHUD::HUDConstruction()
             16.0f
         };
 
-        ExitText = new WRichText(ExitHintRich, ExitHintPos);
+        WRichText* ExitText = new WRichText(ExitHintRich, ExitHintPos);
 
-        CanvaPanel->AddChild(std::unique_ptr<WWidget>(ExitText));
+        CanvasPanel->AddChild(std::unique_ptr<WWidget>(ExitText));
+    }
+
+    {
+        WButton* StartButton = new WButton("Start", Rectangle(ScreenW/2, ScreenH/2, 100, 200));
+        
+        FWidgetStyle WidgetStyle;
+        WidgetStyle.WidgetHorizontalAlignment = EWidgetHorizontalAlignment::Center;
+        WidgetStyle.WidgetVerticalAlignment = EWidgetVerticalAlignment::Center;
+
+        StartButton->SetWidgetSyle(WidgetStyle);
+	    StartButton->SetOnClick([this]() {
+		    std::cout << "Start clicked!\n";    
+		});
+
+	    CanvasPanel->AddChild(std::unique_ptr<WWidget>(StartButton));
+        StartButton->SetVisible(false);
     }
 }

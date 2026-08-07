@@ -40,7 +40,7 @@ struct FButtonStyle
 	FTextStyle TextStyle;
 };
 
-struct FRichTextSigmentStyle
+struct FRichTextSegmentStyle
 {
     std::string Text = " ";
     Color TextColor =  RAYWHITE;

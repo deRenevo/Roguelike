@@ -57,7 +57,7 @@ void SceneManager::Tick(float DeltaTime)
 
 	for (auto& hud : HUDViewport)
 	{
-		if (!hud) return;
+		if (!hud) continue;;
 		hud->DoTick(DeltaTime);
 	};
 }
@@ -85,7 +85,7 @@ void SceneManager::Draw()
 
 	for (auto& hud : HUDViewport)
 	{
-		if (!hud) return;
+		if (!hud) continue;;
 		hud->DoDraw();
 	};
 }

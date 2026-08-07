@@ -3,53 +3,50 @@
 
 #include <iostream>
 
-WButton::WButton(const char* text, Rectangle bound, bool IsCenter, std::function<void()> callback) :
+WButton::WButton(const char* text, Rectangle bound, std::function<void()> callback) :
 	Text(text), OnClickCallback(callback)
 {
-	if (bIsCenter)
-	{
-		bound.x -= bound.width / 2;
-		bound.y -= bound.height / 2;
-	}
-
 	SetBound(bound);
 }
 
 void WButton::Construction()
 {
+	
 }
 
 void WButton::Draw()
 {
+	Rectangle Bound = GetWorldBoundWithAlignment();
+
 	switch (BtState)
 	{
 	case WButton::EButtonStatus::Normal:
-		DrawRectangleRec(GetLocalBound(), ButtonStyle.Normal.BaseColor);
+		DrawRectangleRec(Bound, ButtonStyle.Normal.BaseColor);
 
-		DrawRectangleLinesEx(GetLocalBound(), ButtonStyle.Normal.BorderWidth, ButtonStyle.Normal.BorderColor);
+		DrawRectangleLinesEx(Bound, ButtonStyle.Normal.BorderWidth, ButtonStyle.Normal.BorderColor);
 
-		DrawUtility::DrawTextWithOneColor(Text, GetLocalBound().x + GetLocalBound().width / 2, GetLocalBound().y
+		DrawUtility::DrawTextWithOneColor(Text, Bound.x + Bound.width / 2, Bound.y
 			+ GetLocalBound().height / 2, ButtonStyle.TextStyle.FontSize, ButtonStyle.TextStyle.TextColor, true);
 
 		break;
 
 	case WButton::EButtonStatus::Hovered:
-		DrawRectangleRec(GetLocalBound(), ButtonStyle.Hovered.BaseColor);
+		DrawRectangleRec(Bound, ButtonStyle.Hovered.BaseColor);
 
-		DrawRectangleLinesEx(GetLocalBound(), ButtonStyle.Hovered.BorderWidth, ButtonStyle.Hovered.BorderColor);
+		DrawRectangleLinesEx(Bound, ButtonStyle.Hovered.BorderWidth, ButtonStyle.Hovered.BorderColor);
 
-		DrawUtility::DrawTextWithOneColor(Text, GetLocalBound().x + GetLocalBound().width / 2, GetLocalBound().y
-			+ GetLocalBound().height / 2, ButtonStyle.TextStyle.FontSize, ButtonStyle.TextStyle.TextColor, true);
+		DrawUtility::DrawTextWithOneColor(Text, Bound.x + Bound.width / 2, Bound.y
+			+ Bound.height / 2, ButtonStyle.TextStyle.FontSize, ButtonStyle.TextStyle.TextColor, true);
 
 		break;
 
 	case WButton::EButtonStatus::Clicked:
-		DrawRectangleRec(GetLocalBound(), ButtonStyle.Clicked.BaseColor);
+		DrawRectangleRec(Bound, ButtonStyle.Clicked.BaseColor);
 
-		DrawRectangleLinesEx(GetLocalBound(), ButtonStyle.Clicked.BorderWidth, ButtonStyle.Clicked.BorderColor);
+		DrawRectangleLinesEx(Bound, ButtonStyle.Clicked.BorderWidth, ButtonStyle.Clicked.BorderColor);
 
-		DrawUtility::DrawTextWithOneColor(Text, GetLocalBound().x + GetLocalBound().width / 2, GetLocalBound().y
-			+ GetLocalBound().height / 2, ButtonStyle.TextStyle.FontSize, ButtonStyle.TextStyle.TextColor, true);
+		DrawUtility::DrawTextWithOneColor(Text, Bound.x + Bound.width / 2, Bound.y
+			+ Bound.height / 2, ButtonStyle.TextStyle.FontSize, ButtonStyle.TextStyle.TextColor, true);
 
 		break;
 
@@ -60,7 +57,9 @@ void WButton::Draw()
 
 void WButton::Tick(float DeltaTime)
 {
-	if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && CheckCollisionPointRec(GetMousePosition(), GetLocalBound()))
+	Rectangle WorldBound = GetWorldBoundWithAlignment();
+
+	if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && CheckCollisionPointRec(GetMousePosition(), WorldBound))
 	{
 		BtState = EButtonStatus::Clicked;
 
@@ -69,7 +68,7 @@ void WButton::Tick(float DeltaTime)
 			OnClickCallback();
 		}
 	}
-	else if (CheckCollisionPointRec(GetMousePosition(), GetLocalBound()))
+	else if (CheckCollisionPointRec(GetMousePosition(), WorldBound))
 	{
 		BtState = EButtonStatus::Hovered;
 	}

@@ -8,7 +8,7 @@
 #include <cstddef>
 
 
-enum class ERichTeg
+enum class ERichTag
 {
     None,
     Color,
@@ -21,11 +21,6 @@ struct FRichTextStyle
     EWidgetHorizontalAlignment HorizontalAlignment = EWidgetHorizontalAlignment::Left;
 
     int LineSpacing = 2;
-};
-
-struct FRichTextStringStyle
-{
-    std::vector<FRichTextSigmentStyle> StringStyle;
 };
 
 
@@ -62,24 +57,20 @@ private:
         int Height = 0;
     };
 
-    ERichTeg CheckTeg(const std::string& TegText);
+    ERichTag CheckTag(const std::string& tagText);
 
-    Color CheckColorTegValue(const std::string& TegValueText);
+    Color CheckColorTagValue(const std::string& tagValueText);
 
-    void AppendText(const std::string& Text, const FRichTextSigmentStyle& Style);
+    void AppendText(const std::string& text, const FRichTextSegmentStyle& style);
 
-    bool ApplyTag(const std::string& TagText, FRichTextSigmentStyle& CurrentStyle);
+    bool ApplyTag(const std::string& tagText, FRichTextSegmentStyle& currentStyle);
 
-    bool ApplyTagPart(const std::string& TagPart, FRichTextSigmentStyle& CurrentStyle);
-
-    std::vector<FRichTextStringStyle> GetStringsStyle(std::vector<FRichTextSigmentStyle> Sigments);
+    bool ApplyTagPart(const std::string& tagPart, FRichTextSegmentStyle& currentStyle);
 
     void MarkLayoutDirty();
     void RebuildLayout();
 
-    std::vector<FRichTextStringStyle> RichTextStringsSyle;
-
-    std::vector<FRichTextSigmentStyle> RichTextSigments;
+    std::vector<FRichTextSegmentStyle> RichTextSegments;
     FRichTextStyle RichTextStyle;
     int MaxStringLenghts = -1;
 

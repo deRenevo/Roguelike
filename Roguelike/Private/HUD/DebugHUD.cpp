@@ -8,8 +8,8 @@
 
 void DebugHUD::HUDConstruction()
 {
-	WCanvasPanel* panel = new WCanvasPanel();
-	SetRootWidget(panel);
+	WCanvasPanel* CanvasPanel = new WCanvasPanel();
+	SetRootWidget(std::unique_ptr<WWidget>(CanvasPanel));
 }
 
 void DebugHUD::Draw()

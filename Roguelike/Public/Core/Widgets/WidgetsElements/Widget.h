@@ -6,8 +6,8 @@
 
 struct FWidgetStyle
 {
-	EWidgetVerticalAlignment WidgetVerticalAligment = EWidgetVerticalAlignment::Top;
-	EWidgetHorizontalAlignment WidgetHorizontalAligment = EWidgetHorizontalAlignment::Left;
+	EWidgetVerticalAlignment WidgetVerticalAlignment = EWidgetVerticalAlignment::Top;
+	EWidgetHorizontalAlignment WidgetHorizontalAlignment = EWidgetHorizontalAlignment::Left;
 };
 
 class WWidget
@@ -56,7 +56,8 @@ public:
 	Vector2 GetLocalLocation();
 	virtual Vector2 GetSize();
 
-	virtual Vector2 GetWidgetLocationWithAligment();
+	virtual Vector2 GetWorldWidgetLocationWithAlignment();
+	virtual Rectangle GetWorldBoundWithAlignment();
 
 	bool GetVisible();
 };

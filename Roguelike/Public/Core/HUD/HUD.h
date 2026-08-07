@@ -26,7 +26,7 @@ protected:
     virtual void Draw();
 
     
-    void SetRootWidget(WWidget* rootWidget);
+    void SetRootWidget(std::unique_ptr<WWidget> rootWidget);
     void SetIsVisible(bool isVisible);
 
     WWidget* GetRootWidget();

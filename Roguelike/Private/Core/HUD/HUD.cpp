@@ -63,7 +63,7 @@ void HUD::PostHUDConstruction()
 {
 }
 
-void HUD::SetRootWidget(WWidget* rootWidget)
+void HUD::SetRootWidget(std::unique_ptr<WWidget> rootWidget)
 {
 	std::cout << "SetRootWidget";
 
@@ -72,7 +72,7 @@ void HUD::SetRootWidget(WWidget* rootWidget)
 		return;
 	}
 
-	RootWidget.reset(rootWidget);
+	RootWidget.swap(rootWidget);
 	RootWidget->OnEnter();
 }
 
