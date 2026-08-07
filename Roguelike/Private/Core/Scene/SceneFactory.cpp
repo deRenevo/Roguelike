@@ -1,4 +1,4 @@
-#pragma once
+// Copyright deRenevo. All rights reserved.
 
 #include <Core/Scene/SceneFactory.h>
 #include <Core/Scene/Scene.h>

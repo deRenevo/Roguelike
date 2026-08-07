@@ -1,4 +1,4 @@
-#pragma once
+// Copyright deRenevo. All rights reserved.
 
 #include <Core/HUD/HUDFactory.h>
 #include <Core/HUD/HUD.h>

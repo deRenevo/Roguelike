@@ -1,3 +1,5 @@
+// Copyright deRenevo. All rights reserved.
+
 #include <Core/Widgets/WidgetsElements/Widget.h>
 
 #include <iostream>
@@ -9,7 +11,7 @@ void WWidget::OnEnter()
 
 void WWidget::OnExit()
 {
-	
+	SetIsPendingKill();
 }
 
 void WWidget::Tick(float DeltaTime)
@@ -29,12 +31,14 @@ void WWidget::Draw()
 
 void WWidget::DoTick(float DeltaTime)
 {
+	if (GetIsPendingKill()) return; // if sttarting process deleting object thet stop Function 
 	if (!bIsVisible) return; // then remove to Enum class with Widget state
 	Tick(DeltaTime);
 }
 
 void WWidget::DoDraw()
 {
+	if (GetIsPendingKill()) return; // if sttarting process deleting object thet stop Function 
 	if (!bIsVisible) return; // then remove to Enum class with Widget state
 	Draw();
 }

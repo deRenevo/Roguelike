@@ -1,3 +1,5 @@
+// Copyright deRenevo. All rights reserved.
+
 #include <HUD/DebugHUD.h>
 
 #include <Core/Utility/Draw/DrawUtility.h>

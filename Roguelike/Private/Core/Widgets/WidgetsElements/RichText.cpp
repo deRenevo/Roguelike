@@ -1,3 +1,5 @@
+// Copyright deRenevo. All rights reserved.
+
 #include <Core/Widgets/WidgetsElements/RichText.h>
 
 #include <algorithm>

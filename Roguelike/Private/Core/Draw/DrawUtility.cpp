@@ -1,3 +1,5 @@
+// Copyright deRenevo. All rights reserved.
+
 #include "raylib.h"
 #include <ios>
 #include <sstream>

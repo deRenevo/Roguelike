@@ -1,6 +1,9 @@
+// Copyright deRenevo. All rights reserved.
+
 #pragma once
 
 #include <Core/Utility/Struct.h>
+#include <Core/Object/Object.h>
 
 struct FWidgetStyle
 {
@@ -8,7 +11,7 @@ struct FWidgetStyle
 	EWidgetHorizontalAlignment WidgetHorizontalAlignment = EWidgetHorizontalAlignment::Left;
 };
 
-class WWidget
+class WWidget : public OObject
 {
 	Rectangle Bound;
 	WWidget* Parent = nullptr;

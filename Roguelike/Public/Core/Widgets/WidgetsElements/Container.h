@@ -1,3 +1,5 @@
+// Copyright deRenevo. All rights reserved.
+
 #pragma once
 
 #include <Core/Widgets/WidgetsElements/Widget.h>

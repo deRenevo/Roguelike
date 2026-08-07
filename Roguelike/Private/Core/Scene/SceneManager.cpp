@@ -1,3 +1,5 @@
+// Copyright deRenevo. All rights reserved.
+
 #include <Core/Scene/SceneManager.h>
 #include <algorithm>
 
@@ -52,7 +54,7 @@ void SceneManager::Tick(float DeltaTime)
 {
 	if (CorrectScene)
 	{
-		CorrectScene->Tick(DeltaTime);
+		CorrectScene->DoTick(DeltaTime);
 	}
 
 	for (auto& hud : HUDViewport)
@@ -66,7 +68,7 @@ void SceneManager::Draw()
 {
 	if (CorrectScene)
 	{
-		CorrectScene->Draw();
+		CorrectScene->DoDraw();
 	}
 
 	for (auto& hud : HUDViewport)

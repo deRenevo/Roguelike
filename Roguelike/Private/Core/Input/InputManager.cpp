@@ -1,3 +1,5 @@
+// Copyright deRenevo. All rights reserved.
+
 #include <Core/Input/InputManager.h>
 
 InputManager &InputManager::GetInstance()
