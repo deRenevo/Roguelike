@@ -6,7 +6,7 @@
 #include <Core/Scene/SceneManager.h>
 #include <HUD/MenuHUD.h>
 #include <Roguelike.h>
-#include <Core/Input/InputMenager.h>
+#include <Core/Input/InputManager.h>
 
 
 #include <vector>
@@ -23,7 +23,7 @@ void MenuScene::SceneConstruction()
 	MenuHud = hud.get();
 	SceneManager::GetInstance().AddToViewport(std::move(hud));
 
-	InputMenager::GetInstance().SubscriptionKey(KeyboardKey::KEY_ESCAPE, [](void){
+	InputManager::GetInstance().SubscribeKey(KeyboardKey::KEY_ESCAPE, [](void){
 		Roguelike::GetInstance().Stop();
 	});
 }

@@ -11,14 +11,14 @@ struct FKeyAction
     FKeyAction(KeyboardKey key, std::function<void(void)> function) : Key(key), Function(function){};
 };
 
-class InputMenager
+class InputManager
 {
-    std::vector<FKeyAction> SubscripbedKey;
+    std::vector<FKeyAction> SubscribedKey;
 
 public:
-    static InputMenager& GetInstance();
+    static InputManager& GetInstance();
     void KeyInput(KeyboardKey key);
 
-    void SubscriptionKey(KeyboardKey key, std::function<void(void)> function);
-    void ClearSubscriptionKey();
+    void SubscribeKey(KeyboardKey key, std::function<void(void)> function);
+    void ClearSubscribtionKey();
 };

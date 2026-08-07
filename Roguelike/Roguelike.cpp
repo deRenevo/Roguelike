@@ -4,7 +4,7 @@
 #include <Core/Scene/SceneManager.h>
 #include <Core/Scene/SceneFactory.h>
 #include <Core/HUD/HUDFactory.h>
-#include <Core/Input/InputMenager.h>
+#include <Core/Input/InputManager.h>
 
 #include <iostream>
 
@@ -47,7 +47,7 @@ void Roguelike::Run()
         {
             if (keyPressed == KeyboardKey::KEY_NULL) break;
 
-            InputMenager::GetInstance().KeyInput(keyPressed);
+            InputManager::GetInstance().KeyInput(keyPressed);
         }
 
         SceneManager::GetInstance().Tick(deltaTime);
