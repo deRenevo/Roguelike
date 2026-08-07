@@ -34,6 +34,7 @@ add_executable (Roguelike
 "Public/Core/Widgets/WidgetsElements/CanvasPanel.h" "Private/Core/Widgets/WidgetsElements/CanvasPanel.cpp"
 "Public/HUD/MenuHUD.h" "Private/HUD/MenuHUD.cpp"
 "Public/Core/Widgets/WidgetsElements/RichText.h" "Private/Core/Widgets/WidgetsElements/RichText.cpp"
+"Public/Core/Input/InputMenager.h" "Private/Core/Input/InputMenager.cpp"
 )
 
 target_include_directories(Roguelike PRIVATE 

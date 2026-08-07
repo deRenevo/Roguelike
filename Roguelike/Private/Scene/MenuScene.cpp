@@ -6,6 +6,9 @@
 #include <Core/Scene/SceneManager.h>
 #include <HUD/MenuHUD.h>
 #include <Roguelike.h>
+#include <Core/Input/InputMenager.h>
+
+
 #include <vector>
 #include <memory>
 #include <iostream>
@@ -19,12 +22,16 @@ void MenuScene::SceneConstruction()
 	auto hud = std::make_unique<MenuHUD>();
 	MenuHud = hud.get();
 	SceneManager::GetInstance().AddToViewport(std::move(hud));
+
+	InputMenager::GetInstance().SubscriptionKey(KeyboardKey::KEY_ESCAPE, [](void){
+		Roguelike::GetInstance().Stop();
+	});
 }
 
 void MenuScene::Tick(float DeltaTick)
 {
 }
-
+/*
 void MenuScene::KeyPressEvent(int key)
 {
 	switch (key)
@@ -42,7 +49,7 @@ void MenuScene::KeyPressEvent(int key)
 	default:
 		break;
 	}
-}
+}*/
 
 void MenuScene::Destroy()
 {

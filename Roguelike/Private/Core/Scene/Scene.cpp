@@ -21,11 +21,6 @@ void Scene::Draw()
 {
 }
 
-void Scene::KeyPressEvent(int key)
-{
-    
-}
-
 void Scene::SceneConstruction()
 {
     

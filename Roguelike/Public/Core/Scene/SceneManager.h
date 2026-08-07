@@ -18,7 +18,6 @@ public:
 	virtual void AddToViewport(std::unique_ptr<HUD> hud);
 	virtual void RemoveHUD(HUD* hud);
 	virtual void Tick(float DeltaTime); //-> every frame is processed
-	virtual void KeyPressEvent(int key);
 	virtual void Draw();
 
 private:

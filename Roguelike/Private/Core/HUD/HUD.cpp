@@ -46,10 +46,6 @@ void HUD::Draw()
 	}
 }
 
-void HUD::KeyPressEvent(int key)
-{
-}
-
 void HUD::HUDConstruction()
 {
 	std::cout << "HUDConstruction" << std::endl;

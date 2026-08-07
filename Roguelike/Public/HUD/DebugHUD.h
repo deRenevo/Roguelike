@@ -1,4 +1,4 @@
-#include "raylib.h"
+#pragma once
 
 #include <Core/HUD/HUD.h>
 

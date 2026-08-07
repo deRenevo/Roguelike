@@ -1,12 +1,10 @@
-#include "raylib.h"
+#pragma once
 
 #include <Core/Scene/Scene.h>
 #include <vector>
 
 class MenuHUD;
 class WButton;
-
-
 
 class MenuScene : public Scene
 {
@@ -33,7 +31,6 @@ protected:
 	virtual void Draw() override;
 	virtual void SceneConstruction() override;
 	virtual void Tick(float DeltaTick) override;
-	virtual void KeyPressEvent(int key) override;
 	virtual void Destroy() override;
 
 private:

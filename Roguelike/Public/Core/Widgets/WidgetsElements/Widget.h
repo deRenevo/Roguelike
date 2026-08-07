@@ -2,8 +2,6 @@
 
 #include <Core/Utility/Struct.h>
 
-#include "raylib.h"
-
 struct FWidgetStyle
 {
 	EWidgetVerticalAlignment WidgetVerticalAlignment = EWidgetVerticalAlignment::Top;

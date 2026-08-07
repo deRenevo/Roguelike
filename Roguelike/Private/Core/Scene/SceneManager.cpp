@@ -62,20 +62,6 @@ void SceneManager::Tick(float DeltaTime)
 	};
 }
 
-void SceneManager::KeyPressEvent(int key)
-{
-	if (CorrectScene)
-	{
-		CorrectScene->KeyPressEvent(key);
-	}
-
-	for (auto& hud : HUDViewport)
-	{
-		if (!hud) return;
-		hud->KeyPressEvent(key);
-	};
-}
-
 void SceneManager::Draw()
 {
 	if (CorrectScene)

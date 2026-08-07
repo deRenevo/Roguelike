@@ -1,4 +1,5 @@
 #pragma once
+
 #include <Core/Widgets/WidgetsElements/Widget.h>
 
 #include <memory>
@@ -16,7 +17,6 @@ public:
     virtual void DoDraw();
     void OnEnter(); // -> Loading resources
     virtual void OnExit(); // -> Cleaning up resources
-    virtual void KeyPressEvent(int key);
 
 protected:
     virtual void HUDConstruction(); //-> processed when changing priced
