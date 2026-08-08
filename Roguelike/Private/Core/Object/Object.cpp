@@ -2,22 +2,34 @@
 
 #include <Core/Object/Object.h>
 
+std::vector<OObject*> OObject::AllObjects;
+
 void OObject::SetIsPendingKill()
 {
     bIsPendingKill = true;
 }
 
-std::string OObject::GetObjectName()
+OObject::OObject() : UniqueId(GenerateUniqueId())
+{
+    AllObjects.push_back(this);
+}
+
+OObject::~OObject()
+{
+    std::erase(AllObjects, this);
+}
+
+std::string OObject::GetObjectName() const
 {
     return ObjectName;
 }
 
-int OObject::GetUniquedId()
+int OObject::GetUniqueId() const
 {
-    return UniquedId;
+    return UniqueId;
 }
 
-bool OObject::GetIsPendingKill()
+bool OObject::GetIsPendingKill() const
 {
     return bIsPendingKill;
 }

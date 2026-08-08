@@ -3,18 +3,28 @@
 #pragma once 
 
 #include <string>
+#include <vector>
 
 class OObject
 {
-    std::string ObjectName;
-    int UniquedId;
+    static int GenerateUniqueId()
+    {
+        static int NextId = 1;
+        return NextId++;
+    }
+
+    static std::vector<OObject*> AllObjects;
+
+    std::string ObjectName = "None";
+    int UniqueId;
     bool bIsPendingKill = false;
 
-protected:
-    void SetIsPendingKill();
-
 public:
-    std::string GetObjectName();
-    int GetUniquedId();
-    bool GetIsPendingKill();
+    OObject();
+    virtual ~OObject();
+
+    void SetIsPendingKill();
+    std::string GetObjectName() const;
+    int GetUniqueId() const;
+    bool GetIsPendingKill() const;
 };
