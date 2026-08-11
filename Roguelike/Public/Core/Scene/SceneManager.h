@@ -21,6 +21,7 @@ public:
 	virtual void RemoveHUD(HUD* hud);
 	virtual void Tick(float DeltaTime); //-> every frame is processed
 	virtual void Draw();
+	virtual Scene* GetScene();
 
 private:
 	SceneManager() = default;

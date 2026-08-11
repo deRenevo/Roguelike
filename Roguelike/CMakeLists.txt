@@ -36,6 +36,7 @@ add_executable (Roguelike
 "Public/Core/Widgets/WidgetsElements/RichText.h" "Private/Core/Widgets/WidgetsElements/RichText.cpp"
 "Public/Core/Input/InputManager.h" "Private/Core/Input/InputManager.cpp"
 "Public/Core/Object/Object.h" "Private/Core/Object/Object.cpp"
+"Public/Core/Actor/Actor.h" "Private/Core/Actor/Actor.cpp"
 )
 
 target_include_directories(Roguelike PRIVATE 

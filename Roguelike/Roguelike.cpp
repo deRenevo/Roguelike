@@ -16,7 +16,7 @@ void Roguelike::Ini()
 
     SetConfigFlags(FLAG_FULLSCREEN_MODE | FLAG_VSYNC_HINT);
     InitWindow(screenWidth, screenHeight, "Roguelike");
-    SetTargetFPS(60); //-> take it later from the settings
+    SetTargetFPS(120); //-> take it later from the settings
     SetExitKey(0);
 
     SceneManager::GetInstance().LoadScene(
@@ -38,7 +38,6 @@ void Roguelike::Stop()
 
 void Roguelike::Run()
 {
-
     while (bIsRunning && !WindowShouldClose())
     {
         float deltaTime = GetFrameTime();

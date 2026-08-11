@@ -2,12 +2,15 @@
 
 #pragma once
 
-#include "raylib.h"
-
 #include <Core/Object/Object.h>
+#include <Core/Actor/Actor.h>
+#include <vector>
+#include <memory>
 
 class Scene : public OObject
 {
+	std::vector<std::unique_ptr<AActor>> ActorsOnScene;
+
 public:
 	Scene() = default;
 	virtual ~Scene() = default;
@@ -26,4 +29,10 @@ protected:
 	virtual void PreSceneConstruction(); //-> processed before SceneConstruction
 	virtual void PostSceneConstruction(); //-> processed after SceneConstruction
 	virtual void Destroy();
+
+public:
+	void AddActorToScene(std::unique_ptr<AActor>  actor);
+	std::vector<AActor*> GetActorsOnScene() const;
+	void RemoveActorOnScene(AActor* actor);
+	
 };

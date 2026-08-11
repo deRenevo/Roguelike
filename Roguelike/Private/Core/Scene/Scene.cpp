@@ -2,6 +2,8 @@
 
 #include <Core/Scene/Scene.h>
 #include <iostream>
+#include <algorithm>
+#include <memory>
 
 void Scene::OnEnter()
 {
@@ -17,23 +19,31 @@ void Scene::OnExit()
 
 void Scene::DoTick(float DeltaTime)
 {
-    if (!GetIsPendingKill()) return; // if sttarting process deleting object thet stop Function 
+    if (GetIsPendingKill()) return; // if sttarting process deleting object thet stop Function 
     Tick(DeltaTime);
 }
 
 void Scene::DoDraw()
 {
-    if (!GetIsPendingKill()) return; // if sttarting process deleting object thet stop Function 
+    if (GetIsPendingKill()) return; // if sttarting process deleting object thet stop Function 
     Draw();
 }
 
 
 void Scene::Tick(float DeltaTime)
 {
+    for (std::unique_ptr<AActor>& Actor : ActorsOnScene)
+    {
+        Actor->DoTick(DeltaTime);
+    }
 }
 
 void Scene::Draw()
 {
+    for (std::unique_ptr<AActor>& Actor : ActorsOnScene)
+    {
+        Actor->DoDraw();
+    }
 }
 
 void Scene::SceneConstruction()
@@ -54,4 +64,56 @@ void Scene::PostSceneConstruction()
 void Scene::Destroy()
 {
     SetIsPendingKill();
+}
+
+std::vector<AActor*> Scene::GetActorsOnScene() const
+{
+    std::vector<AActor*> Actors;
+    for (const std::unique_ptr<AActor>& Actor : ActorsOnScene)
+    {
+        if (Actor && !Actor->GetIsPendingKill())
+        {
+            Actors.push_back(Actor.get());
+        }
+    }
+
+    return Actors;
+}
+
+void Scene::RemoveActorOnScene(AActor *actor)
+{
+    if (!actor) return;
+    
+    auto It = std::find_if(ActorsOnScene.begin(), ActorsOnScene.end(),
+        [actor](const std::unique_ptr<AActor>& ptr) {
+            return ptr.get() == actor;
+        });
+    
+    if (It != ActorsOnScene.end())
+    {
+        (*It)->EndPlay();
+        ActorsOnScene.erase(It);
+    }
+}
+
+void Scene::AddActorToScene(std::unique_ptr<AActor> actor)
+{
+    if (!actor)
+    {
+        printf("Error: trying to add nullptr actor to scene\n");
+        return;
+    }
+
+    for (const auto& existingActor : ActorsOnScene)
+    {
+        if (existingActor.get() == actor.get())
+        {
+            printf("Error: actor already added to scene\n");
+            return;
+        }
+    }
+
+    actor->DoInitialize();
+    actor->BeginPlay();
+    ActorsOnScene.push_back(std::move(actor));
 }

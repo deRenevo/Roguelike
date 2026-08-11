@@ -9,6 +9,7 @@
 #include <HUD/MenuHUD.h>
 #include <Roguelike.h>
 #include <Core/Input/InputManager.h>
+#include <Core/Scene/SceneManager.h>
 
 
 #include <vector>
@@ -27,6 +28,8 @@ void MenuScene::SceneConstruction()
 	InputManager::GetInstance().SubscribeKey(KeyboardKey::KEY_ESCAPE, [](void){
 		Roguelike::GetInstance().Stop();
 	});
+
+	SceneManager::GetInstance().GetScene()->AddActorToScene(std::unique_ptr<AActor>(new ATestActor()));
 }
 
 void MenuScene::Tick(float DeltaTick)

@@ -78,7 +78,10 @@ void SceneManager::Draw()
 	};
 }
 
-
+Scene* SceneManager::GetScene()
+{
+    return CorrectScene.get();
+}
 
 //=>getter and setter
 

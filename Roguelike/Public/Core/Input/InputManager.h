@@ -17,8 +17,17 @@ class InputManager
 {
     std::vector<FKeyAction> SubscribedKey;
 
+    InputManager() = default;
+    ~InputManager() = default;
+
 public:
     static InputManager& GetInstance();
+
+    InputManager(const InputManager&) = delete;
+	InputManager& operator=(const InputManager&) = delete;
+	InputManager(InputManager&) = delete;
+	InputManager& operator=(InputManager&&) = delete;
+
     void KeyInput(KeyboardKey key);
 
     void SubscribeKey(KeyboardKey key, std::function<void(void)> function);

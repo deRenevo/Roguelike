@@ -20,6 +20,7 @@ class OObject
     bool bIsPendingKill = false;
 
 public:
+    OObject(std::string name);
     OObject();
     virtual ~OObject();
 

@@ -9,10 +9,16 @@ void OObject::SetIsPendingKill()
     bIsPendingKill = true;
 }
 
+OObject::OObject(std::string objectName) : UniqueId(GenerateUniqueId()), ObjectName(objectName)
+{
+    AllObjects.push_back(this);
+}
+
 OObject::OObject() : UniqueId(GenerateUniqueId())
 {
     AllObjects.push_back(this);
 }
+
 
 OObject::~OObject()
 {
