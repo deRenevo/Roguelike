@@ -35,7 +35,6 @@ void InputManager::Tick()
 
 void InputManager::SubscribeKey(KeyboardKey key, EInputType inputType, std::function<void(void)> function)
 {
-    if (key == KeyboardKey::KEY_NULL) return;
 
     FKeyAction Action = FKeyAction(key, inputType, function);
     SubscribedKey.push_back(Action);
