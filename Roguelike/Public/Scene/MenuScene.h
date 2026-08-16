@@ -5,41 +5,57 @@
 #include <Core/Scene/Scene.h>
 #include <Core/Actor/Actor.h>
 #include <Core/Input/InputManager.h>
+#include <Core/Actor/Pawn.h>
 #include <vector>
+#include <iostream>
 
 class MenuHUD;
 class WButton;
+//====== Test code
+class ATestPawn : public APawn
+{
+	virtual void Draw() override
+	{
+		DrawRectangle(GetActorLocation().x - 50 / 2, GetActorLocation().y - 50 / 2, 50, 50, RED);
+	};
+
+	virtual void SetupPlayerInputComponent(InputManager& inputManager) override
+	{
+		inputManager.SubscribeKey(KeyboardKey::KEY_A, EInputType::Held, [this](void){this->Move({-1,0});});
+		inputManager.SubscribeKey(KeyboardKey::KEY_D, EInputType::Held, [this](void){this->Move({1,0});});
+		inputManager.SubscribeKey(KeyboardKey::KEY_W, EInputType::Held, [this](void){this->Move({0,-1});});
+		inputManager.SubscribeKey(KeyboardKey::KEY_S, EInputType::Held, [this](void){this->Move({0,1});});
+	};
+
+	Vector2 InputMove = {0,0};
+	int MoveSpeed = 20;
+
+	virtual void Tick(float DeltaTime) override
+	{
+		Vector2 Location = GetActorLocation();
+		SetActorLocation({Location.x + InputMove.x * MoveSpeed, Location.y + InputMove.y * MoveSpeed});
+		InputMove = {0,0};
+		APawn::Tick(DeltaTime);
+	};
+
+public:
+	void Move(Vector2 deltaMove)
+	{
+		InputMove = {InputMove.x + deltaMove.x, InputMove.y + deltaMove.y};
+	}
+};
 
 class ATestActor : public AActor
 {
-	/*virtual void BeginPlay() override
-	{
-		InputManager::GetInstance().SubscribeKey(KeyboardKey::KEY_Q, [this](){
-			Vector2 loc = Vector2(GetActorLocation().x - 50, GetActorLocation().y + 4);
-			SetActorLocation(loc);
-		});
-
-		InputManager::GetInstance().SubscribeKey(KeyboardKey::KEY_E, [this](){
-			Vector2 loc = Vector2(GetActorLocation().x + 50, GetActorLocation().y + 4);
-			SetActorLocation(loc);
-		});
-	}*/
-
 	virtual void Draw() override
 	{
-		if (GetActorLocation().y > GetScreenHeight())
-		{
-			Vector2 loc = Vector2(GetActorLocation().x, 0.0);
-			SetActorLocation(loc);
-		}
-
-		Vector2 loc = Vector2(GetActorLocation().x, GetActorLocation().y + 4);
-		SetActorLocation(loc);
-
-		DrawRectangle(GetActorLocation().x, GetActorLocation().y, 100, 100, RED);
+		DrawRectangle(GetActorLocation().x, GetActorLocation().y, 50, 50, Col);
 	};
-};
 
+public:
+	Color Col = RAYWHITE;
+};
+// ==========================
 class MenuScene : public Scene
 {
 
@@ -49,9 +65,6 @@ public:
 private:
 	MenuHUD* MenuHud;
 	ATestActor* TestActor;
-
-public:
-	void ToMainMenu();
 
 protected:
 	virtual void SceneConstruction() override;

@@ -37,6 +37,8 @@ add_executable (Roguelike
 "Public/Core/Input/InputManager.h" "Private/Core/Input/InputManager.cpp"
 "Public/Core/Object/Object.h" "Private/Core/Object/Object.cpp"
 "Public/Core/Actor/Actor.h" "Private/Core/Actor/Actor.cpp"
+"Public/Core/Actor/Pawn.h" "Private/Core/Actor/Pawn.cpp"
+"Public/Core/Object/CameraComponent.h" "Private/Core/Object/CameraComponent.cpp"
 )
 
 target_include_directories(Roguelike PRIVATE 

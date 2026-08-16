@@ -48,6 +48,9 @@ void Roguelike::Run()
 
             InputManager::GetInstance().KeyInput(keyPressed);
         }
+        InputManager::GetInstance().Tick();
+
+        //IsKeyDown(); add this 
 
         SceneManager::GetInstance().Tick(deltaTime);
 

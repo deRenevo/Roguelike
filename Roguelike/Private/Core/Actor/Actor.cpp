@@ -5,6 +5,7 @@
 #include <Core/Scene/Scene.h>
 #include <Roguelike.h>
 
+
 AActor::AActor() : OObject(), ActorWorldLocation({0, 0})
 {
     
@@ -55,10 +56,12 @@ void AActor::BeginPlay()
 
 void AActor::Tick(float DeltaTime)
 {
+    
 }
 
 void AActor::Draw()
 {
+
 }
 
 void AActor::EndPlay()

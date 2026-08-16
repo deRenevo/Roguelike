@@ -14,18 +14,30 @@ void InputManager::KeyInput(KeyboardKey key)
 
     for (FKeyAction& KeyAction : SubscribedKey)
     {
-        if (KeyAction.Key == key)
+        if (KeyAction.InputType == EInputType::Pressed && KeyAction.Key == key)
         {
             KeyAction.Function();
         }
     }
 }
 
-void InputManager::SubscribeKey(KeyboardKey key, std::function<void(void)> function)
+void InputManager::Tick()
+{
+    //for Input down
+    for (FKeyAction& KeyAction : SubscribedKey)
+    {
+        if (KeyAction.InputType == EInputType::Held && IsKeyDown(KeyAction.Key))
+        {
+            KeyAction.Function();
+        }
+    }
+}
+
+void InputManager::SubscribeKey(KeyboardKey key, EInputType inputType, std::function<void(void)> function)
 {
     if (key == KeyboardKey::KEY_NULL) return;
 
-    FKeyAction Action = FKeyAction(key, function);
+    FKeyAction Action = FKeyAction(key, inputType, function);
     SubscribedKey.push_back(Action);
 }
 

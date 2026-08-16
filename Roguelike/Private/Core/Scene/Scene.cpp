@@ -26,7 +26,17 @@ void Scene::DoTick(float DeltaTime)
 void Scene::DoDraw()
 {
     if (GetIsPendingKill()) return; // if sttarting process deleting object thet stop Function 
-    Draw();
+
+    if (RootCameraComponent)
+    {
+        BeginMode2D(RootCameraComponent->GetCamera());
+        Draw();
+        EndMode2D();
+    }
+    else
+    {
+        Draw();
+    }
 }
 
 
@@ -94,6 +104,12 @@ void Scene::RemoveActorOnScene(AActor *actor)
         (*It)->EndPlay();
         ActorsOnScene.erase(It);
     }
+}
+
+void Scene::SetRootCameraComponent(OCameraComponent *rootCameraComponent)
+{
+    printf("SetCamera\n");
+    RootCameraComponent = rootCameraComponent;
 }
 
 void Scene::AddActorToScene(std::unique_ptr<AActor> actor)

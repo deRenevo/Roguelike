@@ -25,35 +25,32 @@ void MenuScene::SceneConstruction()
 	MenuHud = hud.get();
 	SceneManager::GetInstance().AddToViewport(std::move(hud));
 
-	InputManager::GetInstance().SubscribeKey(KeyboardKey::KEY_ESCAPE, [](void){
+	InputManager::GetInstance().SubscribeKey(KeyboardKey::KEY_ESCAPE, EInputType::Pressed, [](void){
 		Roguelike::GetInstance().Stop();
 	});
 
-	SceneManager::GetInstance().GetScene()->AddActorToScene(std::unique_ptr<AActor>(new ATestActor()));
+	for (int i = -20; i < 100; ++i)
+	{
+		ATestActor* TestActor = new ATestActor();
+		if (i % 2 == 0)
+		{
+			TestActor->Col = LIME;
+		}
+		TestActor->SetActorLocation(Vector2(i * 50, 1000));
+
+		SceneManager::GetInstance().GetScene()->AddActorToScene(std::unique_ptr<AActor>(TestActor));
+	}
+
+	ATestPawn* TestPawn = new ATestPawn();
+	TestPawn->SetActorLocation({GetScreenWidth() / 2, GetScreenHeight() / 2});
+
+	SceneManager::GetInstance().GetScene()->AddActorToScene(std::unique_ptr<APawn>(TestPawn));
 }
 
 void MenuScene::Tick(float DeltaTick)
 {
+	Scene::Tick(DeltaTick);
 }
-/*
-void MenuScene::KeyPressEvent(int key)
-{
-	switch (key)
-	{
-	case KEY_SPACE:
-		if (MenuState == EMenuState::StartMenu)
-		{
-			ToMainMenu();
-		}
-		break;
-
-	case KEY_ESCAPE:
-		Roguelike::GetInstance().Stop();
-		break;
-	default:
-		break;
-	}
-}*/
 
 void MenuScene::Destroy()
 {

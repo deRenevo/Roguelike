@@ -6,11 +6,21 @@
 #include <vector>
 #include "raylib.h"
 
+enum EInputType
+{
+    Pressed,
+    Released, // not work
+    Held
+};
+
 struct FKeyAction
 {
     KeyboardKey Key;
     std::function<void(void)> Function;
-    FKeyAction(KeyboardKey key, std::function<void(void)> function) : Key(key), Function(function){};
+    EInputType InputType;
+
+    FKeyAction(KeyboardKey key, EInputType inputType, std::function<void(void)> function) : Key(key), 
+        InputType(inputType), Function(function){};
 };
 
 class InputManager
@@ -29,7 +39,8 @@ public:
 	InputManager& operator=(InputManager&&) = delete;
 
     void KeyInput(KeyboardKey key);
+    void Tick();
 
-    void SubscribeKey(KeyboardKey key, std::function<void(void)> function);
+    void SubscribeKey(KeyboardKey key, EInputType inputType, std::function<void(void)> function);
     void ClearSubscribtionKey();
 };
