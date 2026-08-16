@@ -2,39 +2,52 @@
 
 #include <Core/Input/InputManager.h>
 
+#include <algorithm>
+
 InputManager &InputManager::GetInstance()
 {
     static InputManager IM;
     return IM;
 }
 
-void InputManager::KeyInput(KeyboardKey key)
-{
-    if (key == KeyboardKey::KEY_NULL) return;
-
-    for (FKeyAction& KeyAction : SubscribedKey)
-    {
-        if (KeyAction.InputType == EInputType::Pressed && KeyAction.Key == key)
-        {
-            KeyAction.Function();
-        }
-    }
-}
-
 void InputManager::Tick()
 {
-    //for Input down
+    std::vector<KeyboardKey> CurrentFrameKeys;
+    for (int key = 0; key < 512; ++key)
+    {
+        if (IsKeyDown(key))
+            CurrentFrameKeys.push_back(static_cast<KeyboardKey>(key));
+    }
+
     for (FKeyAction& KeyAction : SubscribedKey)
     {
-        if (KeyAction.InputType == EInputType::Held && IsKeyDown(KeyAction.Key))
+        bool wasDown = std::find(OldKeyInput.begin(), OldKeyInput.end(), KeyAction.Key) != OldKeyInput.end();
+        bool isDown = std::find(CurrentFrameKeys.begin(), CurrentFrameKeys.end(), KeyAction.Key) != CurrentFrameKeys.end();
+        
+        switch (KeyAction.InputType)
         {
-            KeyAction.Function();
+        case EInputType::Pressed:
+            if (!wasDown && isDown)
+                KeyAction.Function();
+            break;
+        case EInputType::Released:
+            if (wasDown && !isDown)
+                KeyAction.Function();
+            break;
+        case EInputType::Held:
+            if (isDown)
+                KeyAction.Function();
+            break;
         }
     }
+
+
+    OldKeyInput = CurrentFrameKeys;
 }
 
 void InputManager::SubscribeKey(KeyboardKey key, EInputType inputType, std::function<void(void)> function)
 {
+    if (key == KeyboardKey::KEY_NULL) return;
 
     FKeyAction Action = FKeyAction(key, inputType, function);
     SubscribedKey.push_back(Action);

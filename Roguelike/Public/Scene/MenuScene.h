@@ -25,15 +25,21 @@ class ATestPawn : public APawn
 		inputManager.SubscribeKey(KeyboardKey::KEY_D, EInputType::Held, [this](void){this->Move({1,0});});
 		inputManager.SubscribeKey(KeyboardKey::KEY_W, EInputType::Held, [this](void){this->Move({0,-1});});
 		inputManager.SubscribeKey(KeyboardKey::KEY_S, EInputType::Held, [this](void){this->Move({0,1});});
+		inputManager.SubscribeKey(KeyboardKey::KEY_LEFT_SHIFT, EInputType::Pressed, [this](void){this->SetFastMove(true);});
+		inputManager.SubscribeKey(KeyboardKey::KEY_LEFT_SHIFT, EInputType::Released, [this](void){this->SetFastMove(false);});
 	};
 
 	Vector2 InputMove = {0,0};
-	int MoveSpeed = 20;
+	int MoveSpeed = 100;
+	int FastMoveSpeed = 400;
+	bool bIsFastMove = false;
 
 	virtual void Tick(float DeltaTime) override
 	{
 		Vector2 Location = GetActorLocation();
-		SetActorLocation({Location.x + InputMove.x * MoveSpeed, Location.y + InputMove.y * MoveSpeed});
+		SetActorLocation({Location.x + InputMove.x * (bIsFastMove ? FastMoveSpeed : MoveSpeed) * DeltaTime, 
+			Location.y + InputMove.y * (bIsFastMove ? FastMoveSpeed : MoveSpeed) * DeltaTime});
+
 		InputMove = {0,0};
 		APawn::Tick(DeltaTime);
 	};
@@ -42,7 +48,12 @@ public:
 	void Move(Vector2 deltaMove)
 	{
 		InputMove = {InputMove.x + deltaMove.x, InputMove.y + deltaMove.y};
-	}
+	};
+
+	void SetFastMove(bool isFastMove)
+	{
+		bIsFastMove = isFastMove;
+	};
 };
 
 class ATestActor : public AActor
@@ -56,6 +67,7 @@ public:
 	Color Col = RAYWHITE;
 };
 // ==========================
+
 class MenuScene : public Scene
 {
 
@@ -71,4 +83,3 @@ protected:
 	virtual void Tick(float DeltaTick) override;
 	virtual void Destroy() override;
 };
-

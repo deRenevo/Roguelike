@@ -14,7 +14,7 @@ void Roguelike::Ini()
     const int screenWidth = GetMonitorWidth(monitor);
     const int screenHeight = GetMonitorHeight(monitor);
 
-    SetConfigFlags(FLAG_FULLSCREEN_MODE | FLAG_VSYNC_HINT);
+    SetConfigFlags(FLAG_FULLSCREEN_MODE | SCHED_FLAG_DL_OVERRUN);
     InitWindow(screenWidth, screenHeight, "Roguelike");
     SetTargetFPS(120); //-> take it later from the settings
     SetExitKey(0);
@@ -42,12 +42,6 @@ void Roguelike::Run()
     {
         float deltaTime = GetFrameTime();
 
-        while (KeyboardKey keyPressed = static_cast<KeyboardKey>(GetKeyPressed()))
-        {
-            if (keyPressed == KeyboardKey::KEY_NULL) break;
-
-            InputManager::GetInstance().KeyInput(keyPressed);
-        }
         InputManager::GetInstance().Tick();
 
         //IsKeyDown(); add this 

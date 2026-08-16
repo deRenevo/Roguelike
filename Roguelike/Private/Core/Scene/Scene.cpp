@@ -120,15 +120,6 @@ void Scene::AddActorToScene(std::unique_ptr<AActor> actor)
         return;
     }
 
-    for (const auto& existingActor : ActorsOnScene)
-    {
-        if (existingActor.get() == actor.get())
-        {
-            printf("Error: actor already added to scene\n");
-            return;
-        }
-    }
-
     actor->DoInitialize();
     actor->BeginPlay();
     ActorsOnScene.push_back(std::move(actor));

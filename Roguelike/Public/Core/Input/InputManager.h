@@ -9,7 +9,7 @@
 enum EInputType
 {
     Pressed,
-    Released, // not work
+    Released,
     Held
 };
 
@@ -26,6 +26,7 @@ struct FKeyAction
 class InputManager
 {
     std::vector<FKeyAction> SubscribedKey;
+    std::vector<KeyboardKey> OldKeyInput;
 
     InputManager() = default;
     ~InputManager() = default;
