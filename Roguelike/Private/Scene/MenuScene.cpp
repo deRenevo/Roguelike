@@ -18,7 +18,7 @@
 
 void MenuScene::SceneConstruction()
 {
-	SetGameMode(std::make_unique<OTestGameMode>([this]() { return new ATestPawn();}));
+	SetGameMode(std::make_unique<OTestGameMode>([this](void) { return new ATestPawn();}));
 
 	Scene::SceneConstruction();
 	SceneManager::GetInstance().AddToViewport(std::move(std::unique_ptr<MenuHUD>(new MenuHUD())));

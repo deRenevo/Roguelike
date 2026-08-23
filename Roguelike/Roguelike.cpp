@@ -14,7 +14,7 @@ void Roguelike::Ini()
     const int screenWidth = GetMonitorWidth(monitor);
     const int screenHeight = GetMonitorHeight(monitor);
 
-    SetConfigFlags(FLAG_FULLSCREEN_MODE | SCHED_FLAG_DL_OVERRUN);
+    SetConfigFlags(FLAG_FULLSCREEN_MODE);
     InitWindow(screenWidth, screenHeight, "Roguelike");
     SetTargetFPS(120); //-> take it later from the settings
     SetExitKey(0);

@@ -29,7 +29,7 @@ void APlayerController::BeginPlay()
     SetupPlayerInputComponent(InputManager::GetInstance());
 }
 
-void APlayerController::Posses(APawn *pawn)
+void APlayerController::Possess(APawn *pawn)
 {
     PlayerPawn = pawn;
 }
