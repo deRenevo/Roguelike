@@ -59,6 +59,11 @@ void APawn::SetRootCameraComponent(std::unique_ptr<OCameraComponent> rootCameraC
     SceneManager::GetInstance().GetScene()->SetRootCameraComponent(RootCameraComponent.get());
 }
 
+void APawn::SetPlayerController(APlayerController *playerController)
+{
+    OwnerPlayerController = playerController;
+}
+
 OCameraComponent *APawn::GetRootCameraComponent()
 {
     return RootCameraComponent.get();

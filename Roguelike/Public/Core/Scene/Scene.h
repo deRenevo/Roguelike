@@ -4,6 +4,7 @@
 
 #include <Core/Object/Object.h>
 #include <Core/Actor/Actor.h>
+#include <Core/Object/GameMode.h>
 #include <Core/Object/CameraComponent.h>
 
 #include <vector>
@@ -13,6 +14,8 @@ class Scene : public OObject
 {
 	std::vector<std::unique_ptr<AActor>> ActorsOnScene;
 	OCameraComponent* RootCameraComponent;	
+	std::unique_ptr<OGameMode> GameMode;
+	
 public:
 	Scene() = default;
 	virtual ~Scene() = default;
@@ -36,6 +39,10 @@ public:
 	void AddActorToScene(std::unique_ptr<AActor>  actor);
 	std::vector<AActor*> GetActorsOnScene() const;
 	void RemoveActorOnScene(AActor* actor);
+
 	void SetRootCameraComponent(OCameraComponent* rootCameraComponent);
+	void SetGameMode(std::unique_ptr<OGameMode> gameMode);
+
+	OGameMode* GetGameMode();
 	
 };

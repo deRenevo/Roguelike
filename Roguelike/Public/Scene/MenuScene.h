@@ -4,8 +4,10 @@
 
 #include <Core/Scene/Scene.h>
 #include <Core/Actor/Actor.h>
+#include <Core/Object/GameMode.h>
 #include <Core/Input/InputManager.h>
 #include <Core/Actor/Pawn.h>
+#include <Roguelike.h>
 #include <vector>
 #include <iostream>
 
@@ -21,6 +23,7 @@ class ATestPawn : public APawn
 
 	virtual void SetupPlayerInputComponent(InputManager& inputManager) override
 	{
+		inputManager.SubscribeKey(KeyboardKey::KEY_ESCAPE, EInputType::Pressed, [](void){Roguelike::GetInstance().Stop();});
 		inputManager.SubscribeKey(KeyboardKey::KEY_A, EInputType::Held, [this](void){this->Move({-1,0});});
 		inputManager.SubscribeKey(KeyboardKey::KEY_D, EInputType::Held, [this](void){this->Move({1,0});});
 		inputManager.SubscribeKey(KeyboardKey::KEY_W, EInputType::Held, [this](void){this->Move({0,-1});});
@@ -65,6 +68,17 @@ class ATestActor : public AActor
 
 public:
 	Color Col = RAYWHITE;
+};
+
+class OTestGameMode : public OGameMode
+{
+
+public:
+
+	OTestGameMode(std::function<APawn*()> pawnClass) : OGameMode([]() { return new APlayerController();} , pawnClass)
+	{
+
+	};
 };
 // ==========================
 

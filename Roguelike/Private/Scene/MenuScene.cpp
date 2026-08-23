@@ -7,10 +7,8 @@
 #include <Scene/MenuScene.h>
 #include <Core/Scene/SceneManager.h>
 #include <HUD/MenuHUD.h>
-#include <Roguelike.h>
 #include <Core/Input/InputManager.h>
 #include <Core/Scene/SceneManager.h>
-
 
 #include <vector>
 #include <memory>
@@ -20,16 +18,12 @@
 
 void MenuScene::SceneConstruction()
 {
+	SetGameMode(std::make_unique<OTestGameMode>([this]() { return new ATestPawn();}));
+
 	Scene::SceneConstruction();
-	auto hud = std::make_unique<MenuHUD>();
-	MenuHud = hud.get();
-	SceneManager::GetInstance().AddToViewport(std::move(hud));
+	SceneManager::GetInstance().AddToViewport(std::move(std::unique_ptr<MenuHUD>(new MenuHUD())));
 
-	InputManager::GetInstance().SubscribeKey(KeyboardKey::KEY_ESCAPE, EInputType::Pressed, [](void){
-		Roguelike::GetInstance().Stop();
-	});
-
-	for (int i = -20; i < 100; ++i)
+	for (int i = -20; i < 100; ++i)	
 	{
 		ATestActor* TestActor = new ATestActor();
 		if (i % 2 == 0)
@@ -38,13 +32,8 @@ void MenuScene::SceneConstruction()
 		}
 		TestActor->SetActorLocation(Vector2(i * 50, 1000));
 
-		SceneManager::GetInstance().GetScene()->AddActorToScene(std::unique_ptr<AActor>(TestActor));
+		AddActorToScene(std::unique_ptr<AActor>(TestActor));
 	}
-
-	ATestPawn* TestPawn = new ATestPawn();
-	TestPawn->SetActorLocation({GetScreenWidth() / 2, GetScreenHeight() / 2});
-
-	SceneManager::GetInstance().GetScene()->AddActorToScene(std::unique_ptr<APawn>(TestPawn));
 }
 
 void MenuScene::Tick(float DeltaTick)

@@ -1,0 +1,59 @@
+// Copyright deRenevo. All rights reserved.
+
+#include <Core/Object/GameMode.h>
+
+#include <Core/Scene/SceneManager.h>
+#include <Core/Scene/Scene.h>
+#include <Core/Actor/Pawn.h>
+#include <Core/Actor/PlayerController.h>
+
+#include <memory>
+
+OGameMode::OGameMode(std::function<APlayerController*()> controllerClass) : ControllerClass(controllerClass)
+{
+}
+
+OGameMode::OGameMode(std::function<APlayerController *()> controllerClass, std::function<APawn*()> pawnClass) 
+    : ControllerClass(controllerClass), PawnClass(pawnClass)
+{
+}
+
+void OGameMode::BeginPlay()
+{
+    AddNewPlayer();
+}
+
+void OGameMode::EndPlay()
+{
+
+}
+
+void OGameMode::RestartPlayer()
+{
+}
+
+void OGameMode::AddNewPlayer()
+{
+    std::unique_ptr<APlayerController> PC(ControllerClass());
+
+    if (!PC)
+    {
+        return;
+    }
+
+    PC->SetActorLocation({0,0}); // Then using start point location
+    SceneManager::GetInstance().GetScene()->AddActorToScene(std::move(PC));
+
+    if (PawnClass)
+    {
+        std::unique_ptr<APawn> Pawn(PawnClass());
+
+        if (!Pawn)
+        {
+            return;
+        }
+
+        Pawn->SetActorLocation({0,0}); // Then using start point location
+        SceneManager::GetInstance().GetScene()->AddActorToScene(std::move(Pawn));
+    }
+}

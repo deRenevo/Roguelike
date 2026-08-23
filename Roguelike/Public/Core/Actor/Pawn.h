@@ -3,6 +3,7 @@
 #pragma once
 
 #include <Core/Actor/Actor.h>
+#include <Core/Actor/PlayerController.h>
 #include <Core/Input/InputManager.h>
 #include <Core/Object/CameraComponent.h>
 
@@ -10,12 +11,12 @@
 
 class APawn : public AActor
 {
-    virtual void SetupPlayerInputComponent(InputManager& inputManager);
-
     std::unique_ptr<OCameraComponent> RootCameraComponent;
+    APlayerController* OwnerPlayerController = nullptr;
 
 protected:
     virtual void Tick(float DeltaTime) override;
+    virtual void SetupPlayerInputComponent(InputManager& inputManager);
 
 public:
 
@@ -26,6 +27,7 @@ public:
     virtual void BeginPlay() override;
 
     void SetRootCameraComponent(std::unique_ptr<OCameraComponent> rootCameraComponent);
+    void SetPlayerController(APlayerController* playerController);
     OCameraComponent* GetRootCameraComponent();
     bool HasRootCameraComponent();
 };

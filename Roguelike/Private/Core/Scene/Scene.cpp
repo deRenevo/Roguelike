@@ -10,6 +10,11 @@ void Scene::OnEnter()
     PreSceneConstruction();;
     SceneConstruction();
     PostSceneConstruction();
+
+    if (GameMode)
+    {
+        GameMode->BeginPlay();
+    }
 }
 
 void Scene::OnExit()
@@ -123,4 +128,14 @@ void Scene::AddActorToScene(std::unique_ptr<AActor> actor)
     actor->DoInitialize();
     actor->BeginPlay();
     ActorsOnScene.push_back(std::move(actor));
+}
+
+void Scene::SetGameMode(std::unique_ptr<OGameMode> gameMode)
+{
+    GameMode = std::move(gameMode);
+}
+
+OGameMode *Scene::GetGameMode()
+{
+    return GameMode.get();
 }
