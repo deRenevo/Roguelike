@@ -89,8 +89,6 @@ public:
 	virtual ~MenuScene() override;
 
 private:
-	MenuHUD* MenuHud;
-	ATestActor* TestActor;
 
 protected:
 	virtual void SceneConstruction() override;

@@ -10,10 +10,13 @@
 #include <vector>
 #include <memory>
 
+class APlayerStart;
+
 class Scene : public OObject
 {
 	std::vector<std::unique_ptr<AActor>> ActorsOnScene;
-	OCameraComponent* RootCameraComponent;	
+	OCameraComponent* RootCameraComponent;
+	APlayerStart* PlayerStart;
 	std::unique_ptr<OGameMode> GameMode;
 	
 public:
@@ -42,7 +45,9 @@ public:
 
 	void SetRootCameraComponent(OCameraComponent* rootCameraComponent);
 	void SetGameMode(std::unique_ptr<OGameMode> gameMode);
+	void SetPlayerStart(APlayerStart* playerStart);
 
 	OGameMode* GetGameMode();
+	APlayerStart* GetPlayerStart();
 	
 };

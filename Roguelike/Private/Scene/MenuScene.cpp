@@ -7,8 +7,8 @@
 #include <Scene/MenuScene.h>
 #include <Core/Scene/SceneManager.h>
 #include <HUD/MenuHUD.h>
-#include <Core/Input/InputManager.h>
 #include <Core/Scene/SceneManager.h>
+#include <Core/Actor/PlayerStart.h>
 
 #include <vector>
 #include <memory>
@@ -19,6 +19,8 @@
 void MenuScene::SceneConstruction()
 {
 	SetGameMode(std::make_unique<OTestGameMode>([this](void) { return new ATestPawn();}));
+	APlayerStart* PlayerStart = new APlayerStart(Vector2(960, 540));
+	AddActorToScene(std::unique_ptr<APlayerStart>(PlayerStart));
 
 	Scene::SceneConstruction();
 	SceneManager::GetInstance().AddToViewport(std::move(std::unique_ptr<MenuHUD>(new MenuHUD())));
@@ -43,10 +45,7 @@ void MenuScene::Tick(float DeltaTick)
 
 void MenuScene::Destroy()
 {
-	if (MenuHud)
-	{
-		SceneManager::GetInstance().RemoveHUD(MenuHud);
-	}
+
 }
 
 MenuScene::~MenuScene()

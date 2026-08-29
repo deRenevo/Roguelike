@@ -135,7 +135,17 @@ void Scene::SetGameMode(std::unique_ptr<OGameMode> gameMode)
     GameMode = std::move(gameMode);
 }
 
+void Scene::SetPlayerStart(APlayerStart* playerStart)
+{
+    PlayerStart = playerStart;
+}
+
 OGameMode *Scene::GetGameMode()
 {
     return GameMode.get();
+}
+
+APlayerStart* Scene::GetPlayerStart()
+{
+    return PlayerStart;
 }

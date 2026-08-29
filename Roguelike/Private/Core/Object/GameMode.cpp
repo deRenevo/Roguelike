@@ -6,6 +6,7 @@
 #include <Core/Scene/Scene.h>
 #include <Core/Actor/Pawn.h>
 #include <Core/Actor/PlayerController.h>
+#include <Core/Actor/PlayerStart.h>
 
 #include <memory>
 
@@ -41,7 +42,18 @@ void OGameMode::AddNewPlayer()
         return;
     }
 
-    PC->SetActorLocation({0,0}); // Then using start point location
+    APlayerStart* PlayerStart = SceneManager::GetInstance().GetScene()->GetPlayerStart();
+    Vector2 StartPointLocation;
+    if (PlayerStart)
+    {
+        StartPointLocation = PlayerStart->GetActorLocation();
+    }
+    else
+    {
+        StartPointLocation = {0,0};
+    }
+    
+    PC->SetActorLocation(StartPointLocation); // Then using start point location
     APlayerController* RawPC = PC.get(); 
     SceneManager::GetInstance().GetScene()->AddActorToScene(std::move(PC));
 
@@ -54,9 +66,10 @@ void OGameMode::AddNewPlayer()
             return;
         }
 
-        Pawn->SetActorLocation({0,0}); // Then using start point location
+        Pawn->SetActorLocation(StartPointLocation); // Then using start point location
         RawPC->Possess(Pawn.get());
         SceneManager::GetInstance().GetScene()->AddActorToScene(std::move(Pawn));
     }
+    printf("Spawn Player in location(x: %f, y: %f)", StartPointLocation.x, StartPointLocation.y);
 }
     
