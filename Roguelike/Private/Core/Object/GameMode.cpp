@@ -42,6 +42,7 @@ void OGameMode::AddNewPlayer()
     }
 
     PC->SetActorLocation({0,0}); // Then using start point location
+    APlayerController* RawPC = PC.get(); 
     SceneManager::GetInstance().GetScene()->AddActorToScene(std::move(PC));
 
     if (PawnClass)
@@ -54,6 +55,8 @@ void OGameMode::AddNewPlayer()
         }
 
         Pawn->SetActorLocation({0,0}); // Then using start point location
+        RawPC->Possess(Pawn.get());
         SceneManager::GetInstance().GetScene()->AddActorToScene(std::move(Pawn));
     }
 }
+    

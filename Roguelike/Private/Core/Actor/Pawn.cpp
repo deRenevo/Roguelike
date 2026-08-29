@@ -42,9 +42,17 @@ void APawn::BeginPlay()
         RootCameraComponent->SetOwner(this);
         SceneManager::GetInstance().GetScene()->SetRootCameraComponent(RootCameraComponent.get());
     }
+}
 
+void APawn::PossessedBy(APlayerController* playerController)
+{
+    OwnerPlayerController = playerController;
+}
 
-    SetupPlayerInputComponent(InputManager::GetInstance());
+void APawn::UnPossessed()
+{
+    OwnerPlayerController = nullptr; 
+    //next this clear input action for this pawn 
 }
 
 void APawn::SetRootCameraComponent(std::unique_ptr<OCameraComponent> rootCameraComponent)
@@ -57,11 +65,6 @@ void APawn::SetRootCameraComponent(std::unique_ptr<OCameraComponent> rootCameraC
     }
 
     SceneManager::GetInstance().GetScene()->SetRootCameraComponent(RootCameraComponent.get());
-}
-
-void APawn::SetPlayerController(APlayerController *playerController)
-{
-    OwnerPlayerController = playerController;
 }
 
 OCameraComponent *APawn::GetRootCameraComponent()

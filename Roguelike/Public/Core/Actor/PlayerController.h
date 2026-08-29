@@ -21,4 +21,5 @@ public:
     virtual void BeginPlay();
 
     void Possess(APawn* pawn);
+    void UnPossess();
 };

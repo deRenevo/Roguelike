@@ -16,18 +16,20 @@ class APawn : public AActor
 
 protected:
     virtual void Tick(float DeltaTime) override;
-    virtual void SetupPlayerInputComponent(InputManager& inputManager);
 
 public:
 
     APawn();
     APawn(Vector2 worldLocation);
     APawn(Vector2 worldLocation, std::string name);
+    virtual void SetupPlayerInputComponent(InputManager& inputManager);
 
     virtual void BeginPlay() override;
 
+    void PossessedBy(APlayerController* playerController);
+    void UnPossessed();
+
     void SetRootCameraComponent(std::unique_ptr<OCameraComponent> rootCameraComponent);
-    void SetPlayerController(APlayerController* playerController);
     OCameraComponent* GetRootCameraComponent();
     bool HasRootCameraComponent();
 };
