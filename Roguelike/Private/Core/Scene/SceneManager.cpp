@@ -3,6 +3,7 @@
 
 #include "Core/Scene/SceneManager.h"
 #include <algorithm>
+#include <iostream>
 
 void SceneManager::LoadScene(std::unique_ptr<Scene> scene)
 {
