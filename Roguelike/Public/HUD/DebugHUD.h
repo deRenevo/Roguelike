@@ -2,13 +2,13 @@
 
 #pragma once
 
-#include <Core/HUD/HUD.h>
+#include "Core/HUD/HUD.h"
 
 class WButton;
 
 class DebugHUD : public HUD
 {
-	WButton* GoodButton;
+	WButton* GoodButton = nullptr;
 protected:
 	virtual void HUDConstruction() override;
 	virtual void Draw() override;

@@ -1,10 +1,10 @@
 // Copyright deRenevo. All rights reserved.
 
-#include <HUD/DebugHUD.h>
+#include "HUD/DebugHUD.h"
 
-#include <Core/Utility/Draw/DrawUtility.h>
-#include <Core/Widgets/WidgetsElements/Button.h>
-#include <Core/Widgets/WidgetsElements/CanvasPanel.h>
+#include "Core/Utility/Draw/DrawUtility.h"
+#include "Core/Widgets/WidgetsElements/Button.h"
+#include "Core/Widgets/WidgetsElements/CanvasPanel.h"
 #include <string>
 #include <iostream>
 

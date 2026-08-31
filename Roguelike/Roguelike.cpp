@@ -1,11 +1,11 @@
-﻿#include"raylib.h"
+﻿
+#include "Roguelike.h"
+#include "Core/Scene/SceneManager.h"
+#include "Core/Scene/SceneFactory.h"
+#include "Core/HUD/HUDFactory.h"
+#include "Core/Input/InputManager.h"
 
-#include <Roguelike.h>
-#include <Core/Scene/SceneManager.h>
-#include <Core/Scene/SceneFactory.h>
-#include <Core/HUD/HUDFactory.h>
-#include <Core/Input/InputManager.h>
-
+#include <raylib.h>
 #include <iostream>
 
 void Roguelike::Ini()

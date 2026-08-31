@@ -1,6 +1,6 @@
 // Copyright deRenevo. All rights reserved.
 
-#include <Core/Component/Component.h>
+#include "Core/Component/Component.h"
 
 OComponent::OComponent(std::string name) : OObject(name)
 {

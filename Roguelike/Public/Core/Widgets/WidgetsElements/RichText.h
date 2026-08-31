@@ -2,8 +2,8 @@
 
 #pragma once
 
-#include <Core/Widgets/WidgetsElements/Widget.h>
-#include <Core/Utility/Struct.h>
+#include "Core/Widgets/WidgetsElements/Widget.h"
+#include "Core/Utility/Struct.h"
 
 #include <string>
 #include <vector>

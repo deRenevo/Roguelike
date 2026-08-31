@@ -1,8 +1,8 @@
 // Copyright deRenevo. All rights reserved.
 
-#include <Core/Scene/SceneFactory.h>
-#include <Core/Scene/Scene.h>
-#include <Scene/MenuScene.h>
+#include "Core/Scene/SceneFactory.h"
+#include "Core/Scene/Scene.h"
+#include "Scene/MenuScene.h"
 
 std::unique_ptr<Scene> SceneFactory::CreateScene(ESceneList SceneId)
 {

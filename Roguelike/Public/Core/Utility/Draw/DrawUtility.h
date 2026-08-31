@@ -4,6 +4,8 @@
 
 #include <vector>
 
+#include <raylib.h>
+
 namespace DrawUtility
 {
 	void DrawTextWithOneColor(const char* Text = "Hello Roguelike", int PosX = 0, int PosY = 8, int FontSize = 24, Color TextColor = RAYWHITE, bool bIsCenter = false);

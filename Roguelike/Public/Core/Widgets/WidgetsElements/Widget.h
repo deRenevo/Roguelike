@@ -2,8 +2,8 @@
 
 #pragma once
 
-#include <Core/Utility/Struct.h>
-#include <Core/Object/Object.h>
+#include "Core/Utility/Struct.h"
+#include "Core/Object/Object.h"
 
 struct FWidgetStyle
 {

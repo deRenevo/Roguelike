@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include <Core/HUD/HUD.h>
+#include "Core/HUD/HUD.h"
 
 class WCanvasPanel;
 class WButton;

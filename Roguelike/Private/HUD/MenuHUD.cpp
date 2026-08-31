@@ -1,9 +1,9 @@
 // Copyright deRenevo. All rights reserved.
 
-#include <HUD/MenuHUD.h>
-#include <Core/Widgets/WidgetsElements/CanvasPanel.h>
-#include <Core/Widgets/WidgetsElements/Button.h>
-#include <Core/Widgets/WidgetsElements/RichText.h>
+#include "HUD/MenuHUD.h"
+#include "Core/Widgets/WidgetsElements/CanvasPanel.h"
+#include "Core/Widgets/WidgetsElements/Button.h"
+#include "Core/Widgets/WidgetsElements/RichText.h"
 #include <memory>
 #include <iostream>
 

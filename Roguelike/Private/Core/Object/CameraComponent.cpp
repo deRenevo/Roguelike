@@ -1,6 +1,6 @@
 // Copyright deRenevo. All rights reserved.
 
-#include <Core/Object/CameraComponent.h>
+#include "Core/Object/CameraComponent.h"
 
 OCameraComponent::OCameraComponent() : OObject("CameraComponent")
 {

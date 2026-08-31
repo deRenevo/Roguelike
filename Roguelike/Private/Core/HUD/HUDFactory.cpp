@@ -1,8 +1,8 @@
 // Copyright deRenevo. All rights reserved.
 
-#include <Core/HUD/HUDFactory.h>
-#include <Core/HUD/HUD.h>
-#include <HUD/DebugHUD.h>
+#include "Core/HUD/HUD.h"
+#include "Core/HUD/HUDFactory.h"
+#include "HUD/DebugHUD.h"
 
 std::unique_ptr<HUD> HUDFactory::CreateHUD(EHUDList HUDId)
 {

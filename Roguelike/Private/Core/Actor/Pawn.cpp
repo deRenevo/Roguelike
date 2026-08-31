@@ -1,7 +1,7 @@
 // Copyright deRenevo. All rights reserved.
 
-#include <Core/Actor/Pawn.h>
-#include <Core/Scene/SceneManager.h>
+#include "Core/Actor/Pawn.h"
+#include "Core/Scene/SceneManager.h"
 
 void APawn::SetupPlayerInputComponent(InputManager& inputManager)
 {

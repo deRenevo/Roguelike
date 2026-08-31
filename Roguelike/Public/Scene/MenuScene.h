@@ -2,17 +2,16 @@
 
 #pragma once
 
-#include <Core/Scene/Scene.h>
-#include <Core/Actor/Actor.h>
-#include <Core/Object/GameMode.h>
-#include <Core/Input/InputManager.h>
-#include <Core/Actor/Pawn.h>
-#include <Roguelike.h>
-#include <vector>
-#include <iostream>
+#include "Core/Scene/Scene.h"
+#include "Core/Actor/Actor.h"
+#include "Core/Object/GameMode.h"
+#include "Core/Input/InputManager.h"
+#include "Core/Actor/Pawn.h"
+#include "Roguelike.h"
 
 class MenuHUD;
 class WButton;
+
 //====== Test code
 class ATestPawn : public APawn
 {

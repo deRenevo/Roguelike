@@ -1,9 +1,8 @@
 // Copyright deRenevo. All rights reserved.
 
-#include <Core/Actor/Actor.h>
-#include <Core/Scene/SceneManager.h>
-#include <Core/Scene/Scene.h>
-#include <Roguelike.h>
+#include "Core/Actor/Actor.h"
+#include "Core/Scene/SceneManager.h"
+#include "Core/Scene/Scene.h"
 
 
 AActor::AActor() : OObject(), ActorWorldLocation({0, 0})

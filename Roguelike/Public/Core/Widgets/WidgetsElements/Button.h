@@ -2,12 +2,13 @@
 
 #pragma once
 
-#include "raylib.h"
 
-#include <Core/Widgets/WidgetsElements/Widget.h>
-#include <Core/Utility/Struct.h>
+
+#include "Core/Widgets/WidgetsElements/Widget.h"
+#include "Core/Utility/Struct.h"
+
+#include <raylib.h>
 #include <functional>
-#include <memory>
 
 
 class WButton : public WWidget

@@ -1,3 +1,3 @@
 // Copyright deRenevo. All rights reserved.
 
-#include <Core/Utility/Struct.h>
+#include "Core/Utility/Struct.h"

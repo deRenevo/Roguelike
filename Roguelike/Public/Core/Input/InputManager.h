@@ -2,9 +2,9 @@
 
 #pragma once
 
+#include <raylib.h>
 #include <functional>
 #include <vector>
-#include "raylib.h"
 
 enum EInputType
 {

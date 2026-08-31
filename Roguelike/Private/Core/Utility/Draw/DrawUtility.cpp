@@ -1,10 +1,9 @@
 // Copyright deRenevo. All rights reserved.
 
-#include "raylib.h"
+#include "Core/Utility/Draw/DrawUtility.h"
+
 #include <ios>
 #include <sstream>
-
-#include <Core/Utility/Draw/DrawUtility.h>
 
 void DrawUtility::DrawTextWithOneColor(const char* Text, int PosX, int PosY, int FontSize, Color TextColor, bool bIsCenter)
 {

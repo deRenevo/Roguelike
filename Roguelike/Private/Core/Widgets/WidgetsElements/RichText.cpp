@@ -1,6 +1,6 @@
 // Copyright deRenevo. All rights reserved.
 
-#include <Core/Widgets/WidgetsElements/RichText.h>
+#include "Core/Widgets/WidgetsElements/RichText.h"
 
 #include <algorithm>
 #include <cmath>

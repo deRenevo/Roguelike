@@ -2,19 +2,13 @@
 
 #include "raylib.h"
 
-#include <Core/Utility/Draw/DrawUtility.h>
-#include <Core/Widgets/WidgetsElements/Button.h>
-#include <Scene/MenuScene.h>
-#include <Core/Scene/SceneManager.h>
-#include <HUD/MenuHUD.h>
-#include <Core/Scene/SceneManager.h>
-#include <Core/Actor/PlayerStart.h>
+#include "Scene/MenuScene.h"
+#include "Core/Scene/SceneManager.h"
+#include "HUD/MenuHUD.h"
+#include "Core/Actor/PlayerStart.h"
 
 #include <vector>
 #include <memory>
-#include <iostream>
-#include <string>
-#include <functional>
 
 void MenuScene::SceneConstruction()
 {

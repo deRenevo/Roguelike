@@ -1,7 +1,8 @@
 // Copyright deRenevo. All rights reserved.
 
-#include <Core/HUD/HUD.h>
-#include <iostream>
+#include "Core/HUD/HUD.h"
+
+#include "iostream"
 
 void HUD::DoTick(float DeltaTime)
 {

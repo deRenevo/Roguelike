@@ -1,6 +1,6 @@
 // Copyright deRenevo. All rights reserved.
 
-#include <Core/Object/Object.h>
+#include "Core/Object/Object.h"
 
 std::vector<OObject *> OObject::AllObjects;
 
