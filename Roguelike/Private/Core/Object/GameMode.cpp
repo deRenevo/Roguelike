@@ -14,14 +14,14 @@ OGameMode::OGameMode(std::function<APlayerController*()> controllerClass) : Cont
 {
 }
 
-OGameMode::OGameMode(std::function<APlayerController *()> controllerClass, std::function<APawn*()> pawnClass) 
-    : ControllerClass(controllerClass), PawnClass(pawnClass)
+OGameMode::OGameMode(std::function<APlayerController *()> controllerClass, std::function<APawn*()> pawnClass)
+	: ControllerClass(controllerClass), PawnClass(pawnClass)
 {
 }
 
 void OGameMode::BeginPlay()
 {
-    AddNewPlayer();
+	AddNewPlayer();
 }
 
 void OGameMode::EndPlay()
@@ -31,45 +31,45 @@ void OGameMode::EndPlay()
 
 void OGameMode::RestartPlayer()
 {
+
 }
 
 void OGameMode::AddNewPlayer()
 {
-    std::unique_ptr<APlayerController> PC(ControllerClass());
+	std::unique_ptr<APlayerController> PC(ControllerClass());
 
-    if (!PC)
-    {
-        return;
-    }
+	if (!PC)
+	{
+		return;
+	}
 
-    APlayerStart* PlayerStart = SceneManager::GetInstance().GetScene()->GetPlayerStart();
-    Vector2 StartPointLocation;
-    if (PlayerStart)
-    {
-        StartPointLocation = PlayerStart->GetActorLocation();
-    }
-    else
-    {
-        StartPointLocation = {0,0};
-    }
-    
-    PC->SetActorLocation(StartPointLocation); // Then using start point location
-    APlayerController* RawPC = PC.get(); 
-    SceneManager::GetInstance().GetScene()->AddActorToScene(std::move(PC));
+	APlayerStart* PlayerStart = SceneManager::GetInstance().GetScene()->GetPlayerStart();
+	Vector2 StartPointLocation;
+	if (PlayerStart)
+	{
+		StartPointLocation = PlayerStart->GetActorLocation();
+	}
+	else
+	{
+		StartPointLocation = { 0, 0 };
+	}
 
-    if (PawnClass)
-    {
-        std::unique_ptr<APawn> Pawn(PawnClass());
+	PC->SetActorLocation(StartPointLocation); // Then using start point location
+	APlayerController* RawPC = PC.get();
+	SceneManager::GetInstance().GetScene()->AddActorToScene(std::move(PC));
 
-        if (!Pawn)
-        {
-            return;
-        }
+	if (PawnClass)
+	{
+		std::unique_ptr<APawn> Pawn(PawnClass());
 
-        Pawn->SetActorLocation(StartPointLocation); // Then using start point location
-        RawPC->Possess(Pawn.get());
-        SceneManager::GetInstance().GetScene()->AddActorToScene(std::move(Pawn));
-    }
-    printf("Spawn Player in location(x: %f, y: %f)", StartPointLocation.x, StartPointLocation.y);
+		if (!Pawn)
+		{
+			return;
+		}
+
+		Pawn->SetActorLocation(StartPointLocation); // Then using start point location
+		RawPC->Possess(Pawn.get());
+		SceneManager::GetInstance().GetScene()->AddActorToScene(std::move(Pawn));
+	}
+	printf("Spawn Player in location(x: %f, y: %f)", StartPointLocation.x, StartPointLocation.y);
 }
-    

@@ -16,15 +16,15 @@ void WWidget::OnExit()
 
 void WWidget::Tick(float DeltaTime)
 {
-	
+
 }
 
 Vector2 WWidget::AutoSize()
 {
-	return Vector2(0,0);
+	return Vector2(0, 0);
 }
 
-void WWidget::Draw() 
+void WWidget::Draw()
 {
 
 }
@@ -150,7 +150,7 @@ Vector2 WWidget::GetSize()
 
 Vector2 WWidget::GetWorldWidgetLocationWithAlignment()
 {
-    Vector2 Size = GetSize();
+	Vector2 Size = GetSize();
 	Vector2 Location = GetWorldLocation();
 	Vector2 AlignmentLocation;
 
@@ -160,7 +160,7 @@ Vector2 WWidget::GetWorldWidgetLocationWithAlignment()
 		AlignmentLocation.y = Location.y;
 		break;
 	case EWidgetVerticalAlignment::Center:
-		AlignmentLocation.y = Location.y - Size.y/2;
+		AlignmentLocation.y = Location.y - Size.y / 2;
 		break;
 	case EWidgetVerticalAlignment::Bottom:
 		AlignmentLocation.y = Location.y - Size.y;
@@ -174,7 +174,7 @@ Vector2 WWidget::GetWorldWidgetLocationWithAlignment()
 		break;
 
 	case EWidgetHorizontalAlignment::Center:
-		AlignmentLocation.x = Location.x - Size.x/2;
+		AlignmentLocation.x = Location.x - Size.x / 2;
 		break;
 
 	case EWidgetHorizontalAlignment::Right:
@@ -191,7 +191,7 @@ Rectangle WWidget::GetWorldBoundWithAlignment()
 
 	Bound.x = Location.x;
 	Bound.y = Location.y;
-    return Bound;
+	return Bound;
 }
 
 

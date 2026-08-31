@@ -18,14 +18,17 @@
 
 void MenuScene::SceneConstruction()
 {
-	SetGameMode(std::make_unique<OTestGameMode>([this](void) { return new ATestPawn();}));
+	SetGameMode(std::make_unique<OTestGameMode>([this](void)
+	{
+		return new ATestPawn();
+	}));
 	APlayerStart* PlayerStart = new APlayerStart(Vector2(960, 540));
 	AddActorToScene(std::unique_ptr<APlayerStart>(PlayerStart));
 
 	Scene::SceneConstruction();
 	SceneManager::GetInstance().AddToViewport(std::move(std::unique_ptr<MenuHUD>(new MenuHUD())));
 
-	for (int i = -20; i < 100; ++i)	
+	for (int i = -20; i < 100; ++i)
 	{
 		ATestActor* TestActor = new ATestActor();
 		if (i % 2 == 0)
@@ -50,5 +53,5 @@ void MenuScene::Destroy()
 
 MenuScene::~MenuScene()
 {
-	
+
 }

@@ -1,5 +1,6 @@
 // Copyright deRenevo. All rights reserved.
 
+
 #include <Core/Scene/SceneManager.h>
 #include <algorithm>
 
@@ -39,7 +40,8 @@ void SceneManager::RemoveHUD(HUD* hud)
 	if (!hud) return;
 
 	auto ptr = std::find_if(HUDViewport.begin(), HUDViewport.end(),
-		[hud](const std::unique_ptr<HUD>& it) {
+		[hud](const std::unique_ptr<HUD>& it)
+		{
 			return it.get() == hud;
 		});
 
@@ -80,7 +82,7 @@ void SceneManager::Draw()
 
 Scene* SceneManager::GetScene()
 {
-    return CorrectScene.get();
+	return CorrectScene.get();
 }
 
 //=>getter and setter

@@ -9,6 +9,7 @@
 class AActor : public OObject
 {
     Vector2 ActorWorldLocation = Vector2(0,0);  
+    bool bIsHasBeginPLay = false;
 
 protected:
     virtual void PreInitializeComponents();

@@ -1,6 +1,6 @@
 // Copyright deRenevo. All rights reserved.
 
-#pragma once 
+#pragma once
 
 #include "Core/Object/Object.h"
 #include <Core/Actor/Actor.h>
@@ -10,20 +10,20 @@
 
 class OCameraComponent : public OObject
 {
-    AActor* Owner = nullptr;
-    Camera2D Camera;
+	AActor* Owner = nullptr;
+	Camera2D Camera;
 
 public:
-    OCameraComponent();
-    OCameraComponent(AActor* owner);
-    ~OCameraComponent();
+	OCameraComponent();
+	OCameraComponent(AActor* owner);
+	~OCameraComponent();
 
-    void SetOwner(AActor* owner);
-    void Tick(float DeltaTime);
+	void SetOwner(AActor* owner);
+	void Tick(float DeltaTime);
 
-    void SetCamera(const Camera2D& camera);
-    
-    Vector2 GetCameraLocation();
-    Camera2D GetCamera();
+	void SetCamera(const Camera2D& camera);
+
+	Vector2 GetCameraLocation();
+	Camera2D GetCamera();
 
 };

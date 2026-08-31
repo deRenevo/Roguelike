@@ -7,36 +7,36 @@
 
 void WContainer::OnExit()
 {
-    for (auto& child : Children)
-    {       
-        child->OnExit();
-    }
-    Children.clear();
+	for (auto& child : Children)
+	{
+		child->OnExit();
+	}
+	Children.clear();
 }
 
 void WContainer::Tick(float DeltaTime)
 {
-    WWidget::Tick(DeltaTime);
+	WWidget::Tick(DeltaTime);
 
-    for (auto& child : Children)
-    {
-        //std::cout << "Tick | child:";
-        child->DoTick(DeltaTime);
-    }
+	for (auto& child : Children)
+	{
+		//std::cout << "Tick | child:";
+		child->DoTick(DeltaTime);
+	}
 }
 
 void WContainer::Draw()
 {
-    WWidget::Draw();
-    for (auto& child : Children)
-    {
-        child->DoDraw();
-    }
+	WWidget::Draw();
+	for (auto& child : Children)
+	{
+		child->DoDraw();
+	}
 }
 
 void WContainer::Construction()
 {
-        
+
 }
 
 void WContainer::OnChildAdded(WWidget* widget)
@@ -49,34 +49,37 @@ void WContainer::OnChildAdded(WWidget* widget)
 
 void WContainer::AddChild(std::unique_ptr<WWidget> widget)
 {
-    if (!widget) return;
-    widget->SetParent(this);
-    widget->OnEnter();
-    auto* ptr = widget.get();
-    Children.push_back(std::move(widget));
-    OnChildAdded(ptr);
+	if (!widget) return;
+	widget->SetParent(this);
+	widget->OnEnter();
+	auto* ptr = widget.get();
+	Children.push_back(std::move(widget));
+	OnChildAdded(ptr);
 }
 
 
 void WContainer::RemoveChild(WWidget* widget)
 {
-    if (!widget) return;
+	if (!widget) return;
 
-    auto ptr = std::find_if(Children.begin(), Children.end(),
-        [widget](const auto& c) { return c.get() == widget; });
+	auto ptr = std::find_if(Children.begin(), Children.end(),
+		[widget](const auto& c)
+		{
+			return c.get() == widget;
+		});
 
-    if (ptr != Children.end())
-    {
-        (*ptr)->OnExit();
-        Children.erase(ptr);
-    }
+	if (ptr != Children.end())
+	{
+		(*ptr)->OnExit();
+		Children.erase(ptr);
+	}
 }
 
 void WContainer::ClearChildren()
 {
-    for (auto& child : Children)
-    {
-        child->OnExit();
-    }
-    Children.clear();
+	for (auto& child : Children)
+	{
+		child->OnExit();
+	}
+	Children.clear();
 }

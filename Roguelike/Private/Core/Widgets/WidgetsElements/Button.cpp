@@ -13,7 +13,7 @@ WButton::WButton(const char* text, Rectangle bound, std::function<void()> callba
 
 void WButton::Construction()
 {
-	
+
 }
 
 void WButton::Draw()

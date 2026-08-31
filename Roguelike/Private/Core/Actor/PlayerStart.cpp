@@ -18,5 +18,5 @@ APlayerStart::APlayerStart(Vector2 worldLocation) : AActor(worldLocation)
 
 void APlayerStart::BeginPlay()
 {
-    SceneManager::GetInstance().GetScene()->SetPlayerStart(this);
+	SceneManager::GetInstance().GetScene()->SetPlayerStart(this);
 }
