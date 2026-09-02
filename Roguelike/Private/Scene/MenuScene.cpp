@@ -29,7 +29,7 @@ void MenuScene::SceneConstruction()
 		{
 			TestActor->Col = LIME;
 		}
-		TestActor->SetActorLocation(Vector2(i * 50, 1000));
+		TestActor->SetLocation(Vector2(i * 50, 1000));
 
 		AddActorToScene(std::unique_ptr<AActor>(TestActor));
 	}

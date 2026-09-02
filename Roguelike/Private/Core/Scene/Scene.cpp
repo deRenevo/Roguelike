@@ -8,7 +8,7 @@
 
 void Scene::OnEnter()
 {
-	PreSceneConstruction();;
+	PreSceneConstruction();
 	SceneConstruction();
 	PostSceneConstruction();
 
@@ -82,9 +82,9 @@ void Scene::Destroy()
 	SetIsPendingKill();
 }
 
-std::vector<AActor *> Scene::GetActorsOnScene() const
+std::vector<AActor*> Scene::GetActorsOnScene() const
 {
-	std::vector<AActor *> Actors;
+	std::vector<AActor*> Actors;
 	for (const std::unique_ptr<AActor>& Actor : ActorsOnScene)
 	{
 		if (Actor && !Actor->GetIsPendingKill())
@@ -101,10 +101,10 @@ void Scene::RemoveActorOnScene(AActor* actor)
 	if (!actor) return;
 
 	auto It = std::find_if(ActorsOnScene.begin(), ActorsOnScene.end(),
-							[actor](const std::unique_ptr<AActor>& ptr)
-							{
-								return ptr.get() == actor;
-							});
+		[actor](const std::unique_ptr<AActor>& ptr)
+		{
+			return ptr.get() == actor;
+		});
 
 	if (It != ActorsOnScene.end())
 	{

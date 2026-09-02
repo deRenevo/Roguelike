@@ -17,7 +17,7 @@ class ATestPawn : public APawn
 {
 	virtual void Draw() override
 	{
-		DrawRectangle(GetActorLocation().x - 50 / 2, GetActorLocation().y - 50 / 2, 50, 50, RED);
+		DrawRectangle(GetLocation().x - 50 / 2, GetLocation().y - 50 / 2, 50, 50, RED);
 	};
 
 	virtual void SetupPlayerInputComponent(InputManager& inputManager) override
@@ -38,8 +38,8 @@ class ATestPawn : public APawn
 
 	virtual void Tick(float DeltaTime) override
 	{
-		Vector2 Location = GetActorLocation();
-		SetActorLocation({Location.x + InputMove.x * (bIsFastMove ? FastMoveSpeed : MoveSpeed) * DeltaTime, 
+		Vector2 Location = GetLocation();
+		SetLocation({Location.x + InputMove.x * (bIsFastMove ? FastMoveSpeed : MoveSpeed) * DeltaTime, 
 			Location.y + InputMove.y * (bIsFastMove ? FastMoveSpeed : MoveSpeed) * DeltaTime});
 
 		InputMove = {0,0};
@@ -62,7 +62,7 @@ class ATestActor : public AActor
 {
 	virtual void Draw() override
 	{
-		DrawRectangle(GetActorLocation().x, GetActorLocation().y, 50, 50, Col);
+		DrawRectangle(GetLocation().x, GetLocation().y, 50, 50, Col);
 	};
 
 public:

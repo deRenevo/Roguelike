@@ -5,20 +5,25 @@
 #include "Core/Scene/Scene.h"
 
 
-AActor::AActor() : OObject(), ActorWorldLocation({0, 0})
+AActor::AActor() : OObject()
 {
-
+	RootSceneComponent = std::make_unique<OSceneComponent>();
+	RootSceneComponent->SetOwner(this);
 }
 
-AActor::AActor(Vector2 worldLocation) : OObject(), ActorWorldLocation(worldLocation)
+AActor::AActor(Vector2 location) : OObject()
 {
-
+	RootSceneComponent = std::make_unique<OSceneComponent>();
+	RootSceneComponent->SetOwner(this);
+	RootSceneComponent->SetLocation(location);
 }
 
-AActor::AActor(Vector2 worldLocation, std::string name)
-	: OObject(name), ActorWorldLocation(worldLocation)
+AActor::AActor(const Vector2 location, const std::string& name)
+	: OObject(name)
 {
-
+	RootSceneComponent = std::make_unique<OSceneComponent>();
+	RootSceneComponent->SetOwner(this);
+	RootSceneComponent->SetLocation(location);
 }
 
 void AActor::PreInitializeComponents()
@@ -50,28 +55,43 @@ void AActor::DoInitialize()
 
 void AActor::BeginPlay()
 {
-	if (bIsHasBeginPLay) return;
-	bIsHasBeginPLay = true;
+	if (bIsHasBeginPlay) return;
+	bIsHasBeginPlay = true;
+	
+	if (RootSceneComponent)
+	{
+		RootSceneComponent->BeginPlay();
+	}
 }
 
 void AActor::Tick(float DeltaTime)
 {
-
+	if (RootSceneComponent)
+	{
+		RootSceneComponent->DoTick(DeltaTime);
+	}
 }
 
 void AActor::Draw()
 {
-
+	if (RootSceneComponent)
+	{
+		RootSceneComponent->DoDraw();
+	}
 }
 
 void AActor::EndPlay()
 {
-	if (!bIsHasBeginPLay) return;
+	if (!bIsHasBeginPlay) return;
+	
+	if (RootSceneComponent)
+	{
+		RootSceneComponent->EndPlay();
+	}
 }
 
 void AActor::DoTick(float DeltaTime)
 {
-
 	if (GetIsPendingKill()) return;
 	Tick(DeltaTime);
 }
@@ -82,12 +102,42 @@ void AActor::DoDraw()
 	Draw();
 }
 
-void AActor::SetActorLocation(const Vector2& location)
+void AActor::SetLocation(const Vector2& location) const
 {
-	ActorWorldLocation = location;
+	if (!RootSceneComponent)
+	{
+		return;
+	}
+	
+	RootSceneComponent->SetLocation(location);
 }
 
-Vector2 AActor::GetActorLocation() const
+void AActor::SetRootSceneComponent(std::unique_ptr<OSceneComponent> rootSceneComponent)
 {
-	return ActorWorldLocation;
+	if (!rootSceneComponent)
+	{
+		return;
+	}
+	
+	RootSceneComponent = std::move(rootSceneComponent);
+	RootSceneComponent->SetOwner(this);
+	if (bIsHasBeginPlay)
+	{
+		RootSceneComponent->BeginPlay();
+	}
+}
+
+Vector2 AActor::GetLocation() const
+{
+	if (!RootSceneComponent)
+	{
+		return {0,0};
+	}
+	
+	return RootSceneComponent->GetWorldLocation();
+}
+
+OSceneComponent* AActor::GetRootSceneComponent() const
+{
+	return RootSceneComponent.get();
 }

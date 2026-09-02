@@ -3,14 +3,15 @@
 #pragma once
 
 #include "Core/Object/Object.h"
+#include "Core/Component/SceneComponent.h"
 
 #include <raylib.h>
+#include <memory>
 
 class AActor : public OObject
 {
-    Vector2 ActorWorldLocation = Vector2(0,0);  
-    bool bIsHasBeginPLay = false;
-
+    bool bIsHasBeginPlay = false;
+    std::unique_ptr<OSceneComponent> RootSceneComponent = nullptr;
 protected:
     virtual void PreInitializeComponents();
     virtual void InitializeComponent();
@@ -19,7 +20,7 @@ protected:
     virtual void Tick(float DeltaTime);
     virtual void Draw();
 public:
-    AActor(Vector2 worldLocation, std::string name);
+    AActor(Vector2 worldLocation, const std::string& name);
     AActor();
     AActor(Vector2 worldLocation);
     virtual ~AActor() override;
@@ -31,7 +32,9 @@ public:
     virtual void DoTick(float DeltaTime) final;
     virtual void DoDraw() final;
 
-    void SetActorLocation(const Vector2& location);
+    void SetLocation(const Vector2& location) const;
+    void SetRootSceneComponent(std::unique_ptr<OSceneComponent> rootSceneComponent);
 
-    Vector2 GetActorLocation() const;
+    Vector2 GetLocation() const;
+    OSceneComponent* GetRootSceneComponent() const;
 };

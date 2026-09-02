@@ -47,14 +47,14 @@ void OGameMode::AddNewPlayer()
 	Vector2 StartPointLocation;
 	if (PlayerStart)
 	{
-		StartPointLocation = PlayerStart->GetActorLocation();
+		StartPointLocation = PlayerStart->GetLocation();
 	}
 	else
 	{
 		StartPointLocation = { 0, 0 };
 	}
 
-	PC->SetActorLocation(StartPointLocation); // Then using start point location
+	PC->SetLocation(StartPointLocation); // Then using start point location
 	APlayerController* RawPC = PC.get();
 	SceneManager::GetInstance().GetScene()->AddActorToScene(std::move(PC));
 
@@ -67,7 +67,7 @@ void OGameMode::AddNewPlayer()
 			return;
 		}
 
-		Pawn->SetActorLocation(StartPointLocation); // Then using start point location
+		Pawn->SetLocation(StartPointLocation); // Then using start point location
 		RawPC->Possess(Pawn.get());
 		SceneManager::GetInstance().GetScene()->AddActorToScene(std::move(Pawn));
 	}

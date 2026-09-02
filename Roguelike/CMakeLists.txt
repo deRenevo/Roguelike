@@ -56,7 +56,7 @@ target_include_directories(Roguelike PRIVATE
 target_link_libraries(Roguelike PRIVATE raylib)
 
 if (CMAKE_VERSION VERSION_GREATER 3.14)
-  set_property(TARGET Roguelike PROPERTY CXX_STANDARD 20)
+  set_property(TARGET Roguelike PROPERTY CXX_STANDARD 26)
 endif()
 
 # TODO: Добавьте тесты и целевые объекты, если это необходимо.
