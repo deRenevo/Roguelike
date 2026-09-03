@@ -10,31 +10,35 @@
 
 class AActor : public OObject
 {
-    bool bIsHasBeginPlay = false;
-    std::unique_ptr<OSceneComponent> RootSceneComponent = nullptr;
+	bool bIsHasBeginPlay = false;
+	std::unique_ptr<OSceneComponent> RootSceneComponent = nullptr;
+
 protected:
-    virtual void PreInitializeComponents();
-    virtual void InitializeComponent();
-    virtual void PostInitializeComponents();
+	virtual void PreInitializeComponents();
+	virtual void InitializeComponent();
+	virtual void PostInitializeComponents();
 
-    virtual void Tick(float DeltaTime);
-    virtual void Draw();
+	virtual void Tick(float DeltaTime);
+	virtual void Draw();
+
 public:
-    AActor(Vector2 worldLocation, const std::string& name);
-    AActor();
-    AActor(Vector2 worldLocation);
-    virtual ~AActor() override;
+	AActor();
+	AActor(const Vector2& location);
+	AActor(const std::string& name);
+	AActor(const Vector2& location, const std::string& name);
 
-    virtual void DoInitialize() final;
+	virtual ~AActor() override;
 
-    virtual void BeginPlay();
-    virtual void EndPlay();
-    virtual void DoTick(float DeltaTime) final;
-    virtual void DoDraw() final;
+	virtual void DoInitialize() final;
 
-    void SetLocation(const Vector2& location) const;
-    void SetRootSceneComponent(std::unique_ptr<OSceneComponent> rootSceneComponent);
+	virtual void BeginPlay();
+	virtual void EndPlay();
+	virtual void DoTick(float DeltaTime) final;
+	virtual void DoDraw() final;
 
-    Vector2 GetLocation() const;
-    OSceneComponent* GetRootSceneComponent() const;
+	void SetLocation(const Vector2& location) const;
+	void SetRootSceneComponent(std::unique_ptr<OSceneComponent> rootSceneComponent);
+
+	Vector2 GetLocation() const;
+	OSceneComponent* GetRootSceneComponent() const;
 };

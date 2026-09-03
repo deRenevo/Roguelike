@@ -2,12 +2,24 @@
 
 #include "Core/Component/Component.h"
 
-OComponent::OComponent(std::string name) : OObject(name)
+OComponent::OComponent() : OComponent(nullptr, "Component")
 {
+
 }
 
-OComponent::OComponent() : OObject()
+OComponent::OComponent(const std::string& name) : OComponent(nullptr, name)
 {
+
+}
+
+OComponent::OComponent(AActor* owner) : OComponent(owner, "Component")
+{
+
+}
+
+OComponent::OComponent(AActor* owner, const std::string& name) : OObject(name)
+{
+	SetOwner(owner);
 }
 
 void OComponent::DoTick(float DeltaTime)

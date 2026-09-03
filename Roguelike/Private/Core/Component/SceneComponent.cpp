@@ -1,11 +1,44 @@
 // Copyright deRenevo. All rights reserved.
 
 #include "Core/Component/SceneComponent.h"
+#include "Core/Actor/Actor.h"
 
 #include <algorithm>
+#include <print>
 #include <raylib.h>
 
-#include "Core/Actor/Actor.h"
+OSceneComponent::OSceneComponent() : OSceneComponent(nullptr, {0, 0}, "SceneComponent")
+{
+
+}
+
+OSceneComponent::OSceneComponent(const std::string& name) : OSceneComponent(nullptr, {0, 0}, name)
+{
+
+}
+
+OSceneComponent::OSceneComponent(AActor* owner) : OSceneComponent(owner, {0, 0}, "SceneComponent")
+{
+}
+
+OSceneComponent::OSceneComponent(AActor* owner, const Vector2& location) : OSceneComponent(owner, location, "SceneComponent")
+{
+}
+
+OSceneComponent::OSceneComponent(const Vector2& location, const std::string& name) : OSceneComponent(nullptr, location, name)
+{
+
+}
+
+OSceneComponent::OSceneComponent(AActor* owner, const Vector2& location, const std::string& name) : OComponent(owner, name), Location(location)
+{
+
+}
+
+OSceneComponent::~OSceneComponent()
+{
+
+}
 
 void OSceneComponent::Draw()
 {
@@ -35,21 +68,6 @@ void OSceneComponent::EndPlay()
 	}
 }
 
-OSceneComponent::OSceneComponent(const std::string& name) : OComponent(name)
-{
-
-}
-
-OSceneComponent::OSceneComponent() : OComponent()
-{
-
-}
-
-OSceneComponent::~OSceneComponent()
-{
-
-}
-
 void OSceneComponent::SetLocation(const Vector2& location)
 {
 	Location = location;
@@ -61,12 +79,12 @@ void OSceneComponent::AddChild(std::unique_ptr<OComponent> child)
 	{
 		return;
 	}
-	
+
 	if (GetOwner())
 	{
 		child->SetOwner(GetOwner());
 	}
-	
+
 	if (auto* Child = dynamic_cast<OSceneComponent*>(child.get()))
 	{
 		Child->SetParent(this);

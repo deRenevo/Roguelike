@@ -16,9 +16,11 @@ protected:
     virtual void Tick(float DeltaTime);
     virtual void Draw(); 
 public:
-
-    OComponent(std::string name);
+    
     OComponent();
+    OComponent(AActor* owner);
+    OComponent(const std::string& name);
+    OComponent(AActor* owner, const std::string& name);
 
     virtual ~OComponent() override = default;
 

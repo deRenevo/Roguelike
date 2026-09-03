@@ -4,22 +4,23 @@
 #include "Core/Scene/SceneManager.h"
 #include "Core/Scene/Scene.h"
 
-
-AActor::AActor() : OObject()
+AActor::AActor()
+	: AActor(Vector2{0, 0}, "Actor")
 {
-	RootSceneComponent = std::make_unique<OSceneComponent>();
-	RootSceneComponent->SetOwner(this);
+
 }
 
-AActor::AActor(Vector2 location) : OObject()
+AActor::AActor(const Vector2& location) : AActor(location, "Actor")
 {
-	RootSceneComponent = std::make_unique<OSceneComponent>();
-	RootSceneComponent->SetOwner(this);
-	RootSceneComponent->SetLocation(location);
+
 }
 
-AActor::AActor(const Vector2 location, const std::string& name)
-	: OObject(name)
+AActor::AActor(const std::string& name) : AActor({0, 0}, name)
+{
+}
+
+
+AActor::AActor(const Vector2& location, const std::string& name) : OObject(name)
 {
 	RootSceneComponent = std::make_unique<OSceneComponent>();
 	RootSceneComponent->SetOwner(this);
@@ -57,7 +58,7 @@ void AActor::BeginPlay()
 {
 	if (bIsHasBeginPlay) return;
 	bIsHasBeginPlay = true;
-	
+
 	if (RootSceneComponent)
 	{
 		RootSceneComponent->BeginPlay();
@@ -83,7 +84,7 @@ void AActor::Draw()
 void AActor::EndPlay()
 {
 	if (!bIsHasBeginPlay) return;
-	
+
 	if (RootSceneComponent)
 	{
 		RootSceneComponent->EndPlay();
@@ -108,7 +109,7 @@ void AActor::SetLocation(const Vector2& location) const
 	{
 		return;
 	}
-	
+
 	RootSceneComponent->SetLocation(location);
 }
 
@@ -118,7 +119,7 @@ void AActor::SetRootSceneComponent(std::unique_ptr<OSceneComponent> rootSceneCom
 	{
 		return;
 	}
-	
+
 	RootSceneComponent = std::move(rootSceneComponent);
 	RootSceneComponent->SetOwner(this);
 	if (bIsHasBeginPlay)
@@ -131,9 +132,9 @@ Vector2 AActor::GetLocation() const
 {
 	if (!RootSceneComponent)
 	{
-		return {0,0};
+		return {0, 0};
 	}
-	
+
 	return RootSceneComponent->GetWorldLocation();
 }
 

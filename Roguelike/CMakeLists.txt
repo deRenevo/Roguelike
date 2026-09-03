@@ -42,10 +42,9 @@ add_executable (Roguelike
 "Public/Core/Object/GameMode.h" "Private/Core/Object/GameMode.cpp"
 "Public/Core/Actor/PlayerController.h" "Private/Core/Actor/PlayerController.cpp"
 "Public/Core/Actor/PlayerStart.h" "Private/Core/Actor/PlayerStart.cpp"
-        Public/Core/Component/Component.h
-        Private/Core/Component/Component.cpp
-        Public/Core/Component/SceneComponent.h
-        Private/Core/Component/SceneComponent.cpp
+"Public/Core/Component/Component.h" "Private/Core/Component/Component.cpp" 
+"Public/Core/Component/SceneComponent.h" "Private/Core/Component/SceneComponent.cpp"
+"Public/Core/Component/OSpriteComponent.h" "Private/Core/Component/OSpriteComponent.cpp"
 )
 
 target_include_directories(Roguelike PRIVATE 
@@ -60,3 +59,9 @@ if (CMAKE_VERSION VERSION_GREATER 3.14)
 endif()
 
 # TODO: Добавьте тесты и целевые объекты, если это необходимо.
+
+add_custom_command(TARGET Roguelike POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${CMAKE_CURRENT_SOURCE_DIR}/Assets"
+        "$<TARGET_FILE_DIR:Roguelike>/Assets"
+)

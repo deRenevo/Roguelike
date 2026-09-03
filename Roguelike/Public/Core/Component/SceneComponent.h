@@ -21,8 +21,13 @@ protected:
 public:
 	virtual void EndPlay() override;
 
-	OSceneComponent(const std::string& name);
 	OSceneComponent();
+	OSceneComponent(const std::string& name);
+	OSceneComponent(AActor* owner);
+	OSceneComponent(AActor* owner, const Vector2& location);
+	OSceneComponent(const Vector2& location, const std::string& name);
+	OSceneComponent(AActor* owner, const Vector2& location, const std::string& name);
+	
 	virtual  ~OSceneComponent() override;
 
 	void SetLocation(const Vector2& location);
