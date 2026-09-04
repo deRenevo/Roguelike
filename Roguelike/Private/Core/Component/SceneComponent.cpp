@@ -109,29 +109,3 @@ void OSceneComponent::RemoveChild(OComponent* child)
 		Children.erase(It);
 	}
 }
-
-void OSceneComponent::SetParent(OSceneComponent* parent)
-{
-	Parent = parent;
-}
-
-Vector2 OSceneComponent::GetLocation() const
-{
-	return Location;
-}
-
-Vector2 OSceneComponent::GetWorldLocation() const
-{
-	if (Parent)
-	{
-		const Vector2 ParentLocation = Parent->GetWorldLocation();
-		return {ParentLocation.x + Location.x, ParentLocation.y + Location.y};
-	}
-
-	return Location;
-}
-
-OSceneComponent* OSceneComponent::GetParent() const
-{
-	return Parent;
-}

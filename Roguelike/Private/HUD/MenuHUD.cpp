@@ -37,7 +37,7 @@ void MenuHUD::HUDConstruction()
 		FWidgetStyle WidgetStyle;
 		WidgetStyle.WidgetHorizontalAlignment = EWidgetHorizontalAlignment::Center;
 		WidgetStyle.WidgetVerticalAlignment = EWidgetVerticalAlignment::Center;
-		TileText->SetWidgetSyle(WidgetStyle);
+		TileText->SetWidgetStyle(WidgetStyle);
 		CanvasPanel->AddChild(std::unique_ptr<WWidget>(TileText));
 	}
 
@@ -62,7 +62,7 @@ void MenuHUD::HUDConstruction()
 		WidgetStyle.WidgetHorizontalAlignment = EWidgetHorizontalAlignment::Center;
 		WidgetStyle.WidgetVerticalAlignment = EWidgetVerticalAlignment::Center;
 
-		StartButton->SetWidgetSyle(WidgetStyle);
+		StartButton->SetWidgetStyle(WidgetStyle);
 		StartButton->SetOnClick([this]()
 		{
 			std::cout << "Start clicked!\n";

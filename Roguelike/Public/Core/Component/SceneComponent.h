@@ -27,15 +27,38 @@ public:
 	OSceneComponent(AActor* owner, const Vector2& location);
 	OSceneComponent(const Vector2& location, const std::string& name);
 	OSceneComponent(AActor* owner, const Vector2& location, const std::string& name);
-	
-	virtual  ~OSceneComponent() override;
+
+	virtual ~OSceneComponent() override;
 
 	void SetLocation(const Vector2& location);
 	void AddChild(std::unique_ptr<OComponent> child);
 	void RemoveChild(OComponent* child);
-	void SetParent(OSceneComponent* parent);
 
-	Vector2 GetLocation() const;
-	Vector2 GetWorldLocation() const;
-	OSceneComponent* GetParent() const;
+	//setters
+	void SetParent(OSceneComponent* parent)
+	{
+		Parent = parent;
+	}
+
+	//getters
+	Vector2 GetLocation() const
+	{
+		return Location;
+	}
+
+	Vector2 GetWorldLocation() const
+	{
+		if (Parent)
+		{
+			const Vector2 ParentLocation = Parent->GetWorldLocation();
+			return {ParentLocation.x + Location.x, ParentLocation.y + Location.y};
+		}
+
+		return Location;
+	}
+
+	OSceneComponent* GetParent() const
+	{
+		return Parent;
+	}
 };

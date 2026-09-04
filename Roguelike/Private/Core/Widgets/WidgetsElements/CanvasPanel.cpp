@@ -6,13 +6,7 @@
 void WCanvasPanel::Construction()
 {
 	std::cout << "CanvasPanel::Construction" << std::endl;
-	Rectangle Bound =
-	{
-		0,
-		0,
-		GetScreenWidth(),
-		GetScreenHeight()
-	};
+	Rectangle Bound = Rectangle(0, 0, GetScreenWidth(), GetScreenHeight());
 	SetBound(Bound);
 }
 

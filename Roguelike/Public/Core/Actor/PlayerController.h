@@ -9,17 +9,18 @@ class InputManager;
 
 class APlayerController : public AActor
 {
-    APawn* PlayerPawn = nullptr;
+	APawn* PlayerPawn = nullptr;
+
 protected:
-    virtual void SetupPlayerInputComponent(InputManager& inputManager);
+	virtual void SetupPlayerInputComponent(InputManager& inputManager);
 
 public:
-    APlayerController();
-    APlayerController(Vector2 worldLocation);
-    APlayerController(Vector2 worldLocation, std::string name);
+	APlayerController();
+	APlayerController(Vector2 worldLocation);
+	APlayerController(Vector2 worldLocation, std::string name);
 
-    virtual void BeginPlay();
+	virtual void BeginPlay() override;
 
-    void Possess(APawn* pawn);
-    void UnPossess();
+	void Possess(APawn* pawn);
+	void UnPossess();
 };

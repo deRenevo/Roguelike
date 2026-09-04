@@ -25,13 +25,13 @@ void Scene::OnExit()
 
 void Scene::DoTick(float DeltaTime)
 {
-	if (GetIsPendingKill()) return; // if sttarting process deleting object thet stop Function 
+	if (GetIsPendingKill()) return; // if starting process deleting object thet stop Function 
 	Tick(DeltaTime);
 }
 
 void Scene::DoDraw()
 {
-	if (GetIsPendingKill()) return; // if sttarting process deleting object thet stop Function 
+	if (GetIsPendingKill()) return; // if starting process deleting object thet stop Function 
 
 	if (RootCameraComponent)
 	{
@@ -113,12 +113,6 @@ void Scene::RemoveActorOnScene(AActor* actor)
 	}
 }
 
-void Scene::SetRootCameraComponent(OCameraComponent* rootCameraComponent)
-{
-	printf("SetCamera\n");
-	RootCameraComponent = rootCameraComponent;
-}
-
 void Scene::AddActorToScene(std::unique_ptr<AActor> actor)
 {
 	if (!actor)
@@ -130,24 +124,4 @@ void Scene::AddActorToScene(std::unique_ptr<AActor> actor)
 	actor->DoInitialize();
 	actor->BeginPlay();
 	ActorsOnScene.push_back(std::move(actor));
-}
-
-void Scene::SetGameMode(std::unique_ptr<OGameMode> gameMode)
-{
-	GameMode = std::move(gameMode);
-}
-
-void Scene::SetPlayerStart(APlayerStart* playerStart)
-{
-	PlayerStart = playerStart;
-}
-
-OGameMode* Scene::GetGameMode()
-{
-	return GameMode.get();
-}
-
-APlayerStart* Scene::GetPlayerStart()
-{
-	return PlayerStart;
 }

@@ -8,33 +8,48 @@ class AActor;
 
 class OComponent : public OObject
 {
-    AActor* Owner = nullptr;
-    bool bIsActive = true;
-    bool bIsHasBeginPlay = false;
+	AActor* Owner = nullptr;
+	bool bIsActive = true;
+	bool bIsHasBeginPlay = false;
 
 protected:
-    virtual void Tick(float DeltaTime);
-    virtual void Draw(); 
+	virtual void Tick(float DeltaTime);
+	virtual void Draw();
+
 public:
-    
-    OComponent();
-    OComponent(AActor* owner);
-    OComponent(const std::string& name);
-    OComponent(AActor* owner, const std::string& name);
+	OComponent();
+	OComponent(AActor* owner);
+	OComponent(const std::string& name);
+	OComponent(AActor* owner, const std::string& name);
 
-    virtual ~OComponent() override = default;
+	virtual ~OComponent() override = default;
 
-    virtual void DoTick(float DeltaTime);
-    virtual void DoDraw();
-    virtual void BeginPlay();
-    virtual void EndPlay();
-    virtual void OnAttach();
-    virtual void OnDetach();
+	virtual void DoTick(float DeltaTime);
+	virtual void DoDraw();
+	virtual void BeginPlay();
+	virtual void EndPlay();
+	virtual void OnAttach();
+	virtual void OnDetach();
 
+	//setters
+	void SetOwner(AActor* owner)
+	{
+		Owner = owner;
+	}
 
-    void SetOwner(AActor* owner);
-    void SetIsActive(bool isActive);
+	void SetIsActive(bool isActive)
+	{
+		bIsActive = isActive;
+	}
 
-    AActor* GetOwner() const;
-    bool IsActive() const;
+	//getters
+	AActor* GetOwner() const
+	{
+		return Owner;
+	}
+
+	bool IsActive() const
+	{
+		return bIsActive;
+	}
 };

@@ -103,16 +103,6 @@ void AActor::DoDraw()
 	Draw();
 }
 
-void AActor::SetLocation(const Vector2& location) const
-{
-	if (!RootSceneComponent)
-	{
-		return;
-	}
-
-	RootSceneComponent->SetLocation(location);
-}
-
 void AActor::SetRootSceneComponent(std::unique_ptr<OSceneComponent> rootSceneComponent)
 {
 	if (!rootSceneComponent)
@@ -126,19 +116,4 @@ void AActor::SetRootSceneComponent(std::unique_ptr<OSceneComponent> rootSceneCom
 	{
 		RootSceneComponent->BeginPlay();
 	}
-}
-
-Vector2 AActor::GetLocation() const
-{
-	if (!RootSceneComponent)
-	{
-		return {0, 0};
-	}
-
-	return RootSceneComponent->GetWorldLocation();
-}
-
-OSceneComponent* AActor::GetRootSceneComponent() const
-{
-	return RootSceneComponent.get();
 }

@@ -17,12 +17,33 @@ public:
 	OCameraComponent(AActor* owner);
 	~OCameraComponent();
 
-	void SetOwner(AActor* owner);
 	void Tick(float DeltaTime);
 
-	void SetCamera(const Camera2D& camera);
+	//setters
+	void SetCamera(const Camera2D& camera)
+	{
+		Camera = camera;
+	}
 
-	Vector2 GetCameraLocation();
-	Camera2D GetCamera();
+	void SetOwner(AActor* owner)
+	{
+		Owner = owner;
+	}
+
+	//getters
+	Vector2 GetCameraLocation() const
+	{
+		if (!Owner)
+		{
+			return {0, 0};
+		}
+
+		return Owner->GetLocation();
+	}
+
+	Camera2D GetCamera() const
+	{
+		return Camera;
+	}
 
 };

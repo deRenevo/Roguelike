@@ -11,25 +11,34 @@
 
 class APawn : public AActor
 {
-    std::unique_ptr<OCameraComponent> RootCameraComponent;
-    APlayerController* OwnerPlayerController = nullptr;
+	std::unique_ptr<OCameraComponent> RootCameraComponent;
+	APlayerController* OwnerPlayerController = nullptr;
 
 protected:
-    virtual void Tick(float DeltaTime) override;
+	virtual void Tick(float DeltaTime) override;
 
 public:
+	APawn();
+	APawn(Vector2 worldLocation);
+	APawn(Vector2 worldLocation, const std::string& name);
+	virtual void SetupPlayerInputComponent(InputManager& inputManager);
 
-    APawn();
-    APawn(Vector2 worldLocation);
-    APawn(Vector2 worldLocation, std::string name);
-    virtual void SetupPlayerInputComponent(InputManager& inputManager);
+	virtual void BeginPlay() override;
 
-    virtual void BeginPlay() override;
+	void PossessedBy(APlayerController* playerController);
+	void UnPossessed();
 
-    void PossessedBy(APlayerController* playerController);
-    void UnPossessed();
+	//setters
+	void SetRootCameraComponent(std::unique_ptr<OCameraComponent> rootCameraComponent);
 
-    void SetRootCameraComponent(std::unique_ptr<OCameraComponent> rootCameraComponent);
-    OCameraComponent* GetRootCameraComponent();
-    bool HasRootCameraComponent();
+	//getters
+	bool HasRootCameraComponent() const
+	{
+		return RootCameraComponent != nullptr;
+	}
+
+	OCameraComponent* GetRootCameraComponent() const
+	{
+		return RootCameraComponent.get();
+	}
 };

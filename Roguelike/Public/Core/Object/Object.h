@@ -24,8 +24,25 @@ public:
     OObject();
     virtual ~OObject();
 
-    void SetIsPendingKill();
-    std::string GetObjectName() const;
-    int GetUniqueId() const;
-    bool GetIsPendingKill() const;
+    //setters
+    void SetIsPendingKill()
+    {
+        bIsPendingKill = true;
+    }
+    
+    //getters
+    std::string GetObjectName() const
+    {
+        return ObjectName;    
+    }
+    
+    int GetUniqueId() const
+    {
+        return UniqueId;
+    }
+    
+    bool GetIsPendingKill() const
+    {
+        return bIsPendingKill;
+    }
 };

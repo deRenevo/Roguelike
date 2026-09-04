@@ -8,29 +8,41 @@
 
 class HUD
 {
-    std::unique_ptr<WWidget> RootWidget;
-    bool bIsVisible = true;
-    bool bIsInitialized = false;
+	std::unique_ptr<WWidget> RootWidget;
+	bool bIsVisible = true;
+	bool bIsInitialized = false;
 
 public:
-    HUD() = default;
-    virtual ~HUD() = default;
-    virtual void DoTick(float DeltaTime);
-    virtual void DoDraw();
-    void OnEnter(); // -> Loading resources
-    virtual void OnExit(); // -> Cleaning up resources
+	HUD() = default;
+	virtual ~HUD() = default;
+	virtual void DoTick(float DeltaTime);
+	virtual void DoDraw();
+	void OnEnter(); // -> Loading resources
+	virtual void OnExit(); // -> Cleaning up resources
 
 protected:
-    virtual void HUDConstruction(); //-> processed when changing priced
-    virtual void PreHUDConstruction(); //-> processed before SceneConstruction
-    virtual void PostHUDConstruction(); //-> processed after SceneConstruction
-    virtual void Tick(float DeltaTime); //-> every frame is processed
-    virtual void Draw();
+	virtual void HUDConstruction(); //-> processed when changing priced
+	virtual void PreHUDConstruction(); //-> processed before SceneConstruction
+	virtual void PostHUDConstruction(); //-> processed after SceneConstruction
+	virtual void Tick(float DeltaTime); //-> every frame is processed
+	virtual void Draw();
 
-    
-    void SetRootWidget(std::unique_ptr<WWidget> rootWidget);
-    void SetIsVisible(bool isVisible);
 
-    WWidget* GetRootWidget();
-    bool GetIsVisible();
+	//setters
+	void SetRootWidget(std::unique_ptr<WWidget> rootWidget);
+	void SetIsVisible(bool isVisible)
+	{
+		bIsVisible = isVisible;
+	}
+
+	//getters
+	WWidget* GetRootWidget() const
+	{
+		return RootWidget.get();
+	}
+	
+	bool GetIsVisible() const
+	{
+		return bIsVisible;
+	}
 };

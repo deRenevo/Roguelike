@@ -11,17 +11,17 @@ class APlayerController;
 
 class OGameMode : public OObject
 {
-    std::function<APawn*()> PawnClass;
-    std::function<APlayerController*()> ControllerClass;
+	std::function<APawn*()> PawnClass;
+	std::function<APlayerController*()> ControllerClass;
 
 public:
-    OGameMode() = default;
-    OGameMode(std::function<APlayerController*()> controllerClass);
-    OGameMode(std::function<APlayerController*()> controllerClass, std::function<APawn*()> pawnClass);
+	OGameMode() = default;
+	OGameMode(std::function<APlayerController*()> controllerClass);
+	OGameMode(std::function<APlayerController*()> controllerClass, std::function<APawn*()> pawnClass);
 
-    virtual void BeginPlay();
-    virtual void EndPlay();
+	virtual void BeginPlay();
+	virtual void EndPlay();
 
-    virtual void RestartPlayer();
-    virtual void AddNewPlayer();
+	virtual void RestartPlayer();
+	virtual void AddNewPlayer();
 };

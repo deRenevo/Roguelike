@@ -5,9 +5,9 @@
 
 void APawn::SetupPlayerInputComponent(InputManager& inputManager)
 {
-	//Test function. Procsessing input used global input system for Test input system.
-	//Next rework system (Player controler for input constrol)
-	//Test system using Instance class Input menager 
+	//Test function. Processing input used global input system for Test input system.
+	//Next rework system (Player controller for input control)
+	//Test system using Instance class Input manager 
 }
 
 void APawn::Tick(float DeltaTime)
@@ -28,7 +28,7 @@ APawn::APawn(Vector2 worldLocation) : AActor(worldLocation)
 	RootCameraComponent = std::make_unique<OCameraComponent>();
 }
 
-APawn::APawn(Vector2 worldLocation, std::string name) : AActor(worldLocation, name)
+APawn::APawn(Vector2 worldLocation, const std::string& name) : AActor(worldLocation, name)
 {
 	RootCameraComponent = std::make_unique<OCameraComponent>();
 }
@@ -65,14 +65,4 @@ void APawn::SetRootCameraComponent(std::unique_ptr<OCameraComponent> rootCameraC
 	}
 
 	SceneManager::GetInstance().GetScene()->SetRootCameraComponent(RootCameraComponent.get());
-}
-
-OCameraComponent* APawn::GetRootCameraComponent()
-{
-	return RootCameraComponent.get();
-}
-
-bool APawn::HasRootCameraComponent()
-{
-	return RootCameraComponent != nullptr;
 }

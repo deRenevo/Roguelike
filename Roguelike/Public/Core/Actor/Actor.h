@@ -36,9 +36,27 @@ public:
 	virtual void DoTick(float DeltaTime) final;
 	virtual void DoDraw() final;
 
-	void SetLocation(const Vector2& location) const;
 	void SetRootSceneComponent(std::unique_ptr<OSceneComponent> rootSceneComponent);
 
-	Vector2 GetLocation() const;
-	OSceneComponent* GetRootSceneComponent() const;
+	//setters
+	void SetLocation(const Vector2& location)
+	{
+		RootSceneComponent->SetLocation(location);
+	}
+
+	//getters
+	Vector2 GetLocation() const
+	{
+		if (!RootSceneComponent)
+		{
+			return {0, 0};
+		}
+
+		return RootSceneComponent->GetWorldLocation();
+	}
+
+	OSceneComponent* GetRootSceneComponent() const
+	{
+		return RootSceneComponent.get();
+	}
 };

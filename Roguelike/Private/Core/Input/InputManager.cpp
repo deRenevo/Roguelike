@@ -53,7 +53,7 @@ void InputManager::SubscribeKey(KeyboardKey key, EInputType inputType, std::func
 	SubscribedKey.push_back(Action);
 }
 
-void InputManager::ClearSubscribtionKey()
+void InputManager::ClearSubscriptionKey()
 {
 	SubscribedKey.clear();
 }

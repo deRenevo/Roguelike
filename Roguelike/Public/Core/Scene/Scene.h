@@ -18,7 +18,7 @@ class Scene : public OObject
 	OCameraComponent* RootCameraComponent;
 	APlayerStart* PlayerStart;
 	std::unique_ptr<OGameMode> GameMode;
-	
+
 public:
 	Scene() = default;
 	virtual ~Scene() = default;
@@ -39,15 +39,35 @@ protected:
 	virtual void Destroy();
 
 public:
-	void AddActorToScene(std::unique_ptr<AActor>  actor);
-	std::vector<AActor*> GetActorsOnScene() const;
+	void AddActorToScene(std::unique_ptr<AActor> actor);
 	void RemoveActorOnScene(AActor* actor);
 
-	void SetRootCameraComponent(OCameraComponent* rootCameraComponent);
-	void SetGameMode(std::unique_ptr<OGameMode> gameMode);
-	void SetPlayerStart(APlayerStart* playerStart);
+	//setters
+	std::vector<AActor*> GetActorsOnScene() const;
 
-	OGameMode* GetGameMode();
-	APlayerStart* GetPlayerStart();
-	
+	void SetRootCameraComponent(OCameraComponent* rootCameraComponent)
+	{
+		RootCameraComponent = rootCameraComponent;
+	}
+
+	void SetGameMode(std::unique_ptr<OGameMode> gameMode)
+	{
+		GameMode = std::move(gameMode);
+	}
+
+	void SetPlayerStart(APlayerStart* playerStart)
+	{
+		PlayerStart = playerStart;
+	}
+
+	//getters
+	OGameMode* GetGameMode() const
+	{
+		return GameMode.get();
+	}
+
+	APlayerStart* GetPlayerStart() const
+	{
+		return PlayerStart;
+	}
 };

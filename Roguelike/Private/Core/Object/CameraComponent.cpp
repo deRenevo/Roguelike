@@ -23,35 +23,10 @@ OCameraComponent::~OCameraComponent()
 	Camera.zoom = 1.0f;
 }
 
-void OCameraComponent::SetOwner(AActor* owner)
-{
-	Owner = owner;
-}
-
 void OCameraComponent::Tick(float DeltaTime)
 {
 	if (!Owner) return;
 
 	Vector2 ownerPos = Owner->GetLocation();
 	Camera.target = ownerPos;
-}
-
-void OCameraComponent::SetCamera(const Camera2D& camera)
-{
-	Camera = camera;
-}
-
-Vector2 OCameraComponent::GetCameraLocation()
-{
-	if (!Owner)
-	{
-		return {0, 0};
-	}
-
-	return Owner->GetLocation();
-}
-
-Camera2D OCameraComponent::GetCamera()
-{
-	return Camera;
 }

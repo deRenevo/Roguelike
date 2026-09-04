@@ -60,23 +60,3 @@ void OComponent::Tick(float DeltaTime)
 void OComponent::Draw()
 {
 }
-
-void OComponent::SetOwner(AActor* owner)
-{
-	Owner = owner;
-}
-
-void OComponent::SetIsActive(bool isActive)
-{
-	bIsActive = isActive;
-}
-
-AActor* OComponent::GetOwner() const
-{
-	return Owner;
-}
-
-bool OComponent::IsActive() const
-{
-	return bIsActive;
-}

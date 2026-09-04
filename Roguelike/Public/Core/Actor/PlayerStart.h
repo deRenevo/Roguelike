@@ -7,9 +7,9 @@
 class APlayerStart : public AActor
 {
 public:
-   APlayerStart();
-   APlayerStart(Vector2 worldLocation, std::string name);
-   APlayerStart(Vector2 worldLocation);
+	APlayerStart();
+	APlayerStart(Vector2 worldLocation, std::string name);
+	APlayerStart(Vector2 worldLocation);
 
-   virtual void BeginPlay() override;
+	virtual void BeginPlay() override;
 };

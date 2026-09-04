@@ -63,8 +63,6 @@ void HUD::PostHUDConstruction()
 
 void HUD::SetRootWidget(std::unique_ptr<WWidget> rootWidget)
 {
-	std::cout << "SetRootWidget";
-
 	if (!rootWidget)
 	{
 		return;
@@ -72,19 +70,4 @@ void HUD::SetRootWidget(std::unique_ptr<WWidget> rootWidget)
 
 	RootWidget.swap(rootWidget);
 	RootWidget->OnEnter();
-}
-
-void HUD::SetIsVisible(bool isVisible)
-{
-	bIsVisible = isVisible;
-}
-
-WWidget* HUD::GetRootWidget()
-{
-	return RootWidget.get();
-}
-
-bool HUD::GetIsVisible()
-{
-	return bIsVisible;
 }

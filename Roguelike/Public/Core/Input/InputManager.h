@@ -43,5 +43,5 @@ public:
     void Tick();
 
     void SubscribeKey(KeyboardKey key, EInputType inputType, std::function<void(void)> function);
-    void ClearSubscribtionKey();
+    void ClearSubscriptionKey();
 };

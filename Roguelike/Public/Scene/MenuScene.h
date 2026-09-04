@@ -99,10 +99,7 @@ class OTestGameMode : public OGameMode
 {
 
 public:
-	OTestGameMode(std::function<APawn*()> pawnClass) : OGameMode([]()
-	{
-		return new APlayerController();
-	}, pawnClass)
+	OTestGameMode(std::function<APawn*()> pawnClass) : OGameMode([](void){return new APlayerController();}, pawnClass)
 	{
 
 	};

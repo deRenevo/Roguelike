@@ -14,28 +14,8 @@ OSpriteComponent::~OSpriteComponent()
 {
 	if (IsTextureValid(Texture))
 	{
-		::UnloadTexture(Texture);
+		UnloadTexture(Texture);
 	}
-}
-
-void OSpriteComponent::SetTexture(const Texture2D& texture)
-{
-	Texture = texture;
-}
-
-void OSpriteComponent::LoadTexture(const std::string& texturePath)
-{
-	SetTexture(::LoadTexture(texturePath.c_str()));
-}
-
-void OSpriteComponent::SetSpriteAlignment(const Vector2& spriteAlignment)
-{
-	SpriteAlignment = spriteAlignment;
-}
-
-Texture2D OSpriteComponent::GetTexture() const
-{
-	return Texture;
 }
 
 void OSpriteComponent::Draw()
