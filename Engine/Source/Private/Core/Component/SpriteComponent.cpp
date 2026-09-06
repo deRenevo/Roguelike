@@ -22,8 +22,8 @@ void OSpriteComponent::Draw()
 {
 	if (IsTextureValid(Texture))
 	{
-		Vector2 Location = GetWorldLocation();
-		DrawTexture(Texture, Location.x + SpriteAlignment.x, Location.y + SpriteAlignment.y, WHITE);
+		FVector2D Location = GetWorldLocation();
+		DrawTexture(Texture, Location.X + SpriteAlignment.X, Location.Y + SpriteAlignment.Y, WHITE);
 	}
 	OSceneComponent::Draw();
 }

@@ -3,16 +3,15 @@
 #pragma once
 
 #include "Core/Component/Component.h"
+#include "Core/Math/Vector2D.h"
 
-#include <raylib.h>
 #include <memory>
-
 
 class OSceneComponent : public OComponent
 {
 	std::vector<std::unique_ptr<OComponent>> Children;
 	OSceneComponent* Parent = nullptr;
-	Vector2 Location = Vector2(0, 0);
+	FVector2D Location = FVector2D(0, 0);
 
 protected:
 	virtual void Draw() override;
@@ -24,13 +23,13 @@ public:
 	OSceneComponent();
 	OSceneComponent(const std::string& name);
 	OSceneComponent(AActor* owner);
-	OSceneComponent(AActor* owner, const Vector2& location);
-	OSceneComponent(const Vector2& location, const std::string& name);
-	OSceneComponent(AActor* owner, const Vector2& location, const std::string& name);
+	OSceneComponent(AActor* owner, const FVector2D& location);
+	OSceneComponent(const FVector2D& location, const std::string& name);
+	OSceneComponent(AActor* owner, const FVector2D& location, const std::string& name);
 
 	virtual ~OSceneComponent() override;
 
-	void SetLocation(const Vector2& location);
+	void SetLocation(const FVector2D& location);
 	void AddChild(std::unique_ptr<OComponent> child);
 	void RemoveChild(OComponent* child);
 
@@ -41,17 +40,17 @@ public:
 	}
 
 	//getters
-	Vector2 GetLocation() const
+	FVector2D GetLocation() const
 	{
 		return Location;
 	}
 
-	Vector2 GetWorldLocation() const
+	FVector2D GetWorldLocation() const
 	{
 		if (Parent)
 		{
-			const Vector2 ParentLocation = Parent->GetWorldLocation();
-			return {ParentLocation.x + Location.x, ParentLocation.y + Location.y};
+			const FVector2D ParentLocation = Parent->GetWorldLocation();
+			return {ParentLocation.X + Location.X, ParentLocation.Y + Location.Y};
 		}
 
 		return Location;

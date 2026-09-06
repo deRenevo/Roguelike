@@ -5,7 +5,6 @@
 
 #include <algorithm>
 #include <print>
-#include <raylib.h>
 
 OSceneComponent::OSceneComponent() : OSceneComponent(nullptr, {0, 0}, "SceneComponent")
 {
@@ -21,16 +20,16 @@ OSceneComponent::OSceneComponent(AActor* owner) : OSceneComponent(owner, {0, 0},
 {
 }
 
-OSceneComponent::OSceneComponent(AActor* owner, const Vector2& location) : OSceneComponent(owner, location, "SceneComponent")
+OSceneComponent::OSceneComponent(AActor* owner, const FVector2D& location) : OSceneComponent(owner, location, "SceneComponent")
 {
 }
 
-OSceneComponent::OSceneComponent(const Vector2& location, const std::string& name) : OSceneComponent(nullptr, location, name)
+OSceneComponent::OSceneComponent(const FVector2D& location, const std::string& name) : OSceneComponent(nullptr, location, name)
 {
 
 }
 
-OSceneComponent::OSceneComponent(AActor* owner, const Vector2& location, const std::string& name) : OComponent(owner, name), Location(location)
+OSceneComponent::OSceneComponent(AActor* owner, const FVector2D& location, const std::string& name) : OComponent(owner, name), Location(location)
 {
 
 }
@@ -68,7 +67,7 @@ void OSceneComponent::EndPlay()
 	}
 }
 
-void OSceneComponent::SetLocation(const Vector2& location)
+void OSceneComponent::SetLocation(const FVector2D& location)
 {
 	Location = location;
 }

@@ -27,6 +27,6 @@ void OCameraComponent::Tick(float DeltaTime)
 {
 	if (!Owner) return;
 
-	Vector2 ownerPos = Owner->GetLocation();
+	FVector2D ownerPos = Owner->GetLocation();
 	Camera.target = ownerPos;
 }

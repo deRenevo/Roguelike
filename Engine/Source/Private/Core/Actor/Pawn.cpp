@@ -23,12 +23,12 @@ APawn::APawn() : AActor()
 	RootCameraComponent = std::make_unique<OCameraComponent>();
 }
 
-APawn::APawn(Vector2 worldLocation) : AActor(worldLocation)
+APawn::APawn(FVector2D worldLocation) : AActor(worldLocation)
 {
 	RootCameraComponent = std::make_unique<OCameraComponent>();
 }
 
-APawn::APawn(Vector2 worldLocation, const std::string& name) : AActor(worldLocation, name)
+APawn::APawn(FVector2D worldLocation, const std::string& name) : AActor(worldLocation, name)
 {
 	RootCameraComponent = std::make_unique<OCameraComponent>();
 }

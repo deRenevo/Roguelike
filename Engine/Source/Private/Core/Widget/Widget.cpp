@@ -17,9 +17,9 @@ void WWidget::Tick(float DeltaTime)
 
 }
 
-Vector2 WWidget::AutoSize()
+FVector2D WWidget::AutoSize()
 {
-	return Vector2(0, 0);
+	return FVector2D(0, 0);
 }
 
 void WWidget::Draw()
@@ -41,37 +41,37 @@ void WWidget::DoDraw()
 	Draw();
 }
 
-Vector2 WWidget::GetWorldWidgetLocationWithAlignment()
+FVector2D WWidget::GetWorldWidgetLocationWithAlignment()
 {
-	Vector2 Size = GetSize();
-	Vector2 Location = GetWorldLocation();
-	Vector2 AlignmentLocation = {};
+	FVector2D Size = GetSize();
+	FVector2D Location = GetWorldLocation();
+	FVector2D AlignmentLocation = {};
 
 	switch (WidgetStyle.WidgetVerticalAlignment)
 	{
 	case EWidgetVerticalAlignment::Top:
-		AlignmentLocation.y = Location.y;
+		AlignmentLocation.Y= Location.Y;
 		break;
 	case EWidgetVerticalAlignment::Center:
-		AlignmentLocation.y = Location.y - Size.y / 2;
+		AlignmentLocation.Y = Location.Y - Size.Y / 2;
 		break;
 	case EWidgetVerticalAlignment::Bottom:
-		AlignmentLocation.y = Location.y - Size.y;
+		AlignmentLocation.Y = Location.Y - Size.Y;
 		break;
 	}
 
 	switch (WidgetStyle.WidgetHorizontalAlignment)
 	{
 	case EWidgetHorizontalAlignment::Left:
-		AlignmentLocation.x = Location.x;
+		AlignmentLocation.X = Location.X;
 		break;
 
 	case EWidgetHorizontalAlignment::Center:
-		AlignmentLocation.x = Location.x - Size.x / 2;
+		AlignmentLocation.X = Location.X - Size.X / 2;
 		break;
 
 	case EWidgetHorizontalAlignment::Right:
-		AlignmentLocation.x = Location.x - Size.x;
+		AlignmentLocation.X = Location.X - Size.X;
 		break;
 	}
 	return AlignmentLocation;

@@ -16,8 +16,8 @@ protected:
 
 public:
 	APlayerController();
-	APlayerController(Vector2 worldLocation);
-	APlayerController(Vector2 worldLocation, std::string name);
+	APlayerController(FVector2D worldLocation);
+	APlayerController(FVector2D worldLocation, std::string name);
 
 	virtual void BeginPlay() override;
 

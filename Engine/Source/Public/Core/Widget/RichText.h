@@ -9,6 +9,8 @@
 #include <vector>
 #include <cstddef>
 
+#include "Core/Math/Vector2D.h"
+
 
 enum class ERichTag
 {
@@ -30,8 +32,8 @@ class WRichText : public WWidget
 {
 public:
     WRichText(const std::string& Text, const FRichTextStyle& Style = FRichTextStyle());
-    WRichText(const std::string& Text, Rectangle& Bound, const FRichTextStyle& Style = FRichTextStyle());
-    WRichText(const std::string& Text, Vector2& Location, const FRichTextStyle& Style = FRichTextStyle());
+    WRichText(const std::string& Text, const Rectangle& bound, const FRichTextStyle& Style = FRichTextStyle());
+    WRichText(const std::string& Text, const FVector2D& location, const FRichTextStyle& Style = FRichTextStyle());
 
     ~WRichText() override = default;
 
@@ -41,7 +43,7 @@ public:
 protected:
     virtual void Draw() override;
     virtual void Construction() override {};
-    virtual Vector2 AutoSize() override;
+    virtual FVector2D AutoSize() override;
 
 private:
     struct FLayoutPart
@@ -59,15 +61,15 @@ private:
         int Height = 0;
     };
 
-    ERichTag CheckTag(const std::string& tagText);
+    static ERichTag CheckTag(const std::string& tagText);
 
-    Color CheckColorTagValue(const std::string& tagValueText);
+    static Color CheckColorTagValue(const std::string& tagValueText);
 
     void AppendText(const std::string& text, const FRichTextSegmentStyle& style);
 
-    bool ApplyTag(const std::string& tagText, FRichTextSegmentStyle& currentStyle);
+    static bool ApplyTag(const std::string& tagText, FRichTextSegmentStyle& currentStyle);
 
-    bool ApplyTagPart(const std::string& tagPart, FRichTextSegmentStyle& currentStyle);
+    static bool ApplyTagPart(const std::string& tagPart, FRichTextSegmentStyle& currentStyle);
 
     void MarkLayoutDirty();
     void RebuildLayout();

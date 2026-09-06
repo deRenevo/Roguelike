@@ -4,7 +4,6 @@
 
 #include "Core/Actor/Actor.h"
 #include "Core/Actor/PlayerController.h"
-#include "Core/Input/InputManager.h"
 #include "Core/Object/CameraComponent.h"
 
 #include <memory>
@@ -19,8 +18,8 @@ protected:
 
 public:
 	APawn();
-	APawn(Vector2 worldLocation);
-	APawn(Vector2 worldLocation, const std::string& name);
+	APawn(FVector2D worldLocation);
+	APawn(FVector2D worldLocation, const std::string& name);
 	virtual void SetupPlayerInputComponent(InputManager& inputManager);
 
 	virtual void BeginPlay() override;

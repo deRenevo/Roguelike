@@ -8,8 +8,8 @@ class APlayerStart : public AActor
 {
 public:
 	APlayerStart();
-	APlayerStart(Vector2 worldLocation, std::string name);
-	APlayerStart(Vector2 worldLocation);
+	APlayerStart(FVector2D worldLocation, std::string name);
+	APlayerStart(FVector2D worldLocation);
 
 	virtual void BeginPlay() override;
 };

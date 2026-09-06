@@ -5,12 +5,12 @@
 #include "Core/Scene/Scene.h"
 
 AActor::AActor()
-	: AActor(Vector2{0, 0}, "Actor")
+	: AActor(FVector2D{0, 0}, "Actor")
 {
 
 }
 
-AActor::AActor(const Vector2& location) : AActor(location, "Actor")
+AActor::AActor(const FVector2D& location) : AActor(location, "Actor")
 {
 
 }
@@ -20,7 +20,7 @@ AActor::AActor(const std::string& name) : AActor({0, 0}, name)
 }
 
 
-AActor::AActor(const Vector2& location, const std::string& name) : OObject(name)
+AActor::AActor(const FVector2D& location, const std::string& name) : OObject(name)
 {
 	RootSceneComponent = std::make_unique<OSceneComponent>();
 	RootSceneComponent->SetOwner(this);

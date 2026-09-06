@@ -5,7 +5,6 @@
 #include "Core/Object/Object.h"
 #include "Core/Actor/Actor.h"
 
-#include <raylib.h>
 
 class OCameraComponent : public OObject
 {
@@ -15,7 +14,7 @@ class OCameraComponent : public OObject
 public:
 	OCameraComponent();
 	OCameraComponent(AActor* owner);
-	~OCameraComponent();
+	virtual  ~OCameraComponent() override;
 
 	void Tick(float DeltaTime);
 
@@ -31,7 +30,7 @@ public:
 	}
 
 	//getters
-	Vector2 GetCameraLocation() const
+	FVector2D GetCameraLocation() const
 	{
 		if (!Owner)
 		{

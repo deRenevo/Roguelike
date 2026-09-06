@@ -4,12 +4,10 @@
 
 #include <Core/Component/SceneComponent.h>
 
-#include <raylib.h>
-
 class OSpriteComponent : public OSceneComponent
 {
 	Texture2D Texture = {};
-	Vector2 SpriteAlignment = {0, 0};
+	FVector2D SpriteAlignment = {0, 0};
 
 protected:
 	virtual void Draw() override;
@@ -31,7 +29,7 @@ public:
 		SetTexture(::LoadTexture(texturePath.c_str()));
 	}
 
-	void SetSpriteAlignment(const Vector2& spriteAlignment)
+	void SetSpriteAlignment(const FVector2D& spriteAlignment)
 	{
 		SpriteAlignment = spriteAlignment;
 	}

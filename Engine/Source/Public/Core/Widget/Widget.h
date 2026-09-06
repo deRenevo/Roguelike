@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "Core/Math/Vector2D.h"
 #include "Core/Utility/Struct.h"
 #include "Core/Object/Object.h"
 
@@ -33,28 +34,28 @@ protected:
 	virtual void Construction() = 0; //-> processed when changing priced
 	virtual void Draw();
 	virtual void Tick(float DeltaTime); //-> every frame is processed
-	virtual Vector2 AutoSize();
+	virtual FVector2D AutoSize();
 
 public:
 	//setters
-	void SetWorldLocation(Vector2 location)
+	void SetWorldLocation(FVector2D location)
 	{
 		if (Parent)
 		{
-			Bound.x = location.x - Parent->GetWorldLocation().x;
-			Bound.y = location.y - Parent->GetWorldLocation().y;
+			Bound.x = location.X - Parent->GetWorldLocation().X;
+			Bound.y = location.Y - Parent->GetWorldLocation().Y;
 		}
 		else
 		{
-			Bound.x = location.x;
-			Bound.y = location.y;
+			Bound.x = location.X;
+			Bound.y = location.Y;
 		}
 	}
 
-	void SetLocalLocation(Vector2 location)
+	void SetLocalLocation(FVector2D location)
 	{
-		Bound.x = location.x;
-		Bound.y = location.y;
+		Bound.x = location.X;
+		Bound.y = location.Y;
 	}
 
 	void SetVisible(bool isVisible)
@@ -62,11 +63,11 @@ public:
 		bIsVisible = isVisible;
 	}
 
-	void SetSize(Vector2 size)
+	void SetSize(FVector2D size)
 	{
 		bIsAutoSize = false;
-		Bound.width = size.x;
-		Bound.height = size.y;
+		Bound.width = size.X;
+		Bound.height = size.Y;
 	}
 
 	void SetParent(WWidget* parent)
@@ -84,9 +85,9 @@ public:
 		bIsAutoSize = autoSize;
 		if (bIsAutoSize)
 		{
-			Vector2 Size = AutoSize();
-			Bound.width = Size.x;
-			Bound.height = Size.y;
+			FVector2D Size = AutoSize();
+			Bound.width = Size.X;
+			Bound.height = Size.Y;
 		}
 	}
 
@@ -96,7 +97,7 @@ public:
 	}
 
 	//getters
-	virtual Vector2 GetWorldWidgetLocationWithAlignment();
+	virtual FVector2D GetWorldWidgetLocationWithAlignment();
 
 	Rectangle GetLocalBound() const
 	{
@@ -105,7 +106,7 @@ public:
 
 	Rectangle GetWorldBound() const
 	{
-		return Rectangle(GetWorldLocation().x, GetWorldLocation().y, Bound.width, Bound.height);
+		return Rectangle(GetWorldLocation().X, GetWorldLocation().Y, Bound.width, Bound.height);
 	}
 
 	WWidget* GetParent() const
@@ -113,35 +114,35 @@ public:
 		return Parent;
 	}
 
-	Vector2 GetWorldLocation() const
+	FVector2D GetWorldLocation() const
 	{
 		if (Parent)
 		{
-			return Vector2(
-				Parent->GetWorldLocation().x + Bound.x,
-				Parent->GetWorldLocation().y + Bound.y
+			return FVector2D(
+				Parent->GetWorldLocation().X + Bound.x,
+				Parent->GetWorldLocation().Y + Bound.y
 			);
 		}
-		return Vector2(Bound.x, Bound.y);
+		return FVector2D(Bound.x, Bound.y);
 	}
 
-	Vector2 GetLocalLocation() const
+	FVector2D GetLocalLocation() const
 	{
-		return Vector2(Bound.x, Bound.y);
+		return FVector2D(Bound.x, Bound.y);
 	}
 
-	virtual Vector2 GetSize()
+	virtual FVector2D GetSize()
 	{
-		return Vector2(Bound.width, Bound.height);
+		return FVector2D(Bound.width, Bound.height);
 	}
 
 	virtual Rectangle GetWorldBoundWithAlignment()
 	{
 		Rectangle Bound = GetWorldBound();
-		Vector2 Location = GetWorldWidgetLocationWithAlignment();
+		FVector2D Location = GetWorldWidgetLocationWithAlignment();
 
-		Bound.x = Location.x;
-		Bound.y = Location.y;
+		Bound.x = Location.X;
+		Bound.y = Location.Y;
 		return Bound;
 	}
 

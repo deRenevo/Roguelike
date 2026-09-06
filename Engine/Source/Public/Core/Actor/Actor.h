@@ -4,8 +4,8 @@
 
 #include "Core/Object/Object.h"
 #include "Core/Component/SceneComponent.h"
+#include "Core/Math/Vector2D.h"
 
-#include <raylib.h>
 #include <memory>
 
 class AActor : public OObject
@@ -23,9 +23,9 @@ protected:
 
 public:
 	AActor();
-	AActor(const Vector2& location);
+	AActor(const FVector2D& location);
 	AActor(const std::string& name);
-	AActor(const Vector2& location, const std::string& name);
+	AActor(const FVector2D& location, const std::string& name);
 
 	virtual ~AActor() override;
 
@@ -39,13 +39,13 @@ public:
 	void SetRootSceneComponent(std::unique_ptr<OSceneComponent> rootSceneComponent);
 
 	//setters
-	void SetLocation(const Vector2& location)
+	void SetLocation(const FVector2D& location)
 	{
 		RootSceneComponent->SetLocation(location);
 	}
 
 	//getters
-	Vector2 GetLocation() const
+	FVector2D GetLocation() const
 	{
 		if (!RootSceneComponent)
 		{

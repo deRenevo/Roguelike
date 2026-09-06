@@ -89,7 +89,7 @@ class ATestActor : public AActor
 {
 	virtual void Draw() override
 	{
-		DrawRectangle(GetLocation().x, GetLocation().y, 50, 50, Col);
+		DrawRectangle(GetLocation().X, GetLocation().Y, 50, 50, Col);
 	};
 
 public:

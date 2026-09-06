@@ -44,7 +44,7 @@ void OGameMode::AddNewPlayer()
 	}
 
 	APlayerStart* PlayerStart = SceneManager::GetInstance().GetScene()->GetPlayerStart();
-	Vector2 StartPointLocation;
+	FVector2D StartPointLocation;
 	if (PlayerStart)
 	{
 		StartPointLocation = PlayerStart->GetLocation();

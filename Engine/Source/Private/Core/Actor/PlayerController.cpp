@@ -17,12 +17,12 @@ APlayerController::APlayerController() : AActor()
 
 }
 
-APlayerController::APlayerController(Vector2 worldLocation) : AActor(worldLocation)
+APlayerController::APlayerController(FVector2D worldLocation) : AActor(worldLocation)
 {
 
 }
 
-APlayerController::APlayerController(Vector2 worldLocation, std::string name) : AActor(worldLocation, name)
+APlayerController::APlayerController(FVector2D worldLocation, std::string name) : AActor(worldLocation, name)
 {
 
 }

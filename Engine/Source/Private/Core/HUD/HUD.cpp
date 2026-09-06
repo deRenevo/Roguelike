@@ -2,7 +2,6 @@
 
 #include "Core/HUD/HUD.h"
 
-#include "iostream"
 
 void HUD::DoTick(float DeltaTime)
 {
@@ -20,7 +19,6 @@ void HUD::DoDraw()
 
 void HUD::OnEnter()
 {
-	std::cout << "HUD | OnEnter" << std::endl;
 	if (bIsInitialized) return;
 	bIsInitialized = true;
 	PreHUDConstruction();
@@ -50,7 +48,7 @@ void HUD::Draw()
 
 void HUD::HUDConstruction()
 {
-	std::cout << "HUDConstruction" << std::endl;
+
 }
 
 void HUD::PreHUDConstruction()

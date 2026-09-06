@@ -3,7 +3,6 @@
 #include "Core/Widget/RichText.h"
 
 #include <algorithm>
-#include <cmath>
 #include <cctype>
 #include <string>
 #include <vector>
@@ -77,9 +76,9 @@ WRichText::WRichText(const std::string& Text, const FRichTextStyle& Style)
 	}
 }
 
-WRichText::WRichText(const std::string& Text, Rectangle& Bound, const FRichTextStyle& Style)
+WRichText::WRichText(const std::string& Text, const Rectangle& bound, const FRichTextStyle& Style)
 {
-	SetBound(Bound);
+	SetBound(bound);
 
 	RichTextStyle = Style;
 
@@ -89,9 +88,9 @@ WRichText::WRichText(const std::string& Text, Rectangle& Bound, const FRichTextS
 	}
 }
 
-WRichText::WRichText(const std::string& Text, Vector2& Location, const FRichTextStyle& Style)
+WRichText::WRichText(const std::string& Text, const FVector2D& location, const FRichTextStyle& Style)
 {
-	SetWorldLocation(Location);
+	SetWorldLocation(location);
 
 	RichTextStyle = Style;
 
@@ -150,9 +149,7 @@ void WRichText::UpdateText(const std::string& Text)
 		std::string RawTag = Text.substr(i + 1, CloseBracket - i - 1);
 		std::string Tag = Trim(RawTag);
 
-		bool ParsedTag = ApplyTag(Tag, CurrentStyle);
-
-		if (ParsedTag)
+		if (ApplyTag(Tag, CurrentStyle))
 		{
 			i = CloseBracket + 1;
 		}
@@ -329,7 +326,7 @@ bool WRichText::ApplyTagPart(
 	const std::string UpperPart = ToUpper(Part);
 
 	// Reset Style
-	// Telplate
+	// Template
 	// [/]
 	// [Default]
 	// [Reset]
@@ -420,7 +417,7 @@ bool WRichText::ApplyTagPart(
 			return true;
 		}
 
-		int NewSize = 0;
+		int NewSize;
 
 		try
 		{
@@ -500,10 +497,10 @@ void WRichText::Draw()
 
 	int ContainerWidth = CachedMaxLineWidth;
 
-	Vector2 WorldPosition = GetWorldWidgetLocationWithAlignment();
+	FVector2D WorldPosition = GetWorldWidgetLocationWithAlignment();
 
-	const int StartX = static_cast<int>(WorldPosition.x);
-	int StartY = static_cast<int>(WorldPosition.y);
+	const int StartX = static_cast<int>(WorldPosition.X);
+	int StartY = static_cast<int>(WorldPosition.Y);
 	int Y = StartY;
 
 	for (const FLayoutLine& Line : CachedLayoutLines)
@@ -571,15 +568,15 @@ void WRichText::Draw()
 	//DrawRectangle(StartX, StartY, GetSize().x, GetSize().y, RAYWHITE);
 }
 
-Vector2 WRichText::AutoSize()
+FVector2D WRichText::AutoSize()
 {
 	ValidateLayout();
 
 	if (CachedLayoutLines.empty())
 	{
-		Vector2 Size;
-		Size.x = 0.0f;
-		Size.y = 0.0f;
+		FVector2D Size;
+		Size.X = 0.0f;
+		Size.Y = 0.0f;
 		return Size;
 	}
 
@@ -598,5 +595,5 @@ Vector2 WRichText::AutoSize()
 	if (TotalHeight < 0)
 		TotalHeight = 0;
 
-	return Vector2(static_cast<float>(CachedMaxLineWidth), static_cast<float>(TotalHeight));
+	return FVector2D(static_cast<float>(CachedMaxLineWidth), static_cast<float>(TotalHeight));
 }

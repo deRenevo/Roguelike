@@ -8,11 +8,11 @@ APlayerStart::APlayerStart() : AActor()
 {
 }
 
-APlayerStart::APlayerStart(Vector2 worldLocation, std::string name) : AActor(worldLocation, name)
+APlayerStart::APlayerStart(FVector2D worldLocation, std::string name) : AActor(worldLocation, name)
 {
 }
 
-APlayerStart::APlayerStart(Vector2 worldLocation) : AActor(worldLocation)
+APlayerStart::APlayerStart(FVector2D worldLocation) : AActor(worldLocation)
 {
 }
 
