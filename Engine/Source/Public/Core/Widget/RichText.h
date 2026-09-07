@@ -24,7 +24,7 @@ struct FRichTextStyle
     EWidgetVerticalAlignment VerticalAlignment = EWidgetVerticalAlignment::Top;
     EWidgetHorizontalAlignment HorizontalAlignment = EWidgetHorizontalAlignment::Left;
 
-    int LineSpacing = 2;
+    int32 LineSpacing = 2;
 };
 
 
@@ -50,15 +50,15 @@ private:
     {
         std::string Text;
         std::size_t SegmentIndex = 0;
-        int TextSize = 0;
-        int Width = 0;
+        int32 TextSize = 0;
+        int32 Width = 0;
     };
 
     struct FLayoutLine
     {
         std::vector<FLayoutPart> Parts;
-        int Width = 0;
-        int Height = 0;
+        int32 Width = 0;
+        int32 Height = 0;
     };
 
     static ERichTag CheckTag(const std::string& tagText);
@@ -76,9 +76,9 @@ private:
 
     std::vector<FRichTextSegmentStyle> RichTextSegments;
     FRichTextStyle RichTextStyle;
-    int MaxStringLenghts = -1;
+    int32 MaxStringLenghts = -1;
 
     std::vector<FLayoutLine> CachedLayoutLines;
-    int CachedMaxLineWidth = 0;
+    int32 CachedMaxLineWidth = 0;
     bool bLayoutDirty = true;
 };

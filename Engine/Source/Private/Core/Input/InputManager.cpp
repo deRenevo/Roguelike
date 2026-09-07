@@ -4,6 +4,8 @@
 
 #include <algorithm>
 
+#include "Core/Math/BasicTypes.h"
+
 InputManager& InputManager::GetInstance()
 {
 	static InputManager IM;
@@ -13,7 +15,7 @@ InputManager& InputManager::GetInstance()
 void InputManager::Tick()
 {
 	std::vector<KeyboardKey> CurrentFrameKeys;
-	for (int key = 0; key < 512; ++key)
+	for (uint16 key = 0; key < 512; ++key)
 	{
 		if (IsKeyDown(key))
 			CurrentFrameKeys.push_back(static_cast<KeyboardKey>(key));

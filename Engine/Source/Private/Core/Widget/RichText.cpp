@@ -194,9 +194,9 @@ void WRichText::RebuildLayout()
 
 	FLayoutLine CurrentLine;
 
-	int LastTextSize = 0;
+	int32 LastTextSize = 0;
 
-	auto PushCurrentLine = [&](int DefaultHeight)
+	auto PushCurrentLine = [&](int32 DefaultHeight)
 	{
 		if (CurrentLine.Height == 0)
 			CurrentLine.Height = DefaultHeight;
@@ -230,7 +230,7 @@ void WRichText::RebuildLayout()
 			Part.Text = Lines[i];
 			Part.SegmentIndex = SegmentIndex;
 			Part.TextSize = Segment.TextSize;
-			Part.Width = static_cast<int>(MeasureText(Lines[i].c_str(), Segment.TextSize));
+			Part.Width = MeasureText(Lines[i].c_str(), Segment.TextSize);
 
 			CurrentLine.Width += Part.Width;
 			CurrentLine.Height = std::max(CurrentLine.Height, Segment.TextSize);
@@ -417,7 +417,7 @@ bool WRichText::ApplyTagPart(
 			return true;
 		}
 
-		int NewSize;
+		int32 NewSize;
 
 		try
 		{
@@ -495,17 +495,17 @@ void WRichText::Draw()
 	if (CachedLayoutLines.empty())
 		return;
 
-	int ContainerWidth = CachedMaxLineWidth;
+	int32 ContainerWidth = CachedMaxLineWidth;
 
 	FVector2D WorldPosition = GetWorldWidgetLocationWithAlignment();
 
-	const int StartX = static_cast<int>(WorldPosition.X);
-	int StartY = static_cast<int>(WorldPosition.Y);
-	int Y = StartY;
+	const int32 StartX = static_cast<int32>(WorldPosition.X);
+	int32 StartY = static_cast<int32>(WorldPosition.Y);
+	int32 Y = StartY;
 
 	for (const FLayoutLine& Line : CachedLayoutLines)
 	{
-		int X = StartX;
+		int32 X = StartX;
 
 		switch (RichTextStyle.HorizontalAlignment)
 		{
@@ -525,7 +525,7 @@ void WRichText::Draw()
 		if (X < StartX)
 			X = StartX;
 
-		const int LineHeight = Line.Height;
+		const int32 LineHeight = Line.Height;
 
 		for (const FLayoutPart& Part : Line.Parts)
 		{
@@ -534,7 +534,7 @@ void WRichText::Draw()
 
 			const FRichTextSegmentStyle& Segment = RichTextSegments[Part.SegmentIndex];
 
-			int OffsetY = 0;
+			int32 OffsetY = 0;
 
 			switch (RichTextStyle.VerticalAlignment)
 			{
@@ -580,7 +580,7 @@ FVector2D WRichText::AutoSize()
 		return Size;
 	}
 
-	int TotalHeight = 0;
+	int32 TotalHeight = 0;
 
 	for (std::size_t i = 0; i < CachedLayoutLines.size(); ++i)
 	{

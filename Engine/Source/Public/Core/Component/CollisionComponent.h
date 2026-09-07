@@ -5,5 +5,5 @@
 
 class OCollisionComponent : public OSceneComponent
 {
-	
+	FVector2D Size = FVector2D::ZeroVector;
 };

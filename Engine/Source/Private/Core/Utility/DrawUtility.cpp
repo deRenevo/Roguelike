@@ -5,7 +5,7 @@
 #include <ios>
 #include <sstream>
 
-void DrawUtility::DrawTextWithOneColor(const char* Text, int PosX, int PosY, int FontSize, Color TextColor, bool bIsCenter)
+void DrawUtility::DrawTextWithOneColor(const char* Text, int32 PosX, int32 PosY, int32 FontSize, Color TextColor, bool bIsCenter)
 {
 	if (bIsCenter)
 	{
@@ -16,7 +16,7 @@ void DrawUtility::DrawTextWithOneColor(const char* Text, int PosX, int PosY, int
 	DrawText(Text, PosX, PosY, FontSize, TextColor);
 }
 
-void DrawUtility::DrawTextWithTwoColor(const char* Text, int PosX, int PosY, std::vector<int> SelectionNumElements, int FontSize, Color MainColor, Color SubColor, bool bIsCenter)
+void DrawUtility::DrawTextWithTwoColor(const char* Text, int32 PosX, int32 PosY, std::vector<int32> SelectionNumElements, int32 FontSize, Color MainColor, Color SubColor, bool bIsCenter)
 {
 	std::vector<std::string> Words;
 	std::istringstream ISS(Text);
@@ -33,17 +33,17 @@ void DrawUtility::DrawTextWithTwoColor(const char* Text, int PosX, int PosY, std
 		Words.push_back(word);
 	}
 
-	std::vector<int> wordWidths;
+	std::vector<int32> wordWidths;
 	for (const auto& W : Words)
 	{
 		wordWidths.push_back(MeasureText(W.c_str(), FontSize));
 	}
 
-	int currentX = PosX;
+	int32 currentX = PosX;
 	for (size_t i = 0; i < Words.size(); ++i)
 	{
 		bool isHighlighted = false;
-		for (int index : SelectionNumElements)
+		for (int32 index : SelectionNumElements)
 		{
 			if (index == static_cast<int>(i))
 			{

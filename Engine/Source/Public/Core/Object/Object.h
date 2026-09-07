@@ -5,6 +5,8 @@
 #include <string>
 #include <vector>
 
+#include "Core/Math/BasicTypes.h"
+
 class OObject
 {
     static int GenerateUniqueId()
@@ -36,7 +38,7 @@ public:
         return ObjectName;    
     }
     
-    int GetUniqueId() const
+    int32 GetUniqueId() const
     {
         return UniqueId;
     }

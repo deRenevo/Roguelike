@@ -19,9 +19,9 @@ OEngine& OEngine::GetInstance()
 
 void OEngine::Ini(std::unique_ptr<Scene> scene)
 {
-	const int Monitor = GetCurrentMonitor();
-	const int ScreenWidth = GetMonitorWidth(Monitor);
-	const int ScreenHeight = GetMonitorHeight(Monitor);
+	const int8 Monitor = GetCurrentMonitor();
+	const int32 ScreenWidth = GetMonitorWidth(Monitor);
+	const int32 ScreenHeight = GetMonitorHeight(Monitor);
 	
 	SetConfigFlags(FLAG_FULLSCREEN_MODE);
 	InitWindow(ScreenWidth, ScreenHeight, "Roguelike");
