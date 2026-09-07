@@ -190,6 +190,16 @@ struct FVector2D
 		const float inv = 1.0f / std::sqrt(Sqrt);
 		return {X * inv, Y * inv};
 	}
+
+	static constexpr float Dot(const FVector2D& vector2D1, const FVector2D& vector2D2)
+	{
+		return vector2D1.X * vector2D2.X + vector2D1.Y * vector2D2.Y;
+	}
+	
+	static constexpr float Cross(const FVector2D& vector2D1, const FVector2D& vector2D2)
+	{
+		return vector2D1.X * vector2D2.Y - vector2D1.Y * vector2D2.X;
+	}
 };
 
 inline const FVector2D FVector2D::ZeroVector{0.f, 0.f};
