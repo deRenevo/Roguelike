@@ -6,7 +6,7 @@
 #include <functional>
 #include <vector>
 
-enum EInputType
+enum class EInputType
 {
     Pressed,
     Released,
@@ -42,6 +42,6 @@ public:
     void KeyInput(KeyboardKey key);
     void Tick();
 
-    void SubscribeKey(KeyboardKey key, EInputType inputType, std::function<void(void)> function);
+    void SubscribeKey(KeyboardKey key, EInputType inputType, const std::function<void(void)>& function);
     void ClearSubscriptionKey();
 };

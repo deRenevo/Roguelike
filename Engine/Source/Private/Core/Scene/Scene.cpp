@@ -100,7 +100,7 @@ void Scene::RemoveActorOnScene(AActor* actor)
 {
 	if (!actor) return;
 
-	auto It = std::find_if(ActorsOnScene.begin(), ActorsOnScene.end(),
+	auto It = std::ranges::find_if(ActorsOnScene,
 		[actor](const std::unique_ptr<AActor>& ptr)
 		{
 			return ptr.get() == actor;

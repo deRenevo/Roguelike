@@ -2,6 +2,9 @@
 
 #pragma once
 
+#include <iostream>
+#include <ostream>
+
 #include "Core/Scene/Scene.h"
 #include "Core/Actor/Actor.h"
 #include "Core/Game/GameMode.h"
@@ -10,6 +13,7 @@
 #include "Core/Application/Engine.h"
 
 #include "Core/Component/SpriteComponent.h"
+#include "Core/Scene/SceneManager.h"
 
 class MenuHUD;
 class WButton;
@@ -71,6 +75,10 @@ public:
 		SpriteComponent->LoadTexture("Assets/block.png");
 		SpriteComponent->SetSpriteAlignment(Vector2(-32,-32));
 		GetRootSceneComponent()->AddChild(std::unique_ptr<OSpriteComponent>(SpriteComponent));
+		
+		OCameraComponent* CameraComponent = new OCameraComponent();
+		SceneManager::GetInstance().GetScene()->SetRootCameraComponent(CameraComponent);
+		GetRootSceneComponent()->AddChild(std::unique_ptr<OCameraComponent>(CameraComponent));
 	}
 
 public:

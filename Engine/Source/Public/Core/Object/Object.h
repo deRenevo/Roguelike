@@ -31,7 +31,7 @@ public:
     }
     
     //getters
-    std::string GetObjectName() const
+    std::string GetName() const
     {
         return ObjectName;    
     }

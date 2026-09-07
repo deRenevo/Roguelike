@@ -21,8 +21,8 @@ void InputManager::Tick()
 
 	for (FKeyAction& KeyAction : SubscribedKey)
 	{
-		bool WasDown = std::find(OldKeyInput.begin(), OldKeyInput.end(), KeyAction.Key) != OldKeyInput.end();
-		bool isDown = std::find(CurrentFrameKeys.begin(), CurrentFrameKeys.end(), KeyAction.Key) != CurrentFrameKeys.end();
+		bool WasDown = std::ranges::find(OldKeyInput, KeyAction.Key) != OldKeyInput.end();
+		bool isDown = std::ranges::find(CurrentFrameKeys, KeyAction.Key) != CurrentFrameKeys.end();
 
 		switch (KeyAction.InputType)
 		{
@@ -41,11 +41,10 @@ void InputManager::Tick()
 		}
 	}
 
-
 	OldKeyInput = CurrentFrameKeys;
 }
 
-void InputManager::SubscribeKey(KeyboardKey key, EInputType inputType, std::function<void(void)> function)
+void InputManager::SubscribeKey(KeyboardKey key, EInputType inputType, const std::function<void(void)>& function)
 {
 	if (key == KeyboardKey::KEY_NULL) return;
 

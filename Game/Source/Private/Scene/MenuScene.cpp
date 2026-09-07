@@ -8,7 +8,6 @@
 #include "Core/Actor/PlayerStart.h"
 #include "Core/Math/Vector2D.h"
 
-#include <vector>
 #include <memory>
 
 void MenuScene::SceneConstruction()
@@ -34,10 +33,6 @@ void MenuScene::SceneConstruction()
 
 		AddActorToScene(std::unique_ptr<AActor>(TestActor));
 	}
-	
-	FVector2D Vector2D = FVector2D::ZeroVector;
-	FVector2D vec = Vector2D.Normalized();
-	printf("Vector2D = %f, %f\n", vec.X, Vector2D.Y);
 }
 
 void MenuScene::Tick(float DeltaTick)

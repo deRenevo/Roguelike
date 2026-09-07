@@ -7,6 +7,7 @@
 
 #include <memory>
 
+
 class OSceneComponent : public OComponent
 {
 	std::vector<std::unique_ptr<OComponent>> Children;

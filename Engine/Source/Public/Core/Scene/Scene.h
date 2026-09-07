@@ -5,7 +5,7 @@
 #include "Core/Object/Object.h"
 #include "Core/Actor/Actor.h"
 #include "Core/Game/GameMode.h"
-#include "Core/Object/CameraComponent.h"
+#include "Core/Component//CameraComponent.h"
 
 #include <vector>
 #include <memory>

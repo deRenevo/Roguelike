@@ -22,7 +22,7 @@ AActor::AActor(const std::string& name) : AActor({0, 0}, name)
 
 AActor::AActor(const FVector2D& location, const std::string& name) : OObject(name)
 {
-	RootSceneComponent = std::make_unique<OSceneComponent>();
+	RootSceneComponent = std::make_unique<OSceneComponent>("RootSceneComponent");
 	RootSceneComponent->SetOwner(this);
 	RootSceneComponent->SetLocation(location);
 }

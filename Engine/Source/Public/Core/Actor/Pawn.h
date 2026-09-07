@@ -4,13 +4,11 @@
 
 #include "Core/Actor/Actor.h"
 #include "Core/Actor/PlayerController.h"
-#include "Core/Object/CameraComponent.h"
 
 #include <memory>
 
 class APawn : public AActor
 {
-	std::unique_ptr<OCameraComponent> RootCameraComponent;
 	APlayerController* OwnerPlayerController = nullptr;
 
 protected:
@@ -26,18 +24,4 @@ public:
 
 	void PossessedBy(APlayerController* playerController);
 	void UnPossessed();
-
-	//setters
-	void SetRootCameraComponent(std::unique_ptr<OCameraComponent> rootCameraComponent);
-
-	//getters
-	bool HasRootCameraComponent() const
-	{
-		return RootCameraComponent != nullptr;
-	}
-
-	OCameraComponent* GetRootCameraComponent() const
-	{
-		return RootCameraComponent.get();
-	}
 };

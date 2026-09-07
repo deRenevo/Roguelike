@@ -1,7 +1,6 @@
 // Copyright deRenevo. All rights reserved.
 
 #include "Core/Actor/Pawn.h"
-#include "Core/Scene/SceneManager.h"
 
 void APawn::SetupPlayerInputComponent(InputManager& inputManager)
 {
@@ -12,36 +11,27 @@ void APawn::SetupPlayerInputComponent(InputManager& inputManager)
 
 void APawn::Tick(float DeltaTime)
 {
-	if (RootCameraComponent)
-	{
-		RootCameraComponent->Tick(DeltaTime);
-	}
+	
 }
 
 APawn::APawn() : AActor()
 {
-	RootCameraComponent = std::make_unique<OCameraComponent>();
+
 }
 
 APawn::APawn(FVector2D worldLocation) : AActor(worldLocation)
 {
-	RootCameraComponent = std::make_unique<OCameraComponent>();
+
 }
 
 APawn::APawn(FVector2D worldLocation, const std::string& name) : AActor(worldLocation, name)
 {
-	RootCameraComponent = std::make_unique<OCameraComponent>();
+
 }
 
 void APawn::BeginPlay()
 {
 	AActor::BeginPlay();
-
-	if (RootCameraComponent)
-	{
-		RootCameraComponent->SetOwner(this);
-		SceneManager::GetInstance().GetScene()->SetRootCameraComponent(RootCameraComponent.get());
-	}
 }
 
 void APawn::PossessedBy(APlayerController* playerController)
@@ -52,17 +42,4 @@ void APawn::PossessedBy(APlayerController* playerController)
 void APawn::UnPossessed()
 {
 	OwnerPlayerController = nullptr;
-	//next this clear input action for this pawn 
-}
-
-void APawn::SetRootCameraComponent(std::unique_ptr<OCameraComponent> rootCameraComponent)
-{
-	RootCameraComponent = std::move(rootCameraComponent);
-
-	if (RootCameraComponent)
-	{
-		RootCameraComponent->SetOwner(this);
-	}
-
-	SceneManager::GetInstance().GetScene()->SetRootCameraComponent(RootCameraComponent.get());
 }
