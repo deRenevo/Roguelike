@@ -2,9 +2,6 @@
 
 #pragma once
 
-#include <iostream>
-#include <ostream>
-
 #include "Core/Scene/Scene.h"
 #include "Core/Actor/Actor.h"
 #include "Core/Game/GameMode.h"
@@ -51,7 +48,7 @@ class ATestPawn : public APawn
 		{
 			this->SetFastMove(false);
 		});
-	};
+	}
 
 	Vector2 InputMove = {0, 0};
 	int MoveSpeed = 100;
@@ -66,7 +63,7 @@ class ATestPawn : public APawn
 
 		InputMove = {0, 0};
 		APawn::Tick(DeltaTime);
-	};
+	}
 
 public:
 	ATestPawn()
@@ -85,12 +82,12 @@ public:
 	void Move(Vector2 deltaMove)
 	{
 		InputMove = {InputMove.x + deltaMove.x, InputMove.y + deltaMove.y};
-	};
+	}
 
 	void SetFastMove(bool isFastMove)
 	{
 		bIsFastMove = isFastMove;
-	};
+	}
 };
 
 class ATestActor : public AActor
@@ -98,7 +95,7 @@ class ATestActor : public AActor
 	virtual void Draw() override
 	{
 		DrawRectangle(GetLocation().X, GetLocation().Y, 50, 50, Col);
-	};
+	}
 
 public:
 	Color Col = RAYWHITE;
@@ -108,10 +105,10 @@ class OTestGameMode : public OGameMode
 {
 
 public:
-	OTestGameMode(std::function<APawn*()> pawnClass) : OGameMode([](void){return new APlayerController();}, pawnClass)
+	OTestGameMode(const std::function<APawn*()>& pawnClass) : OGameMode([](void){return new APlayerController();}, pawnClass)
 	{
 
-	};
+	}
 };
 
 // ==========================

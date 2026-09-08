@@ -195,7 +195,7 @@ struct FVector2D
 	{
 		return vector2D1.X * vector2D2.X + vector2D1.Y * vector2D2.Y;
 	}
-	
+
 	static constexpr float Cross(const FVector2D& vector2D1, const FVector2D& vector2D2)
 	{
 		return vector2D1.X * vector2D2.Y - vector2D1.Y * vector2D2.X;
