@@ -31,18 +31,17 @@ public:
 	virtual void OnAttach();
 	virtual void OnDetach();
 
-	//setters
+	//getters and setters
 	void SetOwner(AActor* owner)
 	{
 		Owner = owner;
 	}
 
-	void SetIsActive(bool isActive)
+	void SetIsActive(const bool isActive)
 	{
 		bIsActive = isActive;
 	}
-
-	//getters
+	
 	AActor* GetOwner() const
 	{
 		return Owner;
@@ -52,4 +51,6 @@ public:
 	{
 		return bIsActive;
 	}
+
+
 };

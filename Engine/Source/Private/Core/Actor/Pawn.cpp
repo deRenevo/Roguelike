@@ -11,7 +11,7 @@ void APawn::SetupPlayerInputComponent(InputManager& inputManager)
 
 void APawn::Tick(float DeltaTime)
 {
-	
+	AActor::Tick(DeltaTime);
 }
 
 APawn::APawn() : AActor()

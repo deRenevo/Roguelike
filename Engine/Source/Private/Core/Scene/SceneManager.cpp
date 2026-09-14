@@ -32,7 +32,6 @@ void SceneManager::AddToViewport(std::unique_ptr<HUD> hud)
 {
 	if (!hud) return;
 	hud->OnEnter();
-	auto* ptr = hud.get();
 	HUDViewport.push_back(std::move(hud));
 }
 
@@ -40,7 +39,7 @@ void SceneManager::RemoveHUD(HUD* hud)
 {
 	if (!hud) return;
 
-	auto ptr = std::find_if(HUDViewport.begin(), HUDViewport.end(),
+	auto ptr = std::ranges::find_if(HUDViewport,
 		[hud](const std::unique_ptr<HUD>& it)
 		{
 			return it.get() == hud;

@@ -8,8 +8,10 @@
 #include "Core/Input/InputManager.h"
 #include "Core/Actor/Pawn.h"
 #include "Core/Application/Engine.h"
+#include "Core/Component/CollisionComponent.h"
 
 #include "Core/Component/SpriteComponent.h"
+#include "Core/Math/CollisionMath.h"
 #include "Core/Scene/SceneManager.h"
 
 class MenuHUD;
@@ -57,28 +59,51 @@ class ATestPawn : public APawn
 
 	virtual void Tick(float DeltaTime) override
 	{
+		APawn::Tick(DeltaTime);
 		Vector2 Location = GetLocation();
 		SetLocation({Location.x + InputMove.x * (bIsFastMove ? FastMoveSpeed : MoveSpeed) * DeltaTime,
 					Location.y + InputMove.y * (bIsFastMove ? FastMoveSpeed : MoveSpeed) * DeltaTime});
 
 		InputMove = {0, 0};
-		APawn::Tick(DeltaTime);
 	}
 
 public:
+	
+	OSpriteComponent* SpriteComponent = nullptr;
 	ATestPawn()
 	{
-		OSpriteComponent* SpriteComponent = new OSpriteComponent();
+		SpriteComponent = new OSpriteComponent();
 		SpriteComponent->LoadTexture("Assets/block.png");
-		SpriteComponent->SetSpriteAlignment(Vector2(-32,-32));
+		SpriteComponent->SetSpriteAlignment(Vector2(-32, -32));
+		//SpriteComponent->SetIsVisible(false);
 		GetRootSceneComponent()->AddChild(std::unique_ptr<OSpriteComponent>(SpriteComponent));
-		
+
 		OCameraComponent* CameraComponent = new OCameraComponent();
 		SceneManager::GetInstance().GetScene()->SetRootCameraComponent(CameraComponent);
 		GetRootSceneComponent()->AddChild(std::unique_ptr<OCameraComponent>(CameraComponent));
+
+		OCollisionComponent* CollisionComponent = new OCollisionComponent();
+		CollisionComponent->SetSize({60, 60});
+		CollisionComponent->SetAlignment({-30, -30});
+		
+		CollisionComponent->AddOnStartCollisionCollBackFunction( [this](void){this->OnCollisionStart();});
+		CollisionComponent->AddOnEndCollisionCollBackFunction( [this](void){this->OnCollisionEnd();});
+		
+		GetRootSceneComponent()->AddChild(std::unique_ptr<OCollisionComponent>(CollisionComponent));
 	}
 
 public:
+	
+	void OnCollisionStart() const
+	{
+		//SpriteComponent->SetIsVisible(true);
+	}
+	
+	void OnCollisionEnd() const
+	{
+		//SpriteComponent->SetIsVisible(false);
+	}
+	
 	void Move(Vector2 deltaMove)
 	{
 		InputMove = {InputMove.x + deltaMove.x, InputMove.y + deltaMove.y};
@@ -92,9 +117,20 @@ public:
 
 class ATestActor : public AActor
 {
+public:
+	ATestActor()
+	{
+		OCollisionComponent* CollisionComponent = new OCollisionComponent();
+		CollisionComponent->SetSize({50, 50});
+		CollisionComponent->SetStatic(true);
+		GetRootSceneComponent()->AddChild(std::unique_ptr<OCollisionComponent>(CollisionComponent));
+	}
+
 	virtual void Draw() override
 	{
-		DrawRectangle(GetLocation().X, GetLocation().Y, 50, 50, Col);
+		AActor::Draw();
+
+		DrawRectangle(GetLocation().X + 5, GetLocation().Y + 5, 40, 40, Col);
 	}
 
 public:
@@ -105,7 +141,10 @@ class OTestGameMode : public OGameMode
 {
 
 public:
-	OTestGameMode(const std::function<APawn*()>& pawnClass) : OGameMode([](void){return new APlayerController();}, pawnClass)
+	OTestGameMode(const std::function<APawn*()>& pawnClass) : OGameMode([](void)
+	{
+		return new APlayerController();
+	}, pawnClass)
 	{
 
 	}

@@ -50,4 +50,14 @@ struct FBox2D
 	{
 		Size = {std::max(0.0f, size.X), std::max(0.0f, size.Y)};
 	}
+	
+	constexpr FVector2D GetLocation() const
+	{
+		return Location;
+	}
+	
+	constexpr FVector2D GetSize() const
+	{
+		return Size;
+	}
 };

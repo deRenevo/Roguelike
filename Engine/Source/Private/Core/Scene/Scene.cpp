@@ -6,6 +6,8 @@
 #include <algorithm>
 #include <memory>
 
+#include "Core/Manager/CollisionManager.h"
+
 void Scene::OnEnter()
 {
 	PreSceneConstruction();
@@ -25,13 +27,15 @@ void Scene::OnExit()
 
 void Scene::DoTick(float DeltaTime)
 {
-	if (GetIsPendingKill()) return; // if starting process deleting object thet stop Function 
+	if (GetIsPendingKill())
+		return; // if starting process deleting object thet stop Function 
 	Tick(DeltaTime);
 }
 
 void Scene::DoDraw()
 {
-	if (GetIsPendingKill()) return; // if starting process deleting object thet stop Function 
+	if (GetIsPendingKill())
+		return; // if starting process deleting object thet stop Function 
 
 	if (RootCameraComponent)
 	{
@@ -52,6 +56,8 @@ void Scene::Tick(float DeltaTime)
 	{
 		Actor->DoTick(DeltaTime);
 	}
+	
+	OCollisionManager::GetInstance().DoTick(DeltaTime);
 }
 
 void Scene::Draw()
@@ -98,7 +104,8 @@ std::vector<AActor*> Scene::GetActorsOnScene() const
 
 void Scene::RemoveActorOnScene(AActor* actor)
 {
-	if (!actor) return;
+	if (!actor)
+		return;
 
 	auto It = std::ranges::find_if(ActorsOnScene,
 		[actor](const std::unique_ptr<AActor>& ptr)

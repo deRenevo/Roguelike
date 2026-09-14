@@ -39,7 +39,7 @@ public:
 	void SetRootSceneComponent(std::unique_ptr<OSceneComponent> rootSceneComponent);
 
 	//setters
-	void SetLocation(const FVector2D& location)
+	void SetLocation(const FVector2D& location) const
 	{
 		RootSceneComponent->SetLocation(location);
 	}

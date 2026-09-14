@@ -10,6 +10,8 @@
 
 #include <memory>
 
+#include "HUD/DebugHUD.h"
+
 void MenuScene::SceneConstruction()
 {
 	SetGameMode(std::make_unique<OTestGameMode>([this](void)
@@ -20,14 +22,15 @@ void MenuScene::SceneConstruction()
 	AddActorToScene(std::unique_ptr<APlayerStart>(PlayerStart));
 
 	Scene::SceneConstruction();
-	SceneManager::GetInstance().AddToViewport(std::move(std::unique_ptr<MenuHUD>(new MenuHUD())));
+	//SceneManager::GetInstance().AddToViewport(std::move(std::make_unique<MenuHUD>()));
+	SceneManager::GetInstance().AddToViewport(std::move(std::make_unique<DebugHUD>()));
 
 	for (int i = -20; i < 100; ++i)
 	{
 		ATestActor* TestActor = new ATestActor();
 		if (i % 2 == 0)
 		{
-			TestActor->Col = LIME;
+			TestActor->Col = ORANGE;
 		}
 		TestActor->SetLocation(Vector2(i * 50, 1000));
 

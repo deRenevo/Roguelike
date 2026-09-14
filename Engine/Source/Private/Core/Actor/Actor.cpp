@@ -88,6 +88,8 @@ void AActor::EndPlay()
 	if (RootSceneComponent)
 	{
 		RootSceneComponent->EndPlay();
+		RootSceneComponent->OnDetach();
+		RootSceneComponent = nullptr;
 	}
 }
 
@@ -115,5 +117,6 @@ void AActor::SetRootSceneComponent(std::unique_ptr<OSceneComponent> rootSceneCom
 	if (bIsHasBeginPlay)
 	{
 		RootSceneComponent->BeginPlay();
+		RootSceneComponent->OnAttach();
 	}
 }

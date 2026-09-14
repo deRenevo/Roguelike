@@ -20,7 +20,8 @@ OSpriteComponent::~OSpriteComponent()
 
 void OSpriteComponent::Draw()
 {
-	if (IsTextureValid(Texture))
+	
+	if (bIsVisible && IsTextureValid(Texture))
 	{
 		FVector2D Location = GetWorldLocation();
 		DrawTexture(Texture, Location.X + SpriteAlignment.X, Location.Y + SpriteAlignment.Y, WHITE);

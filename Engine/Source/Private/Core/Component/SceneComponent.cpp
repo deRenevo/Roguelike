@@ -87,7 +87,7 @@ void OSceneComponent::AddChild(std::unique_ptr<OComponent> child)
 	{
 		Child->SetParent(this);
 	}
-
+	child->OnAttach();
 	Children.push_back(std::move(child));
 }
 
@@ -105,5 +105,6 @@ void OSceneComponent::RemoveChild(OComponent* child)
 	{
 		(*It)->EndPlay();
 		Children.erase(It);
+		child->OnDetach();
 	}
 }
