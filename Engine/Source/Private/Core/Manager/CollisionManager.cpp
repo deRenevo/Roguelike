@@ -41,9 +41,9 @@ void OCollisionManager::Tick(float deltaTime)
 
 				if (!ComponentB->GetIsStatic())
 				{
-					const FVector2D Mtv = CollisionMath::MTV(BoxB, BoxA);
+					const FVector2D MTV = CollisionMath::MTV(BoxB, BoxA);
 					ComponentB->GetOwner()->SetLocation(
-						ComponentB->GetOwner()->GetLocation() + Mtv
+						ComponentB->GetOwner()->GetLocation() + MTV
 					);
 				}
 			}
