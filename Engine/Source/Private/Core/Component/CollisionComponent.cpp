@@ -3,6 +3,7 @@
 #include "Core/Component/CollisionComponent.h"
 
 #include "Core/Manager/CollisionManager.h"
+#include "Core/Manager/DebugManager.h"
 
 void OCollisionComponent::Tick(float deltaTime)
 {
@@ -31,13 +32,16 @@ void OCollisionComponent::Draw()
 {
 	OSceneComponent::Draw();
 
-	if (bIsColliding)
+	if (ODebugManager::bIsVisibleCollision)
 	{
-		DrawRectangleLines(GetWorldLocation().X + GetAlignment().X, GetWorldLocation().Y + GetAlignment().Y, GetSize().X, GetSize().Y, RED); //test
-	}
-	else
-	{
-		DrawRectangleLines(GetWorldLocation().X + GetAlignment().X, GetWorldLocation().Y + GetAlignment().Y, GetSize().X, GetSize().Y, LIME); //test
+		if (bIsColliding)
+		{
+			DrawRectangleLines(GetWorldLocation().X + GetAlignment().X, GetWorldLocation().Y + GetAlignment().Y, GetSize().X, GetSize().Y, RED); //test
+		}
+		else
+		{
+			DrawRectangleLines(GetWorldLocation().X + GetAlignment().X, GetWorldLocation().Y + GetAlignment().Y, GetSize().X, GetSize().Y, LIME); //test
+		}
 	}
 }
 
