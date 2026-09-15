@@ -8,33 +8,21 @@ void OCollisionComponent::Tick(float deltaTime)
 {
 	OSceneComponent::Tick(deltaTime);
 	
-	
-	//For HARD CODE
 	if (bIsColliding)
 	{
-		for (auto& Function : OnCollisionCollBackFunctions)
-		{
-			Function();
-		}
+		OnCollisionDelegate.Broadcast();
 	}
 	
 	if (bIsCollidingOldFrame && !bIsColliding)
 	{
-		for (auto& Function : OnEndCollisionCollBackFunctions)
-		{
-			Function();
-		}
+		OnEndCollisionDelegate.Broadcast();
 	}
 	
 	if (!bIsCollidingOldFrame && bIsColliding)
 	{
-		for (auto& Function : OnStartCollisionCollBackFunctions)
-		{
-			Function();
-		}
+		OnStartCollisionDelegate.Broadcast();
 	}
 	
-	//============
 	bIsCollidingOldFrame = bIsColliding;
 	bIsColliding = false;
 }

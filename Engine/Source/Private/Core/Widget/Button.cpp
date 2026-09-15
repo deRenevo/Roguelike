@@ -6,7 +6,7 @@
 #include <iostream>
 
 WButton::WButton(const char* text, Rectangle bound, std::function<void()> callback) :
-	Text(text), OnClickCallback(callback)
+	Text(text)
 {
 	SetBound(bound);
 }
@@ -59,16 +59,12 @@ void WButton::Draw()
 
 void WButton::Tick(float DeltaTime)
 {
+	WWidget::Tick(DeltaTime);
 	Rectangle WorldBound = GetWorldBoundWithAlignment();
-
 	if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && CheckCollisionPointRec(GetMousePosition(), WorldBound))
 	{
 		BtState = EButtonStatus::Clicked;
-
-		if (OnClickCallback)
-		{
-			OnClickCallback();
-		}
+		OnClickDelegate.Broadcast();
 	}
 	else if (CheckCollisionPointRec(GetMousePosition(), WorldBound))
 	{
@@ -78,11 +74,6 @@ void WButton::Tick(float DeltaTime)
 	{
 		BtState = EButtonStatus::Normal;
 	}
-}
-
-void WButton::SetOnClick(std::function<void()> callback)
-{
-	OnClickCallback = callback;
 }
 
 void WButton::SetStyle(const FButtonStyle& buttonStyle)

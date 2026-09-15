@@ -6,6 +6,7 @@
 
 #include "Core/Component/SceneComponent.h"
 #include "Core/Math/Box2D.h"
+#include "Core/Utility/MulticastDelegate.h"
 
 class OCollisionComponent : public OSceneComponent
 {
@@ -17,11 +18,10 @@ class OCollisionComponent : public OSceneComponent
 	
 	bool bIsStatic = false;
 
-	//hardCODE 
-
-	std::vector<std::function<void()>> OnStartCollisionCollBackFunctions;
-	std::vector<std::function<void()>> OnCollisionCollBackFunctions;
-	std::vector<std::function<void()>> OnEndCollisionCollBackFunctions;
+public:
+	MulticastDelegate<> OnStartCollisionDelegate;
+	MulticastDelegate<> OnCollisionDelegate;
+	MulticastDelegate<> OnEndCollisionDelegate;
 
 	//===
 protected:
@@ -32,23 +32,6 @@ public:
 	virtual void OnAttach() override;
 	virtual void OnDetach() override;
 	
-	void AddOnStartCollisionCollBackFunction(const std::function<void()>& function)
-	{
-		OnStartCollisionCollBackFunctions.push_back(function);
-	}
-	
-	void AddOnCollisionCollBackFunction(const std::function<void()>& function)
-	{
-		OnCollisionCollBackFunctions.push_back(function);
-	}
-	
-	void AddOnEndCollisionCollBackFunction(const std::function<void()>& function)
-	{
-		OnEndCollisionCollBackFunctions.push_back(function);
-	}
-	
-	//not remove function because not ptr 
-
 	//getters and setters 
 	void SetSize(const FVector2D& size)
 	{

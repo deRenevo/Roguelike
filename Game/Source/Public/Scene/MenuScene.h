@@ -68,7 +68,6 @@ class ATestPawn : public APawn
 	}
 
 public:
-	
 	OSpriteComponent* SpriteComponent = nullptr;
 	ATestPawn()
 	{
@@ -86,8 +85,8 @@ public:
 		CollisionComponent->SetSize({60, 60});
 		CollisionComponent->SetAlignment({-30, -30});
 		
-		CollisionComponent->AddOnStartCollisionCollBackFunction( [this](void){this->OnCollisionStart();});
-		CollisionComponent->AddOnEndCollisionCollBackFunction( [this](void){this->OnCollisionEnd();});
+		CollisionComponent->OnStartCollisionDelegate.Add(std::bind(&ATestPawn::OnCollisionStart, this));
+		CollisionComponent->OnEndCollisionDelegate.Add(std::bind(&ATestPawn::OnCollisionEnd, this));
 		
 		GetRootSceneComponent()->AddChild(std::unique_ptr<OCollisionComponent>(CollisionComponent));
 	}

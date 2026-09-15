@@ -63,12 +63,8 @@ void MenuHUD::HUDConstruction()
 		WidgetStyle.WidgetVerticalAlignment = EWidgetVerticalAlignment::Center;
 
 		StartButton->SetWidgetStyle(WidgetStyle);
-		StartButton->SetOnClick([this]()
-		{
-			std::cout << "Start clicked!\n";
-		});
+		StartButton->OnClickDelegate.Add([this](void){std::cout << "BtState" << std::endl;});
 
 		CanvasPanel->AddChild(std::unique_ptr<WWidget>(StartButton));
-		StartButton->SetVisible(false);
 	}
 }

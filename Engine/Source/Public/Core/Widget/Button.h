@@ -3,12 +3,13 @@
 #pragma once
 
 
-
 #include "Core/Widget/Widget.h"
 #include "Core/Utility/Struct.h"
 
 #include <raylib.h>
 #include <functional>
+
+#include "Core/Utility/MulticastDelegate.h"
 
 
 class WButton : public WWidget
@@ -22,16 +23,16 @@ class WButton : public WWidget
 
 	const char* Text;
 	FButtonStyle ButtonStyle;
-	std::function<void()> OnClickCallback;
 
 	EButtonStatus BtState = EButtonStatus::Normal;
 
 public:
+	WButton(const char* text = "Hello Roguelike",
+			Rectangle bound = Rectangle(0, 0, 100, 40),
+			std::function<void()> callback = nullptr
+	);
 
-	WButton(const char* text = "Hello Rogalice",
-		Rectangle bound = Rectangle(0, 0, 100, 40),
-		std::function<void()> callback = nullptr
-		);
+	MulticastDelegate<> OnClickDelegate;
 
 protected:
 	virtual void Construction() override; //-> processed when changing priced
@@ -43,6 +44,5 @@ protected:
 */
 
 public:
-	void SetOnClick(std::function<void()> callback);
 	void SetStyle(const FButtonStyle& buttonStyle);
 };
