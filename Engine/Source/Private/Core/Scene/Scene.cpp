@@ -7,8 +7,9 @@
 #include <memory>
 
 #include "Core/Manager/CollisionManager.h"
+#include "Core/Manager/TextureManager.h"
 
-void Scene::OnEnter()
+void OScene::OnEnter()
 {
 	PreSceneConstruction();
 	SceneConstruction();
@@ -20,19 +21,19 @@ void Scene::OnEnter()
 	}
 }
 
-void Scene::OnExit()
+void OScene::OnExit()
 {
 	Destroy();
 }
 
-void Scene::DoTick(float DeltaTime)
+void OScene::DoTick(float DeltaTime)
 {
 	if (GetIsPendingKill())
 		return; // if starting process deleting object thet stop Function 
 	Tick(DeltaTime);
 }
 
-void Scene::DoDraw()
+void OScene::DoDraw()
 {
 	if (GetIsPendingKill())
 		return; // if starting process deleting object thet stop Function 
@@ -50,7 +51,7 @@ void Scene::DoDraw()
 }
 
 
-void Scene::Tick(float DeltaTime)
+void OScene::Tick(float DeltaTime)
 {
 	for (std::unique_ptr<AActor>& Actor : ActorsOnScene)
 	{
@@ -60,7 +61,7 @@ void Scene::Tick(float DeltaTime)
 	OCollisionManager::GetInstance().DoTick(DeltaTime);
 }
 
-void Scene::Draw()
+void OScene::Draw()
 {
 	for (std::unique_ptr<AActor>& Actor : ActorsOnScene)
 	{
@@ -68,27 +69,28 @@ void Scene::Draw()
 	}
 }
 
-void Scene::SceneConstruction()
+void OScene::SceneConstruction()
 {
 
 }
 
-void Scene::PreSceneConstruction()
+void OScene::PreSceneConstruction()
 {
 
 }
 
-void Scene::PostSceneConstruction()
+void OScene::PostSceneConstruction()
 {
 
 }
 
-void Scene::Destroy()
+void OScene::Destroy()
 {
+	OTextureManager::GetInstance().ClearTextureMap();
 	SetIsPendingKill();
 }
 
-std::vector<AActor*> Scene::GetActorsOnScene() const
+std::vector<AActor*> OScene::GetActorsOnScene() const
 {
 	std::vector<AActor*> Actors;
 	for (const std::unique_ptr<AActor>& Actor : ActorsOnScene)
@@ -102,7 +104,7 @@ std::vector<AActor*> Scene::GetActorsOnScene() const
 	return Actors;
 }
 
-void Scene::RemoveActorOnScene(AActor* actor)
+void OScene::RemoveActorOnScene(AActor* actor)
 {
 	if (!actor)
 		return;
@@ -120,7 +122,7 @@ void Scene::RemoveActorOnScene(AActor* actor)
 	}
 }
 
-void Scene::AddActorToScene(std::unique_ptr<AActor> actor)
+void OScene::AddActorToScene(std::unique_ptr<AActor> actor)
 {
 	if (!actor)
 	{

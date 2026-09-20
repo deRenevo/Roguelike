@@ -12,7 +12,7 @@
 
 class APlayerStart;
 
-class Scene : public OObject
+class OScene : public OObject
 {
 	std::vector<std::unique_ptr<AActor>> ActorsOnScene;
 	OCameraComponent* RootCameraComponent;
@@ -20,8 +20,8 @@ class Scene : public OObject
 	std::unique_ptr<OGameMode> GameMode;
 
 public:
-	Scene() = default;
-	virtual ~Scene() = default;
+	OScene() = default;
+	virtual ~OScene() = default;
 
 	void OnEnter(); // -> Loading resources
 	virtual void OnExit(); // -> Cleaning up resources

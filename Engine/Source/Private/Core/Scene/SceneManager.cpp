@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <iostream>
 
-void SceneManager::LoadScene(std::unique_ptr<Scene> scene)
+void SceneManager::LoadScene(std::unique_ptr<OScene> scene)
 {
 	std::cout << "LoadScene | LoadScene START, scene = " << scene.get() << "\n";
 
@@ -80,7 +80,7 @@ void SceneManager::Draw()
 	};
 }
 
-Scene* SceneManager::GetScene()
+OScene* SceneManager::GetScene()
 {
 	return CorrectScene.get();
 }

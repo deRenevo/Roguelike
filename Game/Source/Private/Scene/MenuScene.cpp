@@ -12,7 +12,7 @@
 
 #include "HUD/DebugHUD.h"
 
-void MenuScene::SceneConstruction()
+void OMenuScene::SceneConstruction()
 {
 	SetGameMode(std::make_unique<OTestGameMode>([this](void)
 	{
@@ -21,7 +21,7 @@ void MenuScene::SceneConstruction()
 	APlayerStart* PlayerStart = new APlayerStart(Vector2(960, 540));
 	AddActorToScene(std::unique_ptr<APlayerStart>(PlayerStart));
 
-	Scene::SceneConstruction();
+	OScene::SceneConstruction();
 	//SceneManager::GetInstance().AddToViewport(std::move(std::make_unique<MenuHUD>()));
 	SceneManager::GetInstance().AddToViewport(std::move(std::make_unique<DebugHUD>()));
 
@@ -38,17 +38,17 @@ void MenuScene::SceneConstruction()
 	}
 }
 
-void MenuScene::Tick(float DeltaTick)
+void OMenuScene::Tick(float DeltaTick)
 {
-	Scene::Tick(DeltaTick);
+	OScene::Tick(DeltaTick);
 }
 
-void MenuScene::Destroy()
+void OMenuScene::Destroy()
 {
 
 }
 
-MenuScene::~MenuScene()
+OMenuScene::~OMenuScene()
 {
 
 }

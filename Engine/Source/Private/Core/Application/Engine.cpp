@@ -17,7 +17,7 @@ OEngine& OEngine::GetInstance()
 	return Engine;
 }
 
-void OEngine::Ini(std::unique_ptr<Scene> scene)
+void OEngine::Ini(std::unique_ptr<OScene> scene)
 {
 	const int8 Monitor = GetCurrentMonitor();
 	const int32 ScreenWidth = GetMonitorWidth(Monitor);

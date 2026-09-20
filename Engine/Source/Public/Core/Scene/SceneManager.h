@@ -14,19 +14,19 @@ class SceneManager
 public:
 	static SceneManager& GetInstance();
 
-	virtual void LoadScene(std::unique_ptr<Scene> scene);
+	virtual void LoadScene(std::unique_ptr<OScene> scene);
 	//virtual void LoadHUD(std::unique_ptr<HUD> hud);
 	virtual void AddToViewport(std::unique_ptr<HUD> hud);
 	virtual void RemoveHUD(HUD* hud);
 	virtual void Tick(float DeltaTime); //-> every frame is processed
 	virtual void Draw();
-	virtual Scene* GetScene();
+	virtual OScene* GetScene();
 
 private:
 	SceneManager() = default;
 	~SceneManager() = default;
 
-	std::unique_ptr<Scene> CorrectScene;
+	std::unique_ptr<OScene> CorrectScene;
 	//std::unique_ptr<HUD> CorrectHUD;
 	std::vector<std::unique_ptr<HUD>> HUDViewport;
 };

@@ -4,9 +4,11 @@
 
 #include <Core/Component/SceneComponent.h>
 
+#include "Core/Manager/TextureManager.h"
+
 class OSpriteComponent : public OSceneComponent
 {
-	Texture2D Texture = {};
+	Texture* Texture2D = nullptr;
 	FVector2D SpriteAlignment = FVector2D::ZeroVector;
 	bool bIsVisible = true;
 
@@ -20,14 +22,29 @@ public:
 	virtual ~OSpriteComponent() override;
 
 	//setters and setters
-	void SetTexture(const Texture2D& texture)
+	void SetTexture(Texture* texture)
 	{
-		Texture = texture;
+		Texture2D = texture;
 	}
 
 	void LoadTexture(const std::string& texturePath)
 	{
-		SetTexture(::LoadTexture(texturePath.c_str()));
+		if (Texture2D)
+		{
+			OTextureManager::GetInstance().UnloadTexture(Texture2D);
+		}
+		
+		SetTexture(OTextureManager::GetInstance().LoadTexture(texturePath));
+	}
+	
+	void UnloadTexture()
+	{
+		if (!Texture2D)
+		{
+			return;
+		}
+		
+		OTextureManager::GetInstance().UnloadTexture(Texture2D);
 	}
 
 	void SetSpriteAlignment(const FVector2D& spriteAlignment)
@@ -40,9 +57,9 @@ public:
 		bIsVisible = isVisible;
 	}
 
-	Texture2D GetTexture() const
+	Texture* GetTexture() const
 	{
-		return Texture;
+		return Texture2D;
 	}
 	
 	bool IsVisible() const

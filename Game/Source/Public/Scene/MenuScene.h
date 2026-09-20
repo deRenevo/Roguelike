@@ -151,11 +151,11 @@ public:
 
 // ==========================
 
-class MenuScene : public Scene
+class OMenuScene : public OScene
 {
 
 public:
-	virtual ~MenuScene() override;
+	virtual ~OMenuScene() override;
 
 private:
 

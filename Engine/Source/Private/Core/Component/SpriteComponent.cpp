@@ -12,19 +12,20 @@ OSpriteComponent::OSpriteComponent(const std::string& name) : OSceneComponent(na
 
 OSpriteComponent::~OSpriteComponent()
 {
-	if (IsTextureValid(Texture))
-	{
-		UnloadTexture(Texture);
-	}
+	UnloadTexture();
 }
 
 void OSpriteComponent::Draw()
 {
+	if (!Texture2D)
+	{
+		return;
+	}
 	
-	if (bIsVisible && IsTextureValid(Texture))
+	if (bIsVisible && IsTextureValid(*Texture2D))
 	{
 		FVector2D Location = GetWorldLocation();
-		DrawTexture(Texture, Location.X + SpriteAlignment.X, Location.Y + SpriteAlignment.Y, WHITE);
+		DrawTexture(*Texture2D, Location.X + SpriteAlignment.X, Location.Y + SpriteAlignment.Y, WHITE);
 	}
 	OSceneComponent::Draw();
 }

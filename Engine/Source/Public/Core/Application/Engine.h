@@ -25,7 +25,7 @@ public:
 
 	static OEngine& GetInstance();
 	
-	virtual void Ini(std::unique_ptr<Scene> scene);
+	virtual void Ini(std::unique_ptr<OScene> scene);
 
 	virtual void Stop();
 };

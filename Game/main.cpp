@@ -14,6 +14,6 @@ int main()
 {
 	printf("Hello Roguelike");
 	
-	OEngine::GetInstance().Ini(std::make_unique<MenuScene>());
+	OEngine::GetInstance().Ini(std::make_unique<OMenuScene>());
 	return 0;
 }
