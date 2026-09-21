@@ -21,6 +21,8 @@ public:
 	virtual void Tick(float DeltaTime); //-> every frame is processed
 	virtual void Draw();
 	virtual OScene* GetScene();
+	
+	void Shutdown();
 
 private:
 	SceneManager() = default;

@@ -21,7 +21,7 @@ class OScene : public OObject
 
 public:
 	OScene() = default;
-	virtual ~OScene() = default;
+	virtual ~OScene() override;
 
 	void OnEnter(); // -> Loading resources
 	virtual void OnExit(); // -> Cleaning up resources
@@ -36,7 +36,6 @@ protected:
 	virtual void SceneConstruction(); //-> processed when changing priced
 	virtual void PreSceneConstruction(); //-> processed before SceneConstruction
 	virtual void PostSceneConstruction(); //-> processed after SceneConstruction
-	virtual void Destroy();
 
 public:
 	void AddActorToScene(std::unique_ptr<AActor> actor);

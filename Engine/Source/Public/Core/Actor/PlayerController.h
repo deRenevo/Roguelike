@@ -4,15 +4,15 @@
 
 #include "Core/Actor/Actor.h"
 
+class OInputManager;
 class APawn;
-class InputManager;
 
 class APlayerController : public AActor
 {
 	APawn* PlayerPawn = nullptr;
 
 protected:
-	virtual void SetupPlayerInputComponent(InputManager& inputManager);
+	virtual void SetupPlayerInputComponent(OInputManager& inputManager);
 
 public:
 	APlayerController();

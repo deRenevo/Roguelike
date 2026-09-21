@@ -62,6 +62,7 @@ void OSceneComponent::EndPlay()
 
 	for (std::unique_ptr<OComponent>& Child : Children)
 	{
+		Child->OnDetach();
 		Child->EndPlay();
 	}
 }

@@ -7,6 +7,8 @@
 
 #include <memory>
 
+class OInputManager;
+
 class APawn : public AActor
 {
 	APlayerController* OwnerPlayerController = nullptr;
@@ -18,7 +20,7 @@ public:
 	APawn();
 	APawn(FVector2D worldLocation);
 	APawn(FVector2D worldLocation, const std::string& name);
-	virtual void SetupPlayerInputComponent(InputManager& inputManager);
+	virtual void SetupPlayerInputComponent(OInputManager& inputManager);
 
 	virtual void BeginPlay() override;
 

@@ -10,6 +10,7 @@
 class OEngine : public OObject
 {
 	bool bIsRunning = false;
+	std::unique_ptr<OScene> LoadThenScene = nullptr;
 
 protected:
 	virtual void Run();
@@ -28,4 +29,6 @@ public:
 	virtual void Ini(std::unique_ptr<OScene> scene);
 
 	virtual void Stop();
+	
+	void LoadScene(std::unique_ptr<OScene> scene);
 };

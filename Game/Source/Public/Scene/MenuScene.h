@@ -5,7 +5,7 @@
 #include "Core/Scene/Scene.h"
 #include "Core/Actor/Actor.h"
 #include "Core/Game/GameMode.h"
-#include "Core/Input/InputManager.h"
+#include "Core/Manager/InputManager.h"
 #include "Core/Actor/Pawn.h"
 #include "Core/Application/Engine.h"
 #include "Core/Component/CollisionComponent.h"
@@ -20,7 +20,7 @@ class WButton;
 //====== Test code
 class ATestPawn : public APawn
 {
-	virtual void SetupPlayerInputComponent(InputManager& inputManager) override
+	virtual void SetupPlayerInputComponent(OInputManager& inputManager) override
 	{
 		inputManager.SubscribeKey(KeyboardKey::KEY_ESCAPE, EInputType::Pressed, [](void)
 		{
@@ -50,6 +50,10 @@ class ATestPawn : public APawn
 		{
 			this->SetFastMove(false);
 		});
+		inputManager.SubscribeKey(KeyboardKey::KEY_R, EInputType::Released, [this](void)
+		{
+			this->LoadScene();
+		});
 	}
 
 	Vector2 InputMove = {0, 0};
@@ -69,6 +73,7 @@ class ATestPawn : public APawn
 
 public:
 	OSpriteComponent* SpriteComponent = nullptr;
+
 	ATestPawn()
 	{
 		SpriteComponent = new OSpriteComponent();
@@ -84,25 +89,24 @@ public:
 		OCollisionComponent* CollisionComponent = new OCollisionComponent();
 		CollisionComponent->SetSize({60, 60});
 		CollisionComponent->SetAlignment({-30, -30});
-		
+
 		CollisionComponent->OnStartCollisionDelegate.Add(std::bind(&ATestPawn::OnCollisionStart, this));
 		CollisionComponent->OnEndCollisionDelegate.Add(std::bind(&ATestPawn::OnCollisionEnd, this));
-		
+
 		GetRootSceneComponent()->AddChild(std::unique_ptr<OCollisionComponent>(CollisionComponent));
 	}
 
 public:
-	
 	void OnCollisionStart() const
 	{
 		//SpriteComponent->SetIsVisible(true);
 	}
-	
+
 	void OnCollisionEnd() const
 	{
 		//SpriteComponent->SetIsVisible(false);
 	}
-	
+
 	void Move(Vector2 deltaMove)
 	{
 		InputMove = {InputMove.x + deltaMove.x, InputMove.y + deltaMove.y};
@@ -112,6 +116,8 @@ public:
 	{
 		bIsFastMove = isFastMove;
 	}
+
+	void LoadScene();
 };
 
 class ATestActor : public AActor
@@ -162,5 +168,4 @@ private:
 protected:
 	virtual void SceneConstruction() override;
 	virtual void Tick(float DeltaTick) override;
-	virtual void Destroy() override;
 };

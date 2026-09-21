@@ -7,7 +7,12 @@
 #include <memory>
 
 #include "Core/Manager/CollisionManager.h"
-#include "Core/Manager/TextureManager.h"
+#include "Core/Manager/InputManager.h"
+
+OScene::~OScene()
+{
+
+}
 
 void OScene::OnEnter()
 {
@@ -23,7 +28,7 @@ void OScene::OnEnter()
 
 void OScene::OnExit()
 {
-	Destroy();
+	SetIsPendingKill();
 }
 
 void OScene::DoTick(float DeltaTime)
@@ -82,12 +87,6 @@ void OScene::PreSceneConstruction()
 void OScene::PostSceneConstruction()
 {
 
-}
-
-void OScene::Destroy()
-{
-	OTextureManager::GetInstance().ClearTextureMap();
-	SetIsPendingKill();
 }
 
 std::vector<AActor*> OScene::GetActorsOnScene() const

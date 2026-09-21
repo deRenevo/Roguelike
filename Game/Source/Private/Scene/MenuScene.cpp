@@ -43,9 +43,9 @@ void OMenuScene::Tick(float DeltaTick)
 	OScene::Tick(DeltaTick);
 }
 
-void OMenuScene::Destroy()
+void ATestPawn::LoadScene()
 {
-
+	OEngine::GetInstance().LoadScene(std::make_unique<OMenuScene>());
 }
 
 OMenuScene::~OMenuScene()

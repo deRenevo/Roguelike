@@ -5,6 +5,10 @@
 #include <algorithm>
 #include <iostream>
 
+#include "Core/Manager/CollisionManager.h"
+#include "Core/Manager/InputManager.h"
+#include "Core/Manager/TextureManager.h"
+
 void SceneManager::LoadScene(std::unique_ptr<OScene> scene)
 {
 	std::cout << "LoadScene | LoadScene START, scene = " << scene.get() << "\n";
@@ -14,6 +18,15 @@ void SceneManager::LoadScene(std::unique_ptr<OScene> scene)
 		std::cout << "LoadScene | Exiting old scene\n";
 		CorrectScene->OnExit();
 	}
+
+	if (!HUDViewport.empty())
+	{
+		HUDViewport.clear();
+	}
+
+	OTextureManager::GetInstance().ClearTextureMap();
+	OCollisionManager::GetInstance().ClearCollisionComponents();
+	OInputManager::GetInstance().ClearSubscribedKeys();
 
 	CorrectScene = std::move(scene);
 	std::cout << "LoadScene | Scene moved, CorrectScene = " << CorrectScene.get() << "\n";
@@ -83,6 +96,15 @@ void SceneManager::Draw()
 OScene* SceneManager::GetScene()
 {
 	return CorrectScene.get();
+}
+
+void SceneManager::Shutdown()
+{
+	if (CorrectScene)
+	{
+		CorrectScene->OnExit();
+		CorrectScene.reset();
+	}
 }
 
 //=>getter and setter

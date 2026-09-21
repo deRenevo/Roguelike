@@ -37,6 +37,11 @@ public:
 			CollisionComponents.erase(It);
 		}
 	}
+	
+	void ClearCollisionComponents()
+	{
+		CollisionComponents.clear();
+	}
 
 	//getters and setters
 
