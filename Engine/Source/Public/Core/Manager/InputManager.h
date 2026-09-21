@@ -50,4 +50,6 @@ public:
 	{
 		KeyActions.clear();
 	}
+	
+	void UnsubscribeKey(FMulticastDelegateHandle keyDelegateHandle);
 };

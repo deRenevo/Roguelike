@@ -56,4 +56,9 @@ public:
 	{
 		DelegateCallbacks.clear();
 	}
+
+	bool IsEmpty() const
+	{
+		return DelegateCallbacks.empty();
+	}
 };

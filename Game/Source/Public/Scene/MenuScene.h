@@ -2,6 +2,9 @@
 
 #pragma once
 
+#include <iostream>
+#include <ostream>
+
 #include "Core/Scene/Scene.h"
 #include "Core/Actor/Actor.h"
 #include "Core/Game/GameMode.h"
@@ -20,6 +23,8 @@ class WButton;
 //====== Test code
 class ATestPawn : public APawn
 {
+	FMulticastDelegateHandle Handle;
+
 	virtual void SetupPlayerInputComponent(OInputManager& inputManager) override
 	{
 		inputManager.SubscribeKey(KeyboardKey::KEY_ESCAPE, EInputType::Pressed, [](void)
@@ -50,7 +55,11 @@ class ATestPawn : public APawn
 		{
 			this->SetFastMove(false);
 		});
-		inputManager.SubscribeKey(KeyboardKey::KEY_R, EInputType::Released, [this](void)
+		inputManager.SubscribeKey(KeyboardKey::KEY_F, EInputType::Pressed, [this](void)
+		{
+			this->OffLoadScene();
+		});
+		inputManager.SubscribeKey(KeyboardKey::KEY_R, EInputType::Pressed, [this](void)
 		{
 			this->LoadScene();
 		});
@@ -118,6 +127,10 @@ public:
 	}
 
 	void LoadScene();
+	void OffLoadScene()
+	{
+		OInputManager::GetInstance().UnsubscribeKey(Handle);
+	}
 };
 
 class ATestActor : public AActor

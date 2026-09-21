@@ -11,7 +11,7 @@
 void OInputManager::UpdateKeyInput()
 {
 	std::vector<KeyboardKey> KeysInput;
-	
+
 	for (uint16 key = 0; key < 512; ++key)
 	{
 		if (IsKeyDown(key))
@@ -44,24 +44,43 @@ void OInputManager::UpdateKeyInput()
 
 FMulticastDelegateHandle OInputManager::SubscribeKey(KeyboardKey key, EInputType inputType, const std::function<void()>& callback)
 {
-	if (key == KeyboardKey::KEY_NULL) FMulticastDelegateHandle();
+	if (key == KeyboardKey::KEY_NULL) return FMulticastDelegateHandle();
 
 	auto It = std::ranges::find_if(KeyActions, [&](const FKeyAction& keyAction)
 	{
 		return keyAction.Key == key && keyAction.InputType == inputType;
 	});
-	
+
 	if (It != KeyActions.end())
 	{
 		FKeyAction& FoundAction = *It;
 		return FoundAction.Callback.Add(callback);
 	}
-	
-	FKeyAction NewKeyAction;
-	NewKeyAction.Key = key;
-	NewKeyAction.InputType = inputType;
-	NewKeyAction.Callback = MulticastDelegate<>();
-	FMulticastDelegateHandle MulticastDelegateHandle = NewKeyAction.Callback.Add(callback);
-	KeyActions.push_back(NewKeyAction);
-	return MulticastDelegateHandle;
+
+	KeyActions.push_back({});
+	FKeyAction& NewAction = KeyActions.back(); 
+	NewAction.Key = key;
+	NewAction.InputType = inputType;
+	return NewAction.Callback.Add(callback);
+}
+
+void OInputManager::UnsubscribeKey(const FMulticastDelegateHandle keyDelegateHandle)
+{
+	if (!keyDelegateHandle.IsValid())
+		return;
+
+	for (auto It = KeyActions.begin(); It != KeyActions.end(); ++It)
+	{
+		const void* DelegatePtr = static_cast<void*>(&It->Callback);
+		
+		if (DelegatePtr == keyDelegateHandle.MulticastDelegate)
+		{
+			It->Callback.Remove(keyDelegateHandle);
+			if (It->Callback.IsEmpty())
+			{
+				KeyActions.erase(It);
+			}
+			return;
+		}
+	}
 }
