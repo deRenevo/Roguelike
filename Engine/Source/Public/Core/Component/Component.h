@@ -32,7 +32,7 @@ public:
 	virtual void OnDetach();
 
 	//getters and setters
-	void SetOwner(AActor* owner)
+	virtual void SetOwner(AActor* owner)
 	{
 		Owner = owner;
 	}

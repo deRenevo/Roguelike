@@ -6,5 +6,5 @@
 
 struct ODebugManager : OObject
 {
-	inline static bool bIsVisibleCollision = false;
+	inline static bool bIsVisibleCollision = true;
 };

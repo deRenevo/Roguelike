@@ -35,6 +35,17 @@ public:
 	void RemoveChild(OComponent* child);
 
 	//setters
+	
+	virtual void SetOwner(AActor* owner) override
+	{
+		OComponent::SetOwner(owner);
+		
+		for (std::unique_ptr<OComponent>& child : Children)
+		{
+			child->SetOwner(owner);
+		}
+	}
+	
 	void SetParent(OSceneComponent* parent)
 	{
 		Parent = parent;

@@ -14,6 +14,7 @@
 #include "Core/Component/CollisionComponent.h"
 
 #include "Core/Component/SpriteComponent.h"
+#include "Core/Component/StaticSpriteComponent.h"
 #include "Core/Math/CollisionMath.h"
 #include "Core/Scene/SceneManager.h"
 
@@ -59,7 +60,7 @@ class ATestPawn : public APawn
 		{
 			this->OffLoadScene();
 		});
-		inputManager.SubscribeKey(KeyboardKey::KEY_R, EInputType::Pressed, [this](void)
+		Handle = inputManager.SubscribeKey(KeyboardKey::KEY_R, EInputType::Pressed, [this](void)
 		{
 			this->LoadScene();
 		});
@@ -81,20 +82,25 @@ class ATestPawn : public APawn
 	}
 
 public:
-	OSpriteComponent* SpriteComponent = nullptr;
+	OStaticSpriteComponent* StaticSpriteComponent = nullptr;
 
 	ATestPawn()
 	{
-		SpriteComponent = new OSpriteComponent();
-		SpriteComponent->LoadTexture("Assets/block.png");
-		SpriteComponent->SetSpriteAlignment(Vector2(-32, -32));
+		StaticSpriteComponent = new OStaticSpriteComponent();
+		StaticSpriteComponent->UpdateSprite("Assets/block.png");
+		StaticSpriteComponent->GetCollisionComponent()->SetStatic(false);
+		StaticSpriteComponent->SetAlignment({-static_cast<float>(StaticSpriteComponent->GetSpriteComponent()->GetTexture()->width), 
+			-static_cast<float>(StaticSpriteComponent->GetSpriteComponent()->GetTexture()->height)});
+
+
+		//SpriteComponent->SetSpriteAlignment(Vector2(-32, -32));
 		//SpriteComponent->SetIsVisible(false);
-		GetRootSceneComponent()->AddChild(std::unique_ptr<OSpriteComponent>(SpriteComponent));
+		GetRootSceneComponent()->AddChild(std::unique_ptr<OStaticSpriteComponent>(StaticSpriteComponent));
 
 		OCameraComponent* CameraComponent = new OCameraComponent();
 		SceneManager::GetInstance().GetScene()->SetRootCameraComponent(CameraComponent);
 		GetRootSceneComponent()->AddChild(std::unique_ptr<OCameraComponent>(CameraComponent));
-
+/*
 		OCollisionComponent* CollisionComponent = new OCollisionComponent();
 		CollisionComponent->SetSize({60, 60});
 		CollisionComponent->SetAlignment({-30, -30});
@@ -102,7 +108,7 @@ public:
 		CollisionComponent->OnStartCollisionDelegate.Add(std::bind(&ATestPawn::OnCollisionStart, this));
 		CollisionComponent->OnEndCollisionDelegate.Add(std::bind(&ATestPawn::OnCollisionEnd, this));
 
-		GetRootSceneComponent()->AddChild(std::unique_ptr<OCollisionComponent>(CollisionComponent));
+		GetRootSceneComponent()->AddChild(std::unique_ptr<OCollisionComponent>(CollisionComponent));*/
 	}
 
 public:
@@ -127,6 +133,7 @@ public:
 	}
 
 	void LoadScene();
+
 	void OffLoadScene()
 	{
 		OInputManager::GetInstance().UnsubscribeKey(Handle);
