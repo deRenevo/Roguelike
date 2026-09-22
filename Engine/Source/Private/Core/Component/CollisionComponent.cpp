@@ -32,7 +32,7 @@ void OCollisionComponent::Draw()
 {
 	OSceneComponent::Draw();
 
-	if (ODebugManager::bIsVisibleCollision)
+	if (DebugManager::bIsVisibleCollision)
 	{
 		if (bIsColliding)
 		{
@@ -49,12 +49,12 @@ void OCollisionComponent::OnAttach()
 {
 	OSceneComponent::OnAttach();
 
-	OCollisionManager::GetInstance().AddCollisionComponent(this);
+	CollisionManager::GetInstance().AddCollisionComponent(this);
 }
 
 void OCollisionComponent::OnDetach()
 {
 	OSceneComponent::OnDetach();
 
-	OCollisionManager::GetInstance().RemoveCollisionComponent(this);
+	CollisionManager::GetInstance().RemoveCollisionComponent(this);
 }

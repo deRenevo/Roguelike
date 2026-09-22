@@ -2,9 +2,7 @@
 
 #pragma once
 
-#include "Core/Object/Object.h"
-
-struct ODebugManager : OObject
+struct DebugManager
 {
 	inline static bool bIsVisibleCollision = true;
 };

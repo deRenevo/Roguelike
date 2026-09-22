@@ -39,7 +39,7 @@ void OEngine::Run()
 	{
 		float deltaTime = GetFrameTime();
 
-		OInputManager::GetInstance().UpdateKeyInput();
+		InputManager::GetInstance().UpdateKeyInput();
 
 		SceneManager::GetInstance().Tick(deltaTime);
 

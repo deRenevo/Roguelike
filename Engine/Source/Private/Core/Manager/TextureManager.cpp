@@ -5,7 +5,7 @@
 #include <memory>
 #include <ranges>
 
-Texture* OTextureManager::LoadTexture(const std::string& texturePath)
+Texture* TextureManager::LoadTexture(const std::string& texturePath)
 {
 	if (std::unordered_map<std::string, FTextureLoadState>::iterator It = TextureLoadMap.find(texturePath); It != TextureLoadMap.end())
 	{
@@ -26,7 +26,7 @@ Texture* OTextureManager::LoadTexture(const std::string& texturePath)
 	return TextureLoadState.Texture2D.get();
 }
 
-void OTextureManager::UnloadTexture(const Texture* texture)
+void TextureManager::UnloadTexture(const Texture* texture)
 {
 	if (!texture)
 	{
@@ -49,7 +49,7 @@ void OTextureManager::UnloadTexture(const Texture* texture)
 	}
 }
 
-void OTextureManager::ClearTextureMap()
+void TextureManager::ClearTextureMap()
 {
 	for (FTextureLoadState& state : TextureLoadMap | std::views::values)
 	{

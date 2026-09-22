@@ -6,7 +6,7 @@
 #include "Core/Component/CollisionComponent.h"
 #include "Core/Math/CollisionMath.h"
 
-void OCollisionManager::Tick(float deltaTime)
+void CollisionManager::Tick(float deltaTime)
 {
 	const int32 Count = CollisionComponents.size();
 	
@@ -49,10 +49,4 @@ void OCollisionManager::Tick(float deltaTime)
 			}
 		}
 	}
-}
-
-void OCollisionManager::DoTick(float deltaTime)
-{
-	if (GetIsPendingKill()) return;
-	Tick(deltaTime);
 }

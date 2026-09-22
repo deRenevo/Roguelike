@@ -2,19 +2,16 @@
 
 #pragma once
 
-#include "Core/Object/Object.h"
+#include <vector>
 
 class OCollisionComponent;
 
-class OCollisionManager : public OObject
+class CollisionManager
 {
 	std::vector<OCollisionComponent*> CollisionComponents;
-
-protected:
-	virtual void Tick(float deltaTime);
-
 public:
-	virtual void DoTick(float deltaTime) final;
+	virtual ~CollisionManager() = default;
+	virtual void Tick(float deltaTime);
 	
 	void AddCollisionComponent(OCollisionComponent* collisionComponent)
 	{
@@ -45,9 +42,9 @@ public:
 
 	//getters and setters
 
-	static OCollisionManager& GetInstance()
+	static CollisionManager& GetInstance()
 	{
-		static OCollisionManager CollisionManager;
-		return CollisionManager;
+		static CollisionManager CM;
+		return CM;
 	}
 };

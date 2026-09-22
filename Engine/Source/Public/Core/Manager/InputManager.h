@@ -23,26 +23,26 @@ struct FKeyAction
 	EInputType InputType;
 };
 
-class OInputManager : public OObject
+class InputManager : public OObject
 {
 	std::vector<FKeyAction> KeyActions;
 	std::vector<KeyboardKey> OldKeyInput;
 
-	OInputManager() = default;
-	virtual ~OInputManager() override = default;
+	InputManager() = default;
+	virtual ~InputManager() override = default;
 
 public:
 	
-	OInputManager(const OInputManager&) = delete;
-	OInputManager& operator=(const OInputManager&) = delete;
-	OInputManager(OInputManager&) = delete;
-	OInputManager& operator=(OInputManager&&) = delete;
+	InputManager(const InputManager&) = delete;
+	InputManager& operator=(const InputManager&) = delete;
+	InputManager(InputManager&) = delete;
+	InputManager& operator=(InputManager&&) = delete;
 	
 	void UpdateKeyInput();
-	static OInputManager& GetInstance()
+	static InputManager& GetInstance()
 	{
-		static OInputManager InputManager;
-		return InputManager;
+		static InputManager IM;
+		return IM;
 	}
 	
 	FMulticastDelegateHandle SubscribeKey(KeyboardKey key, EInputType inputType, const std::function<void()>& callback);

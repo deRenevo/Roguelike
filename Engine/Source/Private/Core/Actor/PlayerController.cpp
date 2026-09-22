@@ -7,7 +7,7 @@
 
 #include <memory>
 
-void APlayerController::SetupPlayerInputComponent(OInputManager& inputManager)
+void APlayerController::SetupPlayerInputComponent(InputManager& inputManager)
 {
 
 }
@@ -29,7 +29,7 @@ APlayerController::APlayerController(FVector2D worldLocation, std::string name) 
 
 void APlayerController::BeginPlay()
 {
-	SetupPlayerInputComponent(OInputManager::GetInstance());
+	SetupPlayerInputComponent(InputManager::GetInstance());
 }
 
 void APlayerController::Possess(APawn* pawn)
@@ -42,7 +42,7 @@ void APlayerController::Possess(APawn* pawn)
 	}
 
 	PlayerPawn->PossessedBy(this);
-	PlayerPawn->SetupPlayerInputComponent(OInputManager::GetInstance());
+	PlayerPawn->SetupPlayerInputComponent(InputManager::GetInstance());
 }
 
 void APlayerController::UnPossess()

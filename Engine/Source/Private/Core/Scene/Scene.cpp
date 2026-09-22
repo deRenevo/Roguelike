@@ -63,7 +63,7 @@ void OScene::Tick(float DeltaTime)
 		Actor->DoTick(DeltaTime);
 	}
 	
-	OCollisionManager::GetInstance().DoTick(DeltaTime);
+	CollisionManager::GetInstance().Tick(DeltaTime);
 }
 
 void OScene::Draw()

@@ -9,7 +9,7 @@
 #include <memory>
 #include <unordered_map>
 
-class OTextureManager : public OObject
+class TextureManager
 {
 	struct FTextureLoadState
 	{
@@ -26,9 +26,9 @@ public:
 	
 	//getters and setters
 	
-	static OTextureManager& GetInstance()
+	static TextureManager& GetInstance()
 	{
-		static OTextureManager TextureManager;
-		return TextureManager;
+		static TextureManager TM;
+		return TM;
 	}
 };

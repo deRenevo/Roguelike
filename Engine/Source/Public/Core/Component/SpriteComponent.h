@@ -31,10 +31,10 @@ public:
 	{
 		if (Texture2D)
 		{
-			OTextureManager::GetInstance().UnloadTexture(Texture2D);
+			TextureManager::GetInstance().UnloadTexture(Texture2D);
 		}
 		
-		SetTexture(OTextureManager::GetInstance().LoadTexture(texturePath));
+		SetTexture(TextureManager::GetInstance().LoadTexture(texturePath));
 	}
 	
 	void UnloadTexture()
@@ -44,7 +44,7 @@ public:
 			return;
 		}
 		
-		OTextureManager::GetInstance().UnloadTexture(Texture2D);
+		TextureManager::GetInstance().UnloadTexture(Texture2D);
 	}
 
 	void SetSpriteAlignment(const FVector2D& spriteAlignment)

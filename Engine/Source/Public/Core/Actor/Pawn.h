@@ -20,7 +20,7 @@ public:
 	APawn();
 	APawn(FVector2D worldLocation);
 	APawn(FVector2D worldLocation, const std::string& name);
-	virtual void SetupPlayerInputComponent(OInputManager& inputManager);
+	virtual void SetupPlayerInputComponent(InputManager& inputManager);
 
 	virtual void BeginPlay() override;
 

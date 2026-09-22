@@ -24,9 +24,9 @@ void SceneManager::LoadScene(std::unique_ptr<OScene> scene)
 		HUDViewport.clear();
 	}
 
-	OTextureManager::GetInstance().ClearTextureMap();
-	OCollisionManager::GetInstance().ClearCollisionComponents();
-	OInputManager::GetInstance().ClearSubscribedKeys();
+	TextureManager::GetInstance().ClearTextureMap();
+	CollisionManager::GetInstance().ClearCollisionComponents();
+	InputManager::GetInstance().ClearSubscribedKeys();
 
 	CorrectScene = std::move(scene);
 	std::cout << "LoadScene | Scene moved, CorrectScene = " << CorrectScene.get() << "\n";

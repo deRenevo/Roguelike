@@ -4,7 +4,7 @@
 
 #include "Core/Actor/Actor.h"
 
-class OInputManager;
+class InputManager;
 class APawn;
 
 class APlayerController : public AActor
@@ -12,7 +12,7 @@ class APlayerController : public AActor
 	APawn* PlayerPawn = nullptr;
 
 protected:
-	virtual void SetupPlayerInputComponent(OInputManager& inputManager);
+	virtual void SetupPlayerInputComponent(InputManager& inputManager);
 
 public:
 	APlayerController();

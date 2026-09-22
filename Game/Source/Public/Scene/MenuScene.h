@@ -26,7 +26,7 @@ class ATestPawn : public APawn
 {
 	FMulticastDelegateHandle Handle;
 
-	virtual void SetupPlayerInputComponent(OInputManager& inputManager) override
+	virtual void SetupPlayerInputComponent(InputManager& inputManager) override
 	{
 		inputManager.SubscribeKey(KeyboardKey::KEY_ESCAPE, EInputType::Pressed, [](void)
 		{
@@ -91,24 +91,11 @@ public:
 		StaticSpriteComponent->GetCollisionComponent()->SetStatic(false);
 		StaticSpriteComponent->SetAlignment({-static_cast<float>(StaticSpriteComponent->GetSpriteComponent()->GetTexture()->width), 
 			-static_cast<float>(StaticSpriteComponent->GetSpriteComponent()->GetTexture()->height)});
-
-
-		//SpriteComponent->SetSpriteAlignment(Vector2(-32, -32));
-		//SpriteComponent->SetIsVisible(false);
 		GetRootSceneComponent()->AddChild(std::unique_ptr<OStaticSpriteComponent>(StaticSpriteComponent));
 
 		OCameraComponent* CameraComponent = new OCameraComponent();
 		SceneManager::GetInstance().GetScene()->SetRootCameraComponent(CameraComponent);
 		GetRootSceneComponent()->AddChild(std::unique_ptr<OCameraComponent>(CameraComponent));
-/*
-		OCollisionComponent* CollisionComponent = new OCollisionComponent();
-		CollisionComponent->SetSize({60, 60});
-		CollisionComponent->SetAlignment({-30, -30});
-
-		CollisionComponent->OnStartCollisionDelegate.Add(std::bind(&ATestPawn::OnCollisionStart, this));
-		CollisionComponent->OnEndCollisionDelegate.Add(std::bind(&ATestPawn::OnCollisionEnd, this));
-
-		GetRootSceneComponent()->AddChild(std::unique_ptr<OCollisionComponent>(CollisionComponent));*/
 	}
 
 public:
@@ -136,7 +123,7 @@ public:
 
 	void OffLoadScene()
 	{
-		OInputManager::GetInstance().UnsubscribeKey(Handle);
+		InputManager::GetInstance().UnsubscribeKey(Handle);
 	}
 };
 

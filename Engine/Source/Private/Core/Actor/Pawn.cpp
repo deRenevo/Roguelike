@@ -2,7 +2,7 @@
 
 #include "Core/Actor/Pawn.h"
 
-void APawn::SetupPlayerInputComponent(OInputManager& inputManager)
+void APawn::SetupPlayerInputComponent(InputManager& inputManager)
 {
 	//Test function. Processing input used global input system for Test input system.
 	//Next rework system (Player controller for input control)

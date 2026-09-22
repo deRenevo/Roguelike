@@ -7,7 +7,7 @@
 
 #include "Core/Math/BasicTypes.h"
 
-void OInputManager::UpdateKeyInput()
+void InputManager::UpdateKeyInput()
 {
 	std::vector<KeyboardKey> KeysInput;
 
@@ -41,7 +41,7 @@ void OInputManager::UpdateKeyInput()
 	OldKeyInput = KeysInput;
 }
 
-FMulticastDelegateHandle OInputManager::SubscribeKey(KeyboardKey key, EInputType inputType, const std::function<void()>& callback)
+FMulticastDelegateHandle InputManager::SubscribeKey(KeyboardKey key, EInputType inputType, const std::function<void()>& callback)
 {
 	if (key == KeyboardKey::KEY_NULL) return FMulticastDelegateHandle();
 
@@ -63,7 +63,7 @@ FMulticastDelegateHandle OInputManager::SubscribeKey(KeyboardKey key, EInputType
 	return NewAction.Callback.Add(callback);
 }
 
-void OInputManager::UnsubscribeKey(const FMulticastDelegateHandle keyDelegateHandle)
+void InputManager::UnsubscribeKey(const FMulticastDelegateHandle keyDelegateHandle)
 {
 	if (!keyDelegateHandle.IsValid())
 		return;
