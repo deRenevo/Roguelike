@@ -4,6 +4,7 @@
 
 #include "Core/Object/Object.h"
 
+struct FBox2D;
 class AActor;
 
 class OComponent : public OObject
@@ -14,7 +15,7 @@ class OComponent : public OObject
 
 protected:
 	virtual void Tick(float DeltaTime);
-	virtual void Draw();
+	virtual void Draw(const FBox2D& cameraViewportBounds);
 
 public:
 	OComponent();
@@ -25,7 +26,7 @@ public:
 	virtual ~OComponent() override = default;
 
 	virtual void DoTick(float DeltaTime);
-	virtual void DoDraw();
+	virtual void DoDraw(const FBox2D& cameraViewportBounds);
 	virtual void BeginPlay();
 	virtual void EndPlay();
 	virtual void OnAttach();

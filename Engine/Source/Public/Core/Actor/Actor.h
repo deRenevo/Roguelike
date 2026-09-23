@@ -8,10 +8,13 @@
 
 #include <memory>
 
+struct FBox2D;
+
 class AActor : public OObject
 {
 	bool bIsHasBeginPlay = false;
 	std::unique_ptr<OSceneComponent> RootSceneComponent = nullptr;
+	bool bIsTickable = true;
 
 protected:
 	virtual void PreInitializeComponents();
@@ -19,7 +22,7 @@ protected:
 	virtual void PostInitializeComponents();
 
 	virtual void Tick(float DeltaTime);
-	virtual void Draw();
+	virtual void Draw(const FBox2D& cameraViewportBounds);
 
 public:
 	AActor();
@@ -34,7 +37,7 @@ public:
 	virtual void BeginPlay();
 	virtual void EndPlay();
 	virtual void DoTick(float DeltaTime) final;
-	virtual void DoDraw() final;
+	virtual void DoDraw(const FBox2D& cameraViewportBounds) final;
 
 	void SetRootSceneComponent(std::unique_ptr<OSceneComponent> rootSceneComponent);
 
@@ -42,6 +45,11 @@ public:
 	void SetLocation(const FVector2D& location) const
 	{
 		RootSceneComponent->SetLocation(location);
+	}
+	
+	void SetIsTickable(const bool isTickable)
+	{
+		bIsTickable = isTickable;
 	}
 
 	//getters
@@ -58,5 +66,10 @@ public:
 	OSceneComponent* GetRootSceneComponent() const
 	{
 		return RootSceneComponent.get();
+	}
+	
+	bool GetIsTickable() const
+	{
+		return bIsTickable;
 	}
 };

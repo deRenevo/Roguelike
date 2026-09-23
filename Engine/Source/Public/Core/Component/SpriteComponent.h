@@ -5,6 +5,7 @@
 #include <Core/Component/SceneComponent.h>
 
 #include "Core/Manager/TextureManager.h"
+#include "Core/Math/Box2D.h"
 
 class OSpriteComponent : public OSceneComponent
 {
@@ -13,7 +14,7 @@ class OSpriteComponent : public OSceneComponent
 	bool bIsVisible = true;
 
 protected:
-	virtual void Draw() override;
+	virtual void Draw(const FBox2D& cameraViewportBounds) override;
 
 public:
 	OSpriteComponent();
@@ -60,6 +61,14 @@ public:
 	Texture* GetTexture() const
 	{
 		return Texture2D;
+	}
+	
+	FBox2D GetWorldBox() const
+	{
+		FVector2D Size = {static_cast<float>(Texture2D->width), static_cast<float>(Texture2D->height)};
+		FVector2D Location = GetWorldLocation();
+		
+		return {Location - Size/2, Size};
 	}
 	
 	bool IsVisible() const

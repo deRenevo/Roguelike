@@ -2,9 +2,6 @@
 
 #pragma once
 
-#include <iostream>
-#include <ostream>
-
 #include "Core/Scene/Scene.h"
 #include "Core/Actor/Actor.h"
 #include "Core/Game/GameMode.h"
@@ -16,7 +13,7 @@
 #include "Core/Component/SpriteComponent.h"
 #include "Core/Component/StaticSpriteComponent.h"
 #include "Core/Math/CollisionMath.h"
-#include "Core/Scene/SceneManager.h"
+#include "Core/Manager/SceneManager.h"
 
 class MenuHUD;
 class WButton;
@@ -89,11 +86,12 @@ public:
 		StaticSpriteComponent = new OStaticSpriteComponent();
 		StaticSpriteComponent->UpdateSprite("Assets/block.png");
 		StaticSpriteComponent->GetCollisionComponent()->SetStatic(false);
-		StaticSpriteComponent->SetAlignment({-static_cast<float>(StaticSpriteComponent->GetSpriteComponent()->GetTexture()->width), 
-			-static_cast<float>(StaticSpriteComponent->GetSpriteComponent()->GetTexture()->height)});
+		StaticSpriteComponent->SetAlignment({-static_cast<float>(StaticSpriteComponent->GetSpriteComponent()->GetTexture()->width / 2),
+											-static_cast<float>(StaticSpriteComponent->GetSpriteComponent()->GetTexture()->height / 2)});
 		GetRootSceneComponent()->AddChild(std::unique_ptr<OStaticSpriteComponent>(StaticSpriteComponent));
 
 		OCameraComponent* CameraComponent = new OCameraComponent();
+		CameraComponent->SetZoom(1.f);
 		SceneManager::GetInstance().GetScene()->SetRootCameraComponent(CameraComponent);
 		GetRootSceneComponent()->AddChild(std::unique_ptr<OCameraComponent>(CameraComponent));
 	}
@@ -119,14 +117,15 @@ public:
 		bIsFastMove = isFastMove;
 	}
 
-	void LoadScene();
+	static void LoadScene();
 
-	void OffLoadScene()
+	void OffLoadScene() const
 	{
 		InputManager::GetInstance().UnsubscribeKey(Handle);
 	}
 };
 
+/*
 class ATestActor : public AActor
 {
 public:
@@ -147,7 +146,7 @@ public:
 
 public:
 	Color Col = RAYWHITE;
-};
+};*/
 
 class OTestGameMode : public OGameMode
 {

@@ -8,9 +8,9 @@
 
 void CollisionManager::Tick(float deltaTime)
 {
-	const int32 Count = CollisionComponents.size();
+	const uint32 Count = CollisionComponents.size();
 	
-	for (int32 i = 0; i < Count; ++i)
+	for (uint32 i = 0; i < Count; ++i)
 	{
 		OCollisionComponent* ComponentA = CollisionComponents[i];
 		const FBox2D BoxA = ComponentA->GetWorldBox2D();

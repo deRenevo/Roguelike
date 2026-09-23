@@ -2,10 +2,10 @@
 
 #pragma once
 
-#include <algorithm>
-
 #include "Core/Math/Box2D.h"
 #include "Core/Math/Vector2D.h"
+
+#include <algorithm>
 
 namespace CollisionMath
 {

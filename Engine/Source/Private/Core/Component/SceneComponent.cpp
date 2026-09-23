@@ -5,6 +5,8 @@
 
 #include <algorithm>
 
+#include "Core/Math/Box2D.h"
+
 OSceneComponent::OSceneComponent() : OSceneComponent(nullptr, {0, 0}, "SceneComponent")
 {
 
@@ -38,12 +40,12 @@ OSceneComponent::~OSceneComponent()
 
 }
 
-void OSceneComponent::Draw()
+void OSceneComponent::Draw(const FBox2D& cameraViewportBounds)
 {
-	OComponent::Draw();
+	OComponent::Draw(cameraViewportBounds);
 	for (const std::unique_ptr<OComponent>& Child : Children)
 	{
-		Child->DoDraw();
+		Child->DoDraw(cameraViewportBounds);
 	}
 }
 

@@ -1,7 +1,7 @@
 // Copyright deRenevo. All rights reserved.
 
 #include "Core/Actor/Actor.h"
-#include "Core/Scene/SceneManager.h"
+#include "Core/Manager/SceneManager.h"
 #include "Core/Scene/Scene.h"
 
 AActor::AActor()
@@ -44,7 +44,7 @@ void AActor::PostInitializeComponents()
 
 AActor::~AActor()
 {
-
+	
 }
 
 void AActor::DoInitialize()
@@ -73,11 +73,11 @@ void AActor::Tick(float DeltaTime)
 	}
 }
 
-void AActor::Draw()
+void AActor::Draw(const FBox2D& cameraViewportBounds)
 {
 	if (RootSceneComponent)
 	{
-		RootSceneComponent->DoDraw();
+		RootSceneComponent->DoDraw(cameraViewportBounds);
 	}
 }
 
@@ -95,14 +95,14 @@ void AActor::EndPlay()
 
 void AActor::DoTick(float DeltaTime)
 {
-	if (GetIsPendingKill()) return;
+	if (GetIsPendingKill() || !bIsTickable) return;
 	Tick(DeltaTime);
 }
 
-void AActor::DoDraw()
+void AActor::DoDraw(const FBox2D& cameraViewportBounds)
 {
 	if (GetIsPendingKill()) return;
-	Draw();
+	Draw(cameraViewportBounds);
 }
 
 void AActor::SetRootSceneComponent(std::unique_ptr<OSceneComponent> rootSceneComponent)

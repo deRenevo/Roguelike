@@ -16,7 +16,7 @@ class OCollisionComponent : public OSceneComponent
 	bool bIsCollidingOldFrame = false;
 	bool bIsColliding = false;
 	
-	bool bIsStatic = false;
+	bool bIsStatic = true;
 
 public:
 	MulticastDelegate<> OnStartCollisionDelegate;
@@ -26,7 +26,7 @@ public:
 	//===
 protected:
 	virtual void Tick(float deltaTime) override;
-	virtual void Draw() override;
+	virtual void Draw(const FBox2D& cameraViewportBounds) override;
 
 public:
 	virtual void OnAttach() override;
@@ -66,12 +66,14 @@ public:
 
 	FBox2D GetBox() const
 	{
-		return {GetLocation(), Size};
+		FVector2D Location = GetLocation();
+		return {FVector2D(Location.X + Size.X, Location.Y + Size.Y/2), Size};
 	}
 
 	FBox2D GetWorldBox2D() const
 	{
-		return {GetWorldLocation() + Alignment, Size};
+		FVector2D Location = GetWorldLocation();
+		return {FVector2D(Location.X + Size.X/2 + Alignment.X, Location.Y + Size.Y/2 + Alignment.Y), Size};
 	}
 
 	FVector2D GetAlignment() const

@@ -1,13 +1,15 @@
 // Copyright deRenevo. All rights reserved.
 
 
-#include "Core/Scene/SceneManager.h"
-#include <algorithm>
-#include <iostream>
+#include "Core/Manager/SceneManager.h"
 
 #include "Core/Manager/CollisionManager.h"
 #include "Core/Manager/InputManager.h"
 #include "Core/Manager/TextureManager.h"
+
+#include <algorithm>
+#include <iostream>
+
 
 void SceneManager::LoadScene(std::unique_ptr<OScene> scene)
 {

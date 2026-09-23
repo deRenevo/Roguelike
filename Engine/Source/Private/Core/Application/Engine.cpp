@@ -1,7 +1,7 @@
 // Copyright deRenevo. All rights reserved.
 
 #include "Core/Application/Engine.h"
-#include "Core/Scene/SceneManager.h"
+#include "Core/Manager/SceneManager.h"
 
 #include <raylib.h>
 

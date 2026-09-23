@@ -3,13 +3,15 @@
 #include "raylib.h"
 
 #include "Scene/MenuScene.h"
-#include "Core/Scene/SceneManager.h"
+#include "Core/Manager/SceneManager.h"
 #include "HUD/MenuHUD.h"
 #include "Core/Actor/PlayerStart.h"
 #include "Core/Math/Vector2D.h"
 
 #include <memory>
 
+#include "Block/Floor.h"
+#include "Block/Wall.h"
 #include "HUD/DebugHUD.h"
 
 void OMenuScene::SceneConstruction()
@@ -25,16 +27,27 @@ void OMenuScene::SceneConstruction()
 	//SceneManager::GetInstance().AddToViewport(std::move(std::make_unique<MenuHUD>()));
 	SceneManager::GetInstance().AddToViewport(std::move(std::make_unique<DebugHUD>()));
 
-	for (int i = -20; i < 100; ++i)
+	for (int i = 0; i < 200; ++i)
 	{
-		ATestActor* TestActor = new ATestActor();
-		if (i % 2 == 0)
+		for (int j = 0; j < 200; ++j)
 		{
-			TestActor->Col = ORANGE;
-		}
-		TestActor->SetLocation(Vector2(i * 50, 1000));
+			if (i == 0 || i == 199 || j == 0 || j == 199)
+			{
+				std::unique_ptr<AWall> Wall = std::make_unique<AWall>();
+				Wall->GetSpriteComponent()->UpdateSprite("Assets/IndustrialTile_1.png");
+				Wall->SetLocation({static_cast<float>(i * 32), static_cast<float>(j * 32)});
+				Wall->SetIsTickable(false);
+				AddActorToScene(std::move(Wall));
+				continue;
+			}
 
-		AddActorToScene(std::unique_ptr<AActor>(TestActor));
+
+			std::unique_ptr<AFloor> Floor = std::make_unique<AFloor>();
+			Floor->GetSpriteComponent()->LoadTexture("Assets/MainTestTile.png");
+			Floor->SetLocation({static_cast<float>(i * 32), static_cast<float>(j * 32)});
+			Floor->SetIsTickable(false);
+			AddActorToScene(std::move(Floor));
+		}
 	}
 }
 

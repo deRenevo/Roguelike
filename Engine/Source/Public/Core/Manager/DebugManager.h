@@ -4,5 +4,5 @@
 
 struct DebugManager
 {
-	inline static bool bIsVisibleCollision = true;
+	inline static bool bIsVisibleCollision = false;
 };

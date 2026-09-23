@@ -31,7 +31,7 @@ public:
 
 protected:
 	virtual void Tick(float DeltaTime); //-> every frame is processed
-	virtual void Draw();
+	virtual void Draw(const FBox2D& cameraViewportBounds);
 
 	virtual void SceneConstruction(); //-> processed when changing priced
 	virtual void PreSceneConstruction(); //-> processed before SceneConstruction

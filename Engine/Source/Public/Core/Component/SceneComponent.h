@@ -8,6 +8,8 @@
 #include <memory>
 
 
+struct FBox2D;
+
 class OSceneComponent : public OComponent
 {
 	std::vector<std::unique_ptr<OComponent>> Children;
@@ -15,7 +17,7 @@ class OSceneComponent : public OComponent
 	FVector2D Location = FVector2D(0, 0);
 
 protected:
-	virtual void Draw() override;
+	virtual void Draw(const FBox2D& cameraViewportBounds) override;
 	virtual void Tick(float DeltaTime) override;
 
 public:

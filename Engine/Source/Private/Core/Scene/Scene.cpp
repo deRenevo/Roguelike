@@ -46,12 +46,15 @@ void OScene::DoDraw()
 	if (RootCameraComponent)
 	{
 		BeginMode2D(RootCameraComponent->GetCamera());
-		Draw();
+		Draw(RootCameraComponent->GetViewBox());
 		EndMode2D();
 	}
 	else
 	{
-		Draw();
+		Draw({
+			{0.f, 0.f},
+			{1000000.f, 1000000.f}
+		});
 	}
 }
 
@@ -62,15 +65,15 @@ void OScene::Tick(float DeltaTime)
 	{
 		Actor->DoTick(DeltaTime);
 	}
-	
+
 	CollisionManager::GetInstance().Tick(DeltaTime);
 }
 
-void OScene::Draw()
+void OScene::Draw(const FBox2D& cameraViewportBounds)
 {
 	for (std::unique_ptr<AActor>& Actor : ActorsOnScene)
 	{
-		Actor->DoDraw();
+		Actor->DoDraw(cameraViewportBounds);
 	}
 }
 

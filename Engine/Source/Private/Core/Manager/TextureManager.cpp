@@ -2,7 +2,10 @@
 
 #include "Core/Manager/TextureManager.h"
 
+#include <chrono>
+#include <iostream>
 #include <memory>
+#include <ostream>
 #include <ranges>
 
 Texture* TextureManager::LoadTexture(const std::string& texturePath)
@@ -12,17 +15,17 @@ Texture* TextureManager::LoadTexture(const std::string& texturePath)
 		++It->second.CountUsing;
 		return It->second.Texture2D.get();
 	}
-	
+
 	Texture Texture2D = ::LoadTexture(texturePath.c_str());
 	if (!IsTextureValid(Texture2D))
 	{
 		return nullptr;
 	}
-	
+
 	FTextureLoadState& TextureLoadState = TextureLoadMap[texturePath];
 	TextureLoadState.Texture2D = std::make_unique<Texture>(Texture2D);
 	++TextureLoadState.CountUsing;
-	
+
 	return TextureLoadState.Texture2D.get();
 }
 
@@ -32,13 +35,14 @@ void TextureManager::UnloadTexture(const Texture* texture)
 	{
 		return;
 	}
-	
+
 	for (std::unordered_map<std::string, FTextureLoadState>::iterator It = TextureLoadMap.begin(); It != TextureLoadMap.end(); ++It)
 	{
 		if (It->second.Texture2D.get() == texture)
 		{
 			--It->second.CountUsing;
-			
+			//std::cout << "Unloading texture: " << texture  << "Counter: " << It->second.CountUsing << " Time " << std::format("{:%M:%S}", std::chrono::system_clock::now()) << std::endl;
+			//40k obj st Time 31:20.838381943 finish Time 32:31.673298210 
 			if (It->second.CountUsing <= 0)
 			{
 				::UnloadTexture(*It->second.Texture2D.get());

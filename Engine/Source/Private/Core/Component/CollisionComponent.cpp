@@ -28,9 +28,9 @@ void OCollisionComponent::Tick(float deltaTime)
 	bIsColliding = false;
 }
 
-void OCollisionComponent::Draw()
+void OCollisionComponent::Draw(const FBox2D& cameraViewportBounds)
 {
-	OSceneComponent::Draw();
+	OSceneComponent::Draw(cameraViewportBounds);
 
 	if (DebugManager::bIsVisibleCollision)
 	{
