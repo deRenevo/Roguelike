@@ -2,20 +2,26 @@
 
 #include "Core/Object/Object.h"
 
-std::vector<OObject*> OObject::AllObjects;
+#include <ostream>
 
-
-OObject::OObject(std::string objectName) : UniqueId(GenerateUniqueId()), ObjectName(objectName)
+OObject::OObject(const std::string& objectName) : ObjectName(objectName), UniqueId(GenerateUniqueId())
 {
+	RegistryIndex = AllObjects.size();
 	AllObjects.push_back(this);
 }
 
-OObject::OObject() : UniqueId(GenerateUniqueId())
+OObject::OObject() : OObject("Object")
 {
-	AllObjects.push_back(this);
+
 }
 
 OObject::~OObject()
 {
-	std::erase(AllObjects, this);
+	uint32 Last = AllObjects.size() - 1;
+	if (RegistryIndex != Last)
+	{
+		AllObjects[RegistryIndex] = AllObjects[Last];
+		AllObjects[RegistryIndex]->RegistryIndex = RegistryIndex;
+	}
+	AllObjects.pop_back();
 }

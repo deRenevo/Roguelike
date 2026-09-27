@@ -17,7 +17,8 @@ public:
 	{
 		CollisionComponents.push_back(collisionComponent);
 	}
-
+	
+	
 	void RemoveCollisionComponent(OCollisionComponent* collisionComponent)
 	{
 		if (!collisionComponent)

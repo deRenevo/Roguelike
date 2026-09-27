@@ -2,10 +2,10 @@
 
 #include "Core/Manager/InputManager.h"
 
+#include "Core/Math/BasicTypes.h"
+
 #include <algorithm>
 #include <ostream>
-
-#include "Core/Math/BasicTypes.h"
 
 void InputManager::UpdateKeyInput()
 {

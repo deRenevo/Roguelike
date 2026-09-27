@@ -2,12 +2,14 @@
 
 #pragma once
 
-#include <raylib.h>
+#include "Core/Object/Object.h"
+
+#include "Core/Utility/MulticastDelegate.h"
+
+#include "raylib.h"
+
 #include <functional>
 #include <vector>
-
-#include "Core/Object/Object.h"
-#include "Core/Utility/MulticastDelegate.h"
 
 enum class EInputType
 {

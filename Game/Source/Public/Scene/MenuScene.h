@@ -22,7 +22,7 @@ class WButton;
 class ATestPawn : public APawn
 {
 	FMulticastDelegateHandle Handle;
-
+	
 	virtual void SetupPlayerInputComponent(InputManager& inputManager) override
 	{
 		inputManager.SubscribeKey(KeyboardKey::KEY_ESCAPE, EInputType::Pressed, [](void)

@@ -2,10 +2,10 @@
 
 #pragma once
 
+#include "raylib.h"
+
 #include <cmath>
 #include <limits>
-
-#include "raylib.h"
 
 struct FVector2D
 {
@@ -155,9 +155,9 @@ struct FVector2D
 
 	static constexpr float DistanceSquared(const FVector2D& vector2D1, const FVector2D& vector2D2)
 	{
-		float DX = vector2D1.X - vector2D2.X;
-		float DY = vector2D1.Y - vector2D2.Y;
-		return DX * DX + DY * DY;
+		float DistanceX = vector2D1.X - vector2D2.X;
+		float DistanceY = vector2D1.Y - vector2D2.Y;
+		return DistanceX * DistanceX + DistanceY * DistanceY;
 	}
 
 	constexpr bool Equals(const FVector2D& other, float epsilon = 1e-6f) const
@@ -187,8 +187,8 @@ struct FVector2D
 	{
 		const float Sqrt = LengthSquared();
 		if (Sqrt < tolerance) return FVector2D::ZeroVector;
-		const float inv = 1.0f / std::sqrt(Sqrt);
-		return {X * inv, Y * inv};
+		const float Inv = 1.f / std::sqrt(Sqrt);
+		return {X * Inv, Y * Inv};
 	}
 
 	static constexpr float Dot(const FVector2D& vector2D1, const FVector2D& vector2D2)

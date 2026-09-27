@@ -11,18 +11,19 @@ class OObject
 {
     static int GenerateUniqueId()
     {
-        static int NextId = 1;
+        static uint32 NextId = 1;
         return NextId++;
     }
 
-    static std::vector<OObject*> AllObjects;
+    static inline std::vector<OObject*> AllObjects;
 
     std::string ObjectName = "None";
     int UniqueId;
     bool bIsPendingKill = false;
+    uint32 RegistryIndex; //Index in vector for fast ears in destructor 
 
 public:
-    OObject(std::string name);
+    OObject(const std::string& objectName);
     OObject();
     virtual ~OObject();
 
