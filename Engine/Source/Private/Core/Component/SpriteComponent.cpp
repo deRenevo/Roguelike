@@ -14,20 +14,22 @@ OSpriteComponent::OSpriteComponent(const std::string& name) : OSceneComponent(na
 
 OSpriteComponent::~OSpriteComponent()
 {
-	UnloadTexture();
+	UnloadTextureAsync();
 }
 
 void OSpriteComponent::Draw(const FBox2D& cameraViewportBounds)
 {
-	if (!Texture2D)
+	if (bIsVisible && CollisionMath::Intersect(GetWorldBox(), cameraViewportBounds))
 	{
-		return;
-	}
-	
-	if (bIsVisible && IsTextureValid(*Texture2D) && CollisionMath::Intersect(GetWorldBox(), cameraViewportBounds))
-	{
+		Texture2D* Texture = TextureManager::GetInstance().ResolveTexture(TextureHandle);
+		if (!Texture)
+		{
+			return;
+		}
+
 		FVector2D Location = GetWorldLocation();
-		DrawTexture(*Texture2D, Location.X + SpriteAlignment.X, Location.Y + SpriteAlignment.Y, WHITE);
+		DrawTexture(*Texture, Location.X + SpriteAlignment.X, Location.Y + SpriteAlignment.Y, WHITE);	
+		
 	}
 	OSceneComponent::Draw(cameraViewportBounds);
 }

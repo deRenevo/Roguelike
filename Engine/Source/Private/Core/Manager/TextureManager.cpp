@@ -2,65 +2,105 @@
 
 #include "Core/Manager/TextureManager.h"
 
-#include <chrono>
-#include <iostream>
-#include <memory>
-#include <ostream>
-#include <ranges>
+#include "Core/Manager/TaskQueueManager.h"
 
-Texture* TextureManager::LoadTexture(const std::string& texturePath)
+bool FTextureHandle::IsValid() const
 {
-	if (std::unordered_map<std::string, FTextureLoadState>::iterator It = TextureLoadMap.find(texturePath); It != TextureLoadMap.end())
+	return TextureManager::GetInstance().IsHandleValid(*this);
+}
+
+FTextureHandle TextureManager::LoadTexture(const std::string& texturePath)
+{
+	if (const std::unordered_map<std::string, unsigned>::iterator& It = TextureIndexMap.find(texturePath); It != TextureIndexMap.end())
 	{
-		++It->second.CountUsing;
-		return It->second.Texture2D.get();
+		const uint32 Index = It->second;
+		++TextureSlots[Index]->CountUsing;
+		return {Index, TextureSlots[Index]->Generation};
+	}
+
+	uint32 Index;
+	if (!FreeIndex.empty())
+	{
+		Index = FreeIndex.back();
+		FreeIndex.pop_back();
+	}
+	else
+	{
+		TextureSlots.emplace_back(std::make_unique<FTextureSlot>());
+		Index = static_cast<uint32>(TextureSlots.size() - 1);
 	}
 
 	Texture Texture2D = ::LoadTexture(texturePath.c_str());
 	if (!IsTextureValid(Texture2D))
 	{
-		return nullptr;
+		return {};
 	}
 
-	FTextureLoadState& TextureLoadState = TextureLoadMap[texturePath];
-	TextureLoadState.Texture2D = std::make_unique<Texture>(Texture2D);
-	++TextureLoadState.CountUsing;
-
-	return TextureLoadState.Texture2D.get();
+	FTextureSlot* TextureSlot = TextureSlots[Index].get();
+	TextureSlot->Texture2D = std::make_unique<Texture>(Texture2D);
+	TextureSlot->CountUsing = 1;
+	TextureIndexMap[texturePath] = Index;
+	return {Index, TextureSlot->Generation};
 }
 
-void TextureManager::UnloadTexture(const Texture* texture)
+Texture* TextureManager::ResolveTexture(const FTextureHandle textureHandle) const
 {
-	if (!texture)
+	if (TextureSlots[textureHandle.Index]->Generation == textureHandle.Generation)
 	{
-		return;
+		return TextureSlots[textureHandle.Index]->Texture2D.get();
 	}
+	return nullptr;
+}
 
-	for (std::unordered_map<std::string, FTextureLoadState>::iterator It = TextureLoadMap.begin(); It != TextureLoadMap.end(); ++It)
+void TextureManager::UnloadTexture(const FTextureHandle& textureHandle)
+{
+	if (textureHandle.Index >= TextureSlots.size()) return;
+	FTextureSlot* TextureSlot = TextureSlots[textureHandle.Index].get();
+	if (TextureSlot->Generation != textureHandle.Generation) return;
+	
+	if (TextureSlot->CountUsing.fetch_sub(1) == 1)
 	{
-		if (It->second.Texture2D.get() == texture)
+		TaskQueueManager::GetInstance().Enqueue(ETaskQueueType::Main, std::function<void()>([this, textureHandle](void)
 		{
-			--It->second.CountUsing;
-			//std::cout << "Unloading texture: " << texture  << "Counter: " << It->second.CountUsing << " Time " << std::format("{:%M:%S}", std::chrono::system_clock::now()) << std::endl;
-			//40k obj st Time 31:20.838381943 finish Time 32:31.673298210 
-			if (It->second.CountUsing <= 0)
-			{
-				::UnloadTexture(*It->second.Texture2D.get());
-				TextureLoadMap.erase(It);
-			}
-			break;
-		}
+			FinalizeUnload(textureHandle);
+		}));
 	}
+}
+
+void TextureManager::UnloadTextureAsync(const FTextureHandle& textureHandle)
+{
+	TaskQueueManager::GetInstance().Enqueue(ETaskQueueType::Worker, [this, textureHandle](void)
+	{
+		UnloadTexture(textureHandle);
+	});
+}
+
+void TextureManager::FinalizeUnload(FTextureHandle textureHandle)
+{
+	FTextureSlot* TextureSlot = TextureSlots[textureHandle.Index].get();
+	if (TextureSlot->Generation != textureHandle.Generation) return;
+	if (TextureSlot->CountUsing.load() > 0) return;
+
+	::UnloadTexture(*TextureSlot->Texture2D);
+	TextureSlot->Texture2D.reset();
+	TextureIndexMap.erase(TextureSlot->TexturePath);
+	TextureSlot->TexturePath.clear();
+
+	++TextureSlot->Generation;
+	FreeIndex.push_back(textureHandle.Index);
 }
 
 void TextureManager::ClearTextureMap()
 {
-	for (FTextureLoadState& state : TextureLoadMap | std::views::values)
+	for (std::unique_ptr<FTextureSlot>& TextureSlot : TextureSlots)
 	{
-		if (state.Texture2D)
+		if (TextureSlot->Texture2D)
 		{
-			::UnloadTexture(*state.Texture2D);
+			::UnloadTexture(*TextureSlot->Texture2D);
 		}
 	}
-	TextureLoadMap.clear();
+
+	TextureSlots.clear();
+	FreeIndex.clear();
+	TextureIndexMap.clear();
 }

@@ -1,9 +1,9 @@
 // Copyright deRenevo. All rights reserved.
 
 #pragma once
+
 #include "CollisionComponent.h"
 #include "Core/Component/SpriteComponent.h"
-
 
 class OStaticSpriteComponent : public OSceneComponent
 {
@@ -21,7 +21,7 @@ public:
 	void AutoSize() const;
 
 	//setters and getters
-	void SetCollisionSize(const FVector2D& size)
+	void SetCollisionSize(const FVector2D& size) const
 	{
 		if (CollisionComponent)
 		{

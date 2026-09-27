@@ -48,7 +48,7 @@ struct FBox2D
 
 	constexpr void SetSize(const FVector2D& size)
 	{
-		Size = {std::max(0.0f, size.X), std::max(0.0f, size.Y)};
+		Size = {std::max(0.f, size.X), std::max(0.f, size.Y)};
 	}
 	
 	constexpr FVector2D GetLocation() const

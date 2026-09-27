@@ -2,10 +2,10 @@
 
 #include "Core/Application/Engine.h"
 #include "Core/Manager/SceneManager.h"
-
-#include <raylib.h>
-
 #include "Core/Manager/InputManager.h"
+#include "Core/Manager/TaskQueueManager.h"
+
+#include "raylib.h"
 
 OEngine::OEngine() : OObject()
 {
@@ -29,6 +29,7 @@ void OEngine::Ini(std::unique_ptr<OScene> scene)
 	SetExitKey(0);
 
 	SceneManager::GetInstance().LoadScene(std::move(scene));
+	TaskQueueManager::GetInstance().Ini();
 	bIsRunning = true;
 	Run();
 }
@@ -37,6 +38,7 @@ void OEngine::Run()
 {
 	while (bIsRunning && !WindowShouldClose())
 	{
+		TaskQueueManager::GetInstance().ProcessMainTasks();
 		float deltaTime = GetFrameTime();
 
 		InputManager::GetInstance().UpdateKeyInput();
@@ -54,6 +56,7 @@ void OEngine::Run()
 		}
 	}
 	SceneManager::GetInstance().Shutdown();
+	TaskQueueManager::GetInstance().Shutdown();
 	CloseWindow();
 }
 

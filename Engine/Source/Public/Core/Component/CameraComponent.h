@@ -55,7 +55,7 @@ public:
 		
 		FVector2D Center = GetWorldLocation();
 		
-		FVector2D Size(ScreenWidth / Zoom * 1.4, ScreenHeight / Zoom * 1.4); // for not visiting breaks in drawing at the corners
+		FVector2D Size(ScreenWidth / Zoom * 1.1, ScreenHeight / Zoom * 1.1); // for not visiting breaks in drawing at the corners
     
 		return FBox2D(Center, Size);
 	}

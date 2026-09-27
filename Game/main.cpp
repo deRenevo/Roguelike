@@ -2,10 +2,9 @@
 // Input point in project
 
 #include "Core/Application/Engine.h"
-
 #include "Scene/MenuScene.h"
 
-#include <iostream>
+#include <ostream>
 #include <memory>
 
 using namespace std;
