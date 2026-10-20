@@ -9,9 +9,9 @@ void APawn::SetupPlayerInputComponent(InputManager& inputManager)
 	//Test system using Instance class Input manager 
 }
 
-void APawn::Tick(float DeltaTime)
+void APawn::Tick(float deltaTime)
 {
-	AActor::Tick(DeltaTime);
+	AActor::Tick(deltaTime);
 }
 
 APawn::APawn() : AActor()

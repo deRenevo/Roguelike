@@ -14,7 +14,7 @@ class APawn : public AActor
 	APlayerController* OwnerPlayerController = nullptr;
 
 protected:
-	virtual void Tick(float DeltaTime) override;
+	virtual void Tick(float deltaTime) override;
 
 public:
 	APawn();

@@ -21,7 +21,7 @@ protected:
 	virtual void InitializeComponent();
 	virtual void PostInitializeComponents();
 
-	virtual void Tick(float DeltaTime);
+	virtual void Tick(float deltaTime);
 	virtual void Draw(const FBox2D& cameraViewportBounds);
 
 public:
@@ -36,7 +36,7 @@ public:
 
 	virtual void BeginPlay();
 	virtual void EndPlay();
-	virtual void DoTick(float DeltaTime) final;
+	virtual void DoTick(float deltaTime) final;
 	virtual void DoDraw(const FBox2D& cameraViewportBounds) final;
 
 	void SetRootSceneComponent(std::unique_ptr<OSceneComponent> rootSceneComponent);

@@ -31,11 +31,11 @@ void OScene::OnExit()
 	SetIsPendingKill();
 }
 
-void OScene::DoTick(float DeltaTime)
+void OScene::DoTick(float deltaTime)
 {
 	if (GetIsPendingKill())
 		return; // if starting process deleting object thet stop Function 
-	Tick(DeltaTime);
+	Tick(deltaTime);
 }
 
 void OScene::DoDraw()
@@ -59,14 +59,14 @@ void OScene::DoDraw()
 }
 
 
-void OScene::Tick(float DeltaTime)
+void OScene::Tick(float deltaTime)
 {
 	for (std::unique_ptr<AActor>& Actor : ActorsOnScene)
 	{
-		Actor->DoTick(DeltaTime);
+		Actor->DoTick(deltaTime);
 	}
 
-	CollisionManager::GetInstance().Tick(DeltaTime);
+	CollisionManager::GetInstance().Tick(deltaTime);
 }
 
 void OScene::Draw(const FBox2D& cameraViewportBounds)

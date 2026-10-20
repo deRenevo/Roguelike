@@ -53,7 +53,7 @@ void OComponent::OnDetach()
 {
 }
 
-void OComponent::Tick(float DeltaTime)
+void OComponent::Tick(float deltaTime)
 {
 }
 

@@ -65,11 +65,11 @@ void AActor::BeginPlay()
 	}
 }
 
-void AActor::Tick(float DeltaTime)
+void AActor::Tick(float deltaTime)
 {
 	if (RootSceneComponent)
 	{
-		RootSceneComponent->DoTick(DeltaTime);
+		RootSceneComponent->DoTick(deltaTime);
 	}
 }
 
@@ -93,10 +93,10 @@ void AActor::EndPlay()
 	}
 }
 
-void AActor::DoTick(float DeltaTime)
+void AActor::DoTick(float deltaTime)
 {
 	if (GetIsPendingKill() || !bIsTickable) return;
-	Tick(DeltaTime);
+	Tick(deltaTime);
 }
 
 void AActor::DoDraw(const FBox2D& cameraViewportBounds)

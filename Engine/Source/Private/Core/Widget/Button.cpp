@@ -57,9 +57,9 @@ void WButton::Draw()
 	}
 }
 
-void WButton::Tick(float DeltaTime)
+void WButton::Tick(float deltaTime)
 {
-	WWidget::Tick(DeltaTime);
+	WWidget::Tick(deltaTime);
 	Rectangle WorldBound = GetWorldBoundWithAlignment();
 	if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && CheckCollisionPointRec(GetMousePosition(), WorldBound))
 	{

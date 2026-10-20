@@ -37,7 +37,7 @@ public:
 protected:
 	virtual void Construction() override; //-> processed when changing priced
 	virtual void Draw() override;
-	virtual void Tick(float DeltaTime) override; //-> every frame is processed
+	virtual void Tick(float deltaTime) override; //-> every frame is processed
 
 /*
  * => setter and getter

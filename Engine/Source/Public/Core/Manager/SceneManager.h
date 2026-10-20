@@ -18,7 +18,7 @@ public:
 	//virtual void LoadHUD(std::unique_ptr<HUD> hud);
 	virtual void AddToViewport(std::unique_ptr<HUD> hud);
 	virtual void RemoveHUD(HUD* hud);
-	virtual void Tick(float DeltaTime); //-> every frame is processed
+	virtual void Tick(float deltaTime); //-> every frame is processed
 	virtual void Draw();
 	virtual OScene* GetScene();
 	

@@ -20,7 +20,7 @@ public:
 protected:
 	virtual void Construction() override;
 
-	virtual void Tick(float DeltaTime) override; //-> every frame is processed
+	virtual void Tick(float deltaTime) override; //-> every frame is processed
 	virtual void Draw() override;
 
 	virtual void OnChildAdded(WWidget* widget);

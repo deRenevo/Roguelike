@@ -26,11 +26,11 @@ public:
 	void OnEnter(); // -> Loading resources
 	virtual void OnExit(); // -> Cleaning up resources
 
-	virtual void DoTick(float DeltaTime) final; //-> Start point for every frame is processed
+	virtual void DoTick(float deltaTime) final; //-> Start point for every frame is processed
 	virtual void DoDraw() final;
 
 protected:
-	virtual void Tick(float DeltaTime); //-> every frame is processed
+	virtual void Tick(float deltaTime); //-> every frame is processed
 	virtual void Draw(const FBox2D& cameraViewportBounds);
 
 	virtual void SceneConstruction(); //-> processed when changing priced
