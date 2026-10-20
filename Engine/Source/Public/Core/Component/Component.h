@@ -14,7 +14,7 @@ class OComponent : public OObject
 	bool bIsHasBeginPlay = false;
 
 protected:
-	virtual void Tick(float DeltaTime);
+	virtual void Tick(float deltaTime);
 	virtual void Draw(const FBox2D& cameraViewportBounds);
 
 public:

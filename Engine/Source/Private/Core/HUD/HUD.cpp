@@ -3,11 +3,11 @@
 #include "Core/HUD/HUD.h"
 
 
-void HUD::DoTick(float DeltaTime)
+void HUD::DoTick(float deltaTime)
 {
 	if (!bIsVisible) return;
 
-	Tick(DeltaTime);
+	Tick(deltaTime);
 }
 
 void HUD::DoDraw()
@@ -30,11 +30,11 @@ void HUD::OnExit()
 {
 }
 
-void HUD::Tick(float DeltaTime)
+void HUD::Tick(float deltaTime)
 {
 	if (RootWidget && RootWidget->GetVisible())
 	{
-		RootWidget->DoTick(DeltaTime);
+		RootWidget->DoTick(deltaTime);
 	}
 }
 

@@ -67,17 +67,17 @@ void SceneManager::RemoveHUD(HUD* hud)
 	}
 }
 
-void SceneManager::Tick(float DeltaTime)
+void SceneManager::Tick(float deltaTime)
 {
 	if (CorrectScene)
 	{
-		CorrectScene->DoTick(DeltaTime);
+		CorrectScene->DoTick(deltaTime);
 	}
 
 	for (auto& hud : HUDViewport)
 	{
 		if (!hud) continue;;
-		hud->DoTick(DeltaTime);
+		hud->DoTick(deltaTime);
 	};
 }
 

@@ -13,14 +13,14 @@ void WContainer::OnExit()
 	Children.clear();
 }
 
-void WContainer::Tick(float DeltaTime)
+void WContainer::Tick(float deltaTime)
 {
-	WWidget::Tick(DeltaTime);
+	WWidget::Tick(deltaTime);
 
 	for (auto& child : Children)
 	{
 		//std::cout << "Tick | child:";
-		child->DoTick(DeltaTime);
+		child->DoTick(deltaTime);
 	}
 }
 

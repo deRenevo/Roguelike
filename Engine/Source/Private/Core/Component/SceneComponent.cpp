@@ -49,12 +49,12 @@ void OSceneComponent::Draw(const FBox2D& cameraViewportBounds)
 	}
 }
 
-void OSceneComponent::Tick(float DeltaTime)
+void OSceneComponent::Tick(float deltaTime)
 {
-	OComponent::Tick(DeltaTime);
+	OComponent::Tick(deltaTime);
 	for (const std::unique_ptr<OComponent>& Child : Children)
 	{
-		Child->DoTick(DeltaTime);
+		Child->DoTick(deltaTime);
 	}
 }
 

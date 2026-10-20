@@ -15,7 +15,7 @@ class HUD
 public:
 	HUD() = default;
 	virtual ~HUD() = default;
-	virtual void DoTick(float DeltaTime);
+	virtual void DoTick(float deltaTime);
 	virtual void DoDraw();
 	void OnEnter(); // -> Loading resources
 	virtual void OnExit(); // -> Cleaning up resources
@@ -24,7 +24,7 @@ protected:
 	virtual void HUDConstruction(); //-> processed when changing priced
 	virtual void PreHUDConstruction(); //-> processed before SceneConstruction
 	virtual void PostHUDConstruction(); //-> processed after SceneConstruction
-	virtual void Tick(float DeltaTime); //-> every frame is processed
+	virtual void Tick(float deltaTime); //-> every frame is processed
 	virtual void Draw();
 
 

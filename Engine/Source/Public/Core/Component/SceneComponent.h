@@ -18,7 +18,7 @@ class OSceneComponent : public OComponent
 
 protected:
 	virtual void Draw(const FBox2D& cameraViewportBounds) override;
-	virtual void Tick(float DeltaTime) override;
+	virtual void Tick(float deltaTime) override;
 
 public:
 	virtual void EndPlay() override;
