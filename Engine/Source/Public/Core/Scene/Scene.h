@@ -5,7 +5,7 @@
 #include "Core/Object/Object.h"
 #include "Core/Actor/Actor.h"
 #include "Core/Game/GameMode.h"
-#include "Core/Component//CameraComponent.h"
+#include "Core/Component/CameraComponent.h"
 
 #include <vector>
 #include <memory>
@@ -31,7 +31,6 @@ public:
 
 protected:
 	virtual void Tick(float deltaTime); //-> every frame is processed
-	virtual void Draw(const FBox2D& cameraViewportBounds);
 
 	virtual void SceneConstruction(); //-> processed when changing priced
 	virtual void PreSceneConstruction(); //-> processed before SceneConstruction

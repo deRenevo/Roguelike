@@ -11,29 +11,29 @@ void InputManager::UpdateKeyInput()
 {
 	std::vector<KeyboardKey> KeysInput;
 
-	for (uint16 key = 0; key < 512; ++key)
+	for (uint16 Key = 0; Key < 512; ++Key)
 	{
-		if (IsKeyDown(key))
-			KeysInput.push_back(static_cast<KeyboardKey>(key));
+		if (IsKeyDown(Key))
+			KeysInput.push_back(static_cast<KeyboardKey>(Key));
 	}
 
 	for (FKeyAction& KeyAction : KeyActions)
 	{
-		bool WasDown = std::ranges::find(OldKeyInput, KeyAction.Key) != OldKeyInput.end();
-		bool isDown = std::ranges::find(KeysInput, KeyAction.Key) != KeysInput.end();
+		const bool WasDown = std::ranges::find(OldKeyInput, KeyAction.Key) != OldKeyInput.end();
+		const bool IsDown = std::ranges::find(KeysInput, KeyAction.Key) != KeysInput.end();
 
 		switch (KeyAction.InputType)
 		{
 		case EInputType::Pressed:
-			if (!WasDown && isDown)
+			if (!WasDown && IsDown)
 				KeyAction.Callback.Broadcast();
 			break;
 		case EInputType::Released:
-			if (WasDown && !isDown)
+			if (WasDown && !IsDown)
 				KeyAction.Callback.Broadcast();
 			break;
 		case EInputType::Held:
-			if (isDown)
+			if (IsDown)
 				KeyAction.Callback.Broadcast();
 			break;
 		}
@@ -41,7 +41,7 @@ void InputManager::UpdateKeyInput()
 	OldKeyInput = KeysInput;
 }
 
-FMulticastDelegateHandle InputManager::SubscribeKey(KeyboardKey key, EInputType inputType, const std::function<void()>& callback)
+FMulticastDelegateHandle InputManager::SubscribeKey(const KeyboardKey key, const EInputType inputType, const std::function<void()>& callback)
 {
 	if (key == KeyboardKey::KEY_NULL) return FMulticastDelegateHandle();
 

@@ -10,7 +10,6 @@
 #include "Core/Application/Engine.h"
 #include "Core/Component/CollisionComponent.h"
 
-#include "Core/Component/SpriteComponent.h"
 #include "Core/Component/StaticSpriteComponent.h"
 #include "Core/Math/CollisionMath.h"
 #include "Core/Manager/SceneManager.h"
@@ -68,12 +67,12 @@ class ATestPawn : public APawn
 	int FastMoveSpeed = 400;
 	bool bIsFastMove = false;
 
-	virtual void Tick(float DeltaTime) override
+	virtual void Tick(float deltaTime) override
 	{
-		APawn::Tick(DeltaTime);
-		Vector2 Location = GetLocation();
-		SetLocation({Location.x + InputMove.x * (bIsFastMove ? FastMoveSpeed : MoveSpeed) * DeltaTime,
-					Location.y + InputMove.y * (bIsFastMove ? FastMoveSpeed : MoveSpeed) * DeltaTime});
+		APawn::Tick(deltaTime);
+		const Vector2 Location = GetLocation();
+		SetLocation({Location.x + InputMove.x * (bIsFastMove ? FastMoveSpeed : MoveSpeed) * deltaTime,
+					Location.y + InputMove.y * (bIsFastMove ? FastMoveSpeed : MoveSpeed) * deltaTime});
 
 		InputMove = {0, 0};
 	}
@@ -83,11 +82,13 @@ public:
 
 	ATestPawn()
 	{
-		StaticSpriteComponent = new OStaticSpriteComponent();
+		StaticSpriteComponent = new OStaticSpriteComponent(128);
 		StaticSpriteComponent->UpdateSprite("Assets/block.png");
 		StaticSpriteComponent->GetCollisionComponent()->SetStatic(false);
 		StaticSpriteComponent->SetAlignment({-static_cast<float>(StaticSpriteComponent->GetSpriteComponent()->GetTexture()->width / 2),
 											-static_cast<float>(StaticSpriteComponent->GetSpriteComponent()->GetTexture()->height / 2)});
+		StaticSpriteComponent->SetCollisionSize({64, 10});
+		StaticSpriteComponent->GetCollisionComponent()->SetAlignment({0, 30});
 		GetRootSceneComponent()->AddChild(std::unique_ptr<OStaticSpriteComponent>(StaticSpriteComponent));
 
 		OCameraComponent* CameraComponent = new OCameraComponent();

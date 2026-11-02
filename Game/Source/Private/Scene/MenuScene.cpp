@@ -12,6 +12,7 @@
 
 #include "Block/Floor.h"
 #include "Block/Wall.h"
+#include "Core/Component/RenderSpriteComponent.h"
 #include "HUD/DebugHUD.h"
 
 void OMenuScene::SceneConstruction()
@@ -20,7 +21,7 @@ void OMenuScene::SceneConstruction()
 	{
 		return new ATestPawn();
 	}));
-	APlayerStart* PlayerStart = new APlayerStart(Vector2(960, 540));
+	APlayerStart* PlayerStart = new APlayerStart(Vector2(960, 960));
 	AddActorToScene(std::unique_ptr<APlayerStart>(PlayerStart));
 
 	OScene::SceneConstruction();
@@ -31,10 +32,11 @@ void OMenuScene::SceneConstruction()
 	{
 		for (int j = 0; j < 200; ++j)
 		{
+			
 			if (i == 0 || i == 199 || j == 0 || j == 199)
 			{
 				std::unique_ptr<AWall> Wall = std::make_unique<AWall>();
-				Wall->GetSpriteComponent()->UpdateSprite("Assets/IndustrialTile_1.png");
+				Wall->GetSpriteComponent()->UpdateSprite("Assets/IndustrialTile_" + std::to_string(GetRandomValue(1, 4)) + ".png");
 				Wall->SetLocation({static_cast<float>(i * 32), static_cast<float>(j * 32)});
 				Wall->SetIsTickable(false);
 				AddActorToScene(std::move(Wall));
@@ -48,6 +50,18 @@ void OMenuScene::SceneConstruction()
 			Floor->SetIsTickable(false);
 			AddActorToScene(std::move(Floor));
 		}
+	}
+	
+	for (int i = 10; i < 50; ++i)
+	{
+		std::unique_ptr<AWall> Fence = std::make_unique<AWall>(128);
+		Fence->GetSpriteComponent()->UpdateSprite("Assets/Fence_1.png");
+		Fence->SetLocation({static_cast<float>(i * 128), static_cast<float>(980)});
+		Fence->SetIsTickable(false);
+		Fence->GetSpriteComponent()->SetCollisionSize(FVector2D(128, 4));
+		Fence->GetSpriteComponent()->GetSpriteComponent()->SetRenderAlignment({0, -32});
+		Fence->GetSpriteComponent()->GetCollisionComponent()->SetAlignment(FVector2D(0, 30));
+		AddActorToScene(std::move(Fence));
 	}
 }
 

@@ -2,10 +2,10 @@
 
 #pragma once 
 
+#include "Core/Math/BasicTypes.h"
+
 #include <string>
 #include <vector>
-
-#include "Core/Math/BasicTypes.h"
 
 class OObject
 {
@@ -18,7 +18,7 @@ class OObject
     static inline std::vector<OObject*> AllObjects;
 
     std::string ObjectName = "None";
-    int UniqueId;
+    uint32 UniqueId;
     bool bIsPendingKill = false;
     uint32 RegistryIndex; //Index in vector for fast ears in destructor 
 

@@ -10,12 +10,12 @@
 
 #include <memory>
 
-OGameMode::OGameMode(std::function<APlayerController*()> controllerClass) : ControllerClass(controllerClass)
+OGameMode::OGameMode(const std::function<APlayerController*()>& controllerClass) : ControllerClass(controllerClass)
 {
 }
 
-OGameMode::OGameMode(std::function<APlayerController *()> controllerClass, std::function<APawn*()> pawnClass)
-	: ControllerClass(controllerClass), PawnClass(pawnClass)
+OGameMode::OGameMode(const std::function<APlayerController *()>& controllerClass, const std::function<APawn*()>& pawnClass)
+	: PawnClass(pawnClass), ControllerClass(controllerClass)
 {
 }
 
@@ -43,7 +43,7 @@ void OGameMode::AddNewPlayer()
 		return;
 	}
 
-	APlayerStart* PlayerStart = SceneManager::GetInstance().GetScene()->GetPlayerStart();
+	const APlayerStart* PlayerStart = SceneManager::GetInstance().GetScene()->GetPlayerStart();
 	FVector2D StartPointLocation;
 	if (PlayerStart)
 	{

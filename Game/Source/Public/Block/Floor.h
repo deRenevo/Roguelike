@@ -4,18 +4,18 @@
 
 #include "Core/Actor/Actor.h"
 
-class OSpriteComponent;
+class ORenderSpriteComponent;
 
 class AFloor : public AActor
 {
-	OSpriteComponent* FloorSpriteComponent = nullptr;
+	ORenderSpriteComponent* FloorRenderSpriteComponent = nullptr;
 
 public:
 	AFloor(const std::string& name);
 	AFloor();
 	
-	OSpriteComponent* GetSpriteComponent() const
+	ORenderSpriteComponent* GetSpriteComponent() const
 	{
-		return FloorSpriteComponent;
+		return FloorRenderSpriteComponent;
 	}
 };

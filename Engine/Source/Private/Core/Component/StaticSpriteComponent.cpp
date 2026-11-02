@@ -2,9 +2,9 @@
 
 #include "Core/Component/StaticSpriteComponent.h"
 
-OStaticSpriteComponent::OStaticSpriteComponent(const std::string& name) : OSceneComponent(name)
+OStaticSpriteComponent::OStaticSpriteComponent(const std::string& name, uint8 layer) : OSceneComponent(name)
 {
-	std::unique_ptr<OSpriteComponent> Sprite = std::make_unique<OSpriteComponent>();
+	std::unique_ptr<ORenderSpriteComponent> Sprite = std::make_unique<ORenderSpriteComponent>(layer);
 	SpriteComponent = Sprite.get();
 	AddChild(std::move(Sprite));
 
@@ -12,6 +12,11 @@ OStaticSpriteComponent::OStaticSpriteComponent(const std::string& name) : OScene
 	CollisionComponent = Collision.get();
 	Collision->SetStatic(true);
 	AddChild(std::move(Collision));
+}
+
+OStaticSpriteComponent::OStaticSpriteComponent(const uint8 layer) : OStaticSpriteComponent("StaticSpriteComponent", layer)
+{
+	
 }
 
 OStaticSpriteComponent::OStaticSpriteComponent() : OStaticSpriteComponent("StaticSpriteComponent")
