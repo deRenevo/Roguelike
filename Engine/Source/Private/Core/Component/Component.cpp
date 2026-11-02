@@ -28,12 +28,6 @@ void OComponent::DoTick(float DeltaTime)
 	Tick(DeltaTime);
 }
 
-void OComponent::DoDraw(const FBox2D& cameraViewportBounds)
-{
-	if (GetIsPendingKill() || !bIsActive) return;
-	Draw(cameraViewportBounds);
-}
-
 void OComponent::BeginPlay()
 {
 	if (bIsHasBeginPlay) return;
@@ -47,6 +41,7 @@ void OComponent::EndPlay()
 
 void OComponent::OnAttach()
 {
+	
 }
 
 void OComponent::OnDetach()
@@ -54,9 +49,5 @@ void OComponent::OnDetach()
 }
 
 void OComponent::Tick(float deltaTime)
-{
-}
-
-void OComponent::Draw(const FBox2D& cameraViewportBounds)
 {
 }

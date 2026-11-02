@@ -19,6 +19,7 @@ void SceneManager::LoadScene(std::unique_ptr<OScene> scene)
 	{
 		std::cout << "LoadScene | Exiting old scene\n";
 		CorrectScene->OnExit();
+		CorrectScene.reset();
 	}
 
 	if (!HUDViewport.empty())
@@ -54,16 +55,16 @@ void SceneManager::RemoveHUD(HUD* hud)
 {
 	if (!hud) return;
 
-	auto ptr = std::ranges::find_if(HUDViewport,
+	const auto Ptr = std::ranges::find_if(HUDViewport,
 		[hud](const std::unique_ptr<HUD>& it)
 		{
 			return it.get() == hud;
 		});
 
-	if (ptr != HUDViewport.end())
+	if (Ptr != HUDViewport.end())
 	{
-		(*ptr)->OnExit();
-		HUDViewport.erase(ptr);
+		(*Ptr)->OnExit();
+		HUDViewport.erase(Ptr);
 	}
 }
 
@@ -74,7 +75,7 @@ void SceneManager::Tick(float deltaTime)
 		CorrectScene->DoTick(deltaTime);
 	}
 
-	for (auto& hud : HUDViewport)
+	for (const auto& hud : HUDViewport)
 	{
 		if (!hud) continue;;
 		hud->DoTick(deltaTime);
@@ -92,7 +93,7 @@ void SceneManager::Draw()
 	{
 		if (!hud) continue;;
 		hud->DoDraw();
-	};
+	}
 }
 
 OScene* SceneManager::GetScene()

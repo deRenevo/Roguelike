@@ -26,7 +26,6 @@ public:
 	//===
 protected:
 	virtual void Tick(float deltaTime) override;
-	virtual void Draw(const FBox2D& cameraViewportBounds) override;
 
 public:
 	virtual void OnAttach() override;

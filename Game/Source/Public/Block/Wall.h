@@ -11,8 +11,8 @@ class AWall : public AActor
 	OStaticSpriteComponent* WallStaticSpriteComponent = nullptr;
 
 public:
-	AWall(const std::string& name);
-	AWall();
+	AWall(uint8 layer, const std::string& name);
+	AWall(uint8 layer = 64);
 	
 	OStaticSpriteComponent* GetSpriteComponent() const
 	{

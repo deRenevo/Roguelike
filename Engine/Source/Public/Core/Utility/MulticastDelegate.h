@@ -34,20 +34,19 @@ public:
 		}
 
 		std::erase_if(DelegateCallbacks,
-			[id = handle.Id](const FIdCallBack& cb)
+			[id = handle.Id](const FIdCallBack& callBack)
 			{
-				return cb.Id == id;
+				return callBack.Id == id;
 			});
 	}
 
 	void Broadcast(Args... args)
 	{
-		auto callbacks = DelegateCallbacks;
-		for (const FIdCallBack& cb : callbacks)
+		for (auto Callbacks = DelegateCallbacks; const FIdCallBack& CallBack : Callbacks)
 		{
-			if (cb.Callback)
+			if (CallBack.Callback)
 			{
-				cb.Callback(args...);
+				CallBack.Callback(args...);
 			}
 		}
 	}

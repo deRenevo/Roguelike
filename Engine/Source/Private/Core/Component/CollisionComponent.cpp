@@ -28,23 +28,6 @@ void OCollisionComponent::Tick(float deltaTime)
 	bIsColliding = false;
 }
 
-void OCollisionComponent::Draw(const FBox2D& cameraViewportBounds)
-{
-	OSceneComponent::Draw(cameraViewportBounds);
-
-	if (DebugManager::bIsVisibleCollision)
-	{
-		if (bIsColliding)
-		{
-			DrawRectangleLines(GetWorldLocation().X + GetAlignment().X, GetWorldLocation().Y + GetAlignment().Y, GetSize().X, GetSize().Y, RED); //test
-		}
-		else
-		{
-			DrawRectangleLines(GetWorldLocation().X + GetAlignment().X, GetWorldLocation().Y + GetAlignment().Y, GetSize().X, GetSize().Y, LIME); //test
-		}
-	}
-}
-
 void OCollisionComponent::OnAttach()
 {
 	OSceneComponent::OnAttach();

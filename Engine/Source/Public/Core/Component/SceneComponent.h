@@ -17,7 +17,6 @@ class OSceneComponent : public OComponent
 	FVector2D Location = FVector2D(0, 0);
 
 protected:
-	virtual void Draw(const FBox2D& cameraViewportBounds) override;
 	virtual void Tick(float deltaTime) override;
 
 public:
@@ -37,21 +36,22 @@ public:
 	void RemoveChild(OComponent* child);
 
 	//setters
-	
+
 	virtual void SetOwner(AActor* owner) override
 	{
 		OComponent::SetOwner(owner);
-		
+
 		for (std::unique_ptr<OComponent>& child : Children)
 		{
 			child->SetOwner(owner);
 		}
 	}
-	
+
 	void SetParent(OSceneComponent* parent)
 	{
 		Parent = parent;
 	}
+	
 
 	//getters
 	FVector2D GetLocation() const

@@ -27,7 +27,6 @@ protected:
 	virtual void Tick(float deltaTime); //-> every frame is processed
 	virtual void Draw();
 
-
 	//setters
 	void SetRootWidget(std::unique_ptr<WWidget> rootWidget);
 	void SetIsVisible(bool isVisible)

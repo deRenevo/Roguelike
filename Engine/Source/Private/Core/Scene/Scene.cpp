@@ -1,13 +1,13 @@
 // Copyright deRenevo. All rights reserved.
 
 #include "Core/Scene/Scene.h"
+#include "Core/Manager/CollisionManager.h"
+#include "Core/Manager/InputManager.h"
 
-#include <iostream>
 #include <algorithm>
 #include <memory>
 
-#include "Core/Manager/CollisionManager.h"
-#include "Core/Manager/InputManager.h"
+#include "Core/Manager/RenderManager.h"
 
 OScene::~OScene()
 {
@@ -46,18 +46,14 @@ void OScene::DoDraw()
 	if (RootCameraComponent)
 	{
 		BeginMode2D(RootCameraComponent->GetCamera());
-		Draw(RootCameraComponent->GetViewBox());
+		RenderManager::GetInstance().Render(RootCameraComponent->GetViewBox());
 		EndMode2D();
 	}
 	else
 	{
-		Draw({
-			{0.f, 0.f},
-			{1000000.f, 1000000.f}
-		});
+		RenderManager::GetInstance().Render(RootCameraComponent->GetViewBox());
 	}
 }
-
 
 void OScene::Tick(float deltaTime)
 {
@@ -67,14 +63,6 @@ void OScene::Tick(float deltaTime)
 	}
 
 	CollisionManager::GetInstance().Tick(deltaTime);
-}
-
-void OScene::Draw(const FBox2D& cameraViewportBounds)
-{
-	for (std::unique_ptr<AActor>& Actor : ActorsOnScene)
-	{
-		Actor->DoDraw(cameraViewportBounds);
-	}
 }
 
 void OScene::SceneConstruction()

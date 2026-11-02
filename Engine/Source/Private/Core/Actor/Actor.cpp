@@ -73,14 +73,6 @@ void AActor::Tick(float deltaTime)
 	}
 }
 
-void AActor::Draw(const FBox2D& cameraViewportBounds)
-{
-	if (RootSceneComponent)
-	{
-		RootSceneComponent->DoDraw(cameraViewportBounds);
-	}
-}
-
 void AActor::EndPlay()
 {
 	if (!bIsHasBeginPlay) return;
@@ -99,12 +91,6 @@ void AActor::DoTick(float deltaTime)
 	Tick(deltaTime);
 }
 
-void AActor::DoDraw(const FBox2D& cameraViewportBounds)
-{
-	if (GetIsPendingKill()) return;
-	Draw(cameraViewportBounds);
-}
-
 void AActor::SetRootSceneComponent(std::unique_ptr<OSceneComponent> rootSceneComponent)
 {
 	if (!rootSceneComponent)
@@ -114,9 +100,9 @@ void AActor::SetRootSceneComponent(std::unique_ptr<OSceneComponent> rootSceneCom
 
 	RootSceneComponent = std::move(rootSceneComponent);
 	RootSceneComponent->SetOwner(this);
+	RootSceneComponent->OnAttach();
 	if (bIsHasBeginPlay)
 	{
 		RootSceneComponent->BeginPlay();
-		RootSceneComponent->OnAttach();
 	}
 }

@@ -6,6 +6,7 @@
 #include "Core/Manager/TaskQueueManager.h"
 
 #include "raylib.h"
+#include "Core/Manager/RenderManager.h"
 
 OEngine::OEngine() : OObject()
 {
@@ -28,8 +29,9 @@ void OEngine::Ini(std::unique_ptr<OScene> scene)
 	SetTargetFPS(120); //then edit in settings
 	SetExitKey(0);
 
-	SceneManager::GetInstance().LoadScene(std::move(scene));
 	TaskQueueManager::GetInstance().Ini();
+	RenderManager::GetInstance().Ini();
+	SceneManager::GetInstance().LoadScene(std::move(scene));
 	bIsRunning = true;
 	Run();
 }
@@ -39,11 +41,11 @@ void OEngine::Run()
 	while (bIsRunning && !WindowShouldClose())
 	{
 		TaskQueueManager::GetInstance().ProcessMainTasks();
-		float deltaTime = GetFrameTime();
+		const float DeltaTime = GetFrameTime();
 
 		InputManager::GetInstance().UpdateKeyInput();
 
-		SceneManager::GetInstance().Tick(deltaTime);
+		SceneManager::GetInstance().Tick(DeltaTime);
 
 		BeginDrawing();
 		ClearBackground(BLACK);

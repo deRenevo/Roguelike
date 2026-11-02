@@ -3,18 +3,19 @@
 #pragma once
 
 #include "CollisionComponent.h"
-#include "Core/Component/SpriteComponent.h"
+#include "Core/Component/RenderSpriteComponent.h"
 
 class OStaticSpriteComponent : public OSceneComponent
 {
-	OSpriteComponent* SpriteComponent = nullptr;
+	ORenderSpriteComponent* SpriteComponent = nullptr;
 	OCollisionComponent* CollisionComponent = nullptr;
 
 	bool bIsAutoSize = true;
 	FVector2D Alignment = FVector2D::ZeroVector;
 
 public:
-	OStaticSpriteComponent(const std::string& name);
+	OStaticSpriteComponent(const std::string& name, uint8 layer = 64);
+	OStaticSpriteComponent(const uint8 layer);
 	OStaticSpriteComponent();
 
 	void UpdateSprite(const std::string& spritePath) const;
@@ -35,7 +36,7 @@ public:
 
 		if (SpriteComponent)
 		{
-			SpriteComponent->SetSpriteAlignment(alignment);
+			SpriteComponent->SetRenderAlignment(alignment);
 		}
     
 		if (CollisionComponent)
@@ -44,7 +45,7 @@ public:
 		}
 	}
 
-	OSpriteComponent* GetSpriteComponent() const
+	ORenderSpriteComponent* GetSpriteComponent() const
 	{
 		return SpriteComponent;
 	}

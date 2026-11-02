@@ -17,7 +17,7 @@ OObject::OObject() : OObject("Object")
 
 OObject::~OObject()
 {
-	uint32 Last = AllObjects.size() - 1;
+	const uint32 Last = AllObjects.size() - 1;
 	if (RegistryIndex != Last)
 	{
 		AllObjects[RegistryIndex] = AllObjects[Last];

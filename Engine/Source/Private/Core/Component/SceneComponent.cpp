@@ -40,15 +40,6 @@ OSceneComponent::~OSceneComponent()
 
 }
 
-void OSceneComponent::Draw(const FBox2D& cameraViewportBounds)
-{
-	OComponent::Draw(cameraViewportBounds);
-	for (const std::unique_ptr<OComponent>& Child : Children)
-	{
-		Child->DoDraw(cameraViewportBounds);
-	}
-}
-
 void OSceneComponent::Tick(float deltaTime)
 {
 	OComponent::Tick(deltaTime);
