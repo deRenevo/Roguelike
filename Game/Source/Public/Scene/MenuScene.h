@@ -56,7 +56,7 @@ class ATestPawn : public APawn
 		{
 			this->OffLoadScene();
 		});
-		Handle = inputManager.SubscribeKey(KeyboardKey::KEY_R, EInputType::Pressed, [this](void)
+		inputManager.SubscribeKey(KeyboardKey::KEY_R, EInputType::Pressed, [this](void)
 		{
 			this->LoadScene();
 		});
