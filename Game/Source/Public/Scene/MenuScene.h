@@ -88,7 +88,7 @@ public:
 		StaticSpriteComponent->SetAlignment({-static_cast<float>(StaticSpriteComponent->GetSpriteComponent()->GetTexture()->width / 2),
 											-static_cast<float>(StaticSpriteComponent->GetSpriteComponent()->GetTexture()->height / 2)});
 		StaticSpriteComponent->SetCollisionSize({64, 10});
-		StaticSpriteComponent->GetCollisionComponent()->SetAlignment({0, 30});
+		StaticSpriteComponent->GetCollisionComponent()->SetAlignment({-32, 30});
 		GetRootSceneComponent()->AddChild(std::unique_ptr<OStaticSpriteComponent>(StaticSpriteComponent));
 
 		OCameraComponent* CameraComponent = new OCameraComponent();

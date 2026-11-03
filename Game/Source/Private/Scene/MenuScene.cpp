@@ -52,7 +52,7 @@ void OMenuScene::SceneConstruction()
 		}
 	}
 	
-	for (int i = 10; i < 50; ++i)
+	for (int i = 10; i < 15; ++i)
 	{
 		std::unique_ptr<AWall> Fence = std::make_unique<AWall>(128);
 		Fence->GetSpriteComponent()->UpdateSprite("Assets/Fence_1.png");
