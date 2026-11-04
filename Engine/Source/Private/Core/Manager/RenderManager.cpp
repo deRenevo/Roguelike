@@ -144,6 +144,7 @@ void RenderManager::RemoveComponent(ORenderComponent* component) const
 	if (AllRenderLayers[component->GetRenderLayer()] == nullptr)
 	{
 		printf("Error render layer with %i index is nullptr\n", component->GetRenderLayer());
+		return;
 	}
 	
 	AllRenderLayers[component->GetRenderLayer()]->RemoveComponent(component);
