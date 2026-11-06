@@ -27,9 +27,10 @@ public:
 	
 	void Render(const FBox2D& cameraViewBox) const;
 	void AddComponent(ORenderComponent* component, uint8 layer);
-	void RemoveComponent(ORenderComponent* component) const;
+	void RemoveComponent(const ORenderComponent* component) const;
 	void AddLayer(std::unique_ptr<RRenderLayer> renderLayer, uint8 layerIndex);
 	void RemoveLayer(RRenderLayer* renderLayer);
+	void ClearAll();
 	
 	static RenderManager& GetInstance()
 	{

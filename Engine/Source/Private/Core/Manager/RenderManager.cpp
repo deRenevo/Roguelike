@@ -133,7 +133,7 @@ void RenderManager::AddComponent(ORenderComponent* component, const uint8 layer)
 	AllRenderLayers[layer]->AddComponent(component);
 }
 
-void RenderManager::RemoveComponent(ORenderComponent* component) const
+void RenderManager::RemoveComponent(const ORenderComponent* component) const
 {
 	if (component == nullptr)
 	{
@@ -148,4 +148,15 @@ void RenderManager::RemoveComponent(ORenderComponent* component) const
 	}
 	
 	AllRenderLayers[component->GetRenderLayer()]->RemoveComponent(component);
+}
+
+void RenderManager::ClearAll()
+{        
+	for (auto& layer : AllRenderLayers)
+	{
+		if (layer)
+		{
+			layer->ClearAll();
+		}
+	}
 }

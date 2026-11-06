@@ -24,7 +24,7 @@ public:
 	ORenderComponent(const uint8 renderLayer, const FVector2D& location);
 	ORenderComponent(const uint8 renderLayer, const FVector2D& location, const std::string& name);
 	
-	virtual ~ORenderComponent() override = default;
+	virtual ~ORenderComponent() override;
 	
 	virtual void Render(const FBox2D& cameraViewBox) = 0;
 	virtual void OnAttach() override;

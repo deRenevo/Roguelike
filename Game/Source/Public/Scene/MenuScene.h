@@ -11,7 +11,6 @@
 #include "Core/Component/CollisionComponent.h"
 
 #include "Core/Component/StaticSpriteComponent.h"
-#include "Core/Math/CollisionMath.h"
 #include "Core/Manager/SceneManager.h"
 
 class MenuHUD;
@@ -20,8 +19,6 @@ class WButton;
 //====== Test code
 class ATestPawn : public APawn
 {
-	FMulticastDelegateHandle Handle;
-	
 	virtual void SetupPlayerInputComponent(InputManager& inputManager) override
 	{
 		inputManager.SubscribeKey(KeyboardKey::KEY_ESCAPE, EInputType::Pressed, [](void)
@@ -51,10 +48,6 @@ class ATestPawn : public APawn
 		inputManager.SubscribeKey(KeyboardKey::KEY_LEFT_SHIFT, EInputType::Released, [this](void)
 		{
 			this->SetFastMove(false);
-		});
-		inputManager.SubscribeKey(KeyboardKey::KEY_F, EInputType::Pressed, [this](void)
-		{
-			this->OffLoadScene();
 		});
 		inputManager.SubscribeKey(KeyboardKey::KEY_R, EInputType::Pressed, [this](void)
 		{
@@ -119,11 +112,6 @@ public:
 	}
 
 	static void LoadScene();
-
-	void OffLoadScene() const
-	{
-		InputManager::GetInstance().UnsubscribeKey(Handle);
-	}
 };
 
 /*
@@ -152,7 +140,7 @@ public:
 class OTestGameMode : public OGameMode
 {
 
-public:
+public:	
 	OTestGameMode(const std::function<APawn*()>& pawnClass) : OGameMode([](void)
 	{
 		return new APlayerController();

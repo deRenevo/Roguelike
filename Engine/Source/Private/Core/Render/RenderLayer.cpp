@@ -18,6 +18,12 @@ void RRenderLayer::Render(const FBox2D& cameraViewBox)
 		uint32 CurrentIndex = 0;
 		for (auto* Component : AllRenderComponents)
 		{
+			if (!Component)
+			{
+				printf("Critical error component is nullptr\n");
+				return;	
+			}
+			
 			Component->SetRegistryRenderIndex(CurrentIndex);
 			CurrentIndex++;
 		}
@@ -94,12 +100,23 @@ void RRenderLayer::RemoveComponent(const ORenderComponent* component)
 	}
 	else
 	{
-		const uint32 Last = static_cast<uint32>(AllRenderComponents.size() - 1);
-		if (component->GetRegistryRenderIndex() != Last)
+		if (const uint32 Last = static_cast<uint32>(AllRenderComponents.size() - 1); component->GetRegistryRenderIndex() != Last)
 		{
 			AllRenderComponents[component->GetRegistryRenderIndex()] = AllRenderComponents[Last];
 			AllRenderComponents[component->GetRegistryRenderIndex()]->SetRegistryRenderIndex(component->GetRegistryRenderIndex());
 		}
 		AllRenderComponents.pop_back();
 	}
+}
+
+void RRenderLayer::ClearAll()
+{
+	for (auto* comp : AllRenderComponents)
+	{
+		if (comp) 
+		{
+			comp->SetRegistryRenderIndex(UINT32_MAX);
+		}
+	}
+	AllRenderComponents.clear();
 }
