@@ -29,6 +29,7 @@ void SceneManager::LoadScene(std::unique_ptr<OScene> scene)
 		HUDViewport.clear();
 	}
 
+	RenderManager::GetInstance().ClearAll();
 	TextureManager::GetInstance().ClearTextureMap();
 	CollisionManager::GetInstance().ClearCollisionComponents();
 	InputManager::GetInstance().ClearSubscribedKeys();
