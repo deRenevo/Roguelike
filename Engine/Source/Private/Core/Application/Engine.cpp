@@ -49,6 +49,7 @@ void OEngine::Run()
 
 		BeginDrawing();
 		ClearBackground(BLACK);
+		
 		SceneManager::GetInstance().Draw();
 		EndDrawing();
 

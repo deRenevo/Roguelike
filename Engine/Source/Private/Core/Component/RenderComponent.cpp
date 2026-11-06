@@ -36,6 +36,11 @@ ORenderComponent::ORenderComponent(const uint8 renderLayer, const FVector2D& loc
 	RenderLayerIndex = renderLayer;
 }
 
+ORenderComponent::~ORenderComponent()
+{
+	RenderManager::GetInstance().RemoveComponent(this);
+}
+
 void ORenderComponent::OnAttach()
 {
 	OSceneComponent::OnAttach();

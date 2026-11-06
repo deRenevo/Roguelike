@@ -58,8 +58,8 @@ void OMenuScene::SceneConstruction()
 		Fence->GetSpriteComponent()->UpdateSprite("Assets/Fence_1.png");
 		Fence->SetLocation({static_cast<float>(i * 128), static_cast<float>(980)});
 		Fence->SetIsTickable(false);
-		Fence->GetSpriteComponent()->SetCollisionSize(FVector2D(128, 4));
-		Fence->GetSpriteComponent()->GetSpriteComponent()->SetRenderAlignment({0, -32});
+		Fence->GetSpriteComponent()->SetCollisionSize(FVector2D(128, 10));
+		Fence->GetSpriteComponent()->GetSpriteComponent()->SetRenderAlignment({0, -26});
 		Fence->GetSpriteComponent()->GetCollisionComponent()->SetAlignment(FVector2D(0, 30));
 		AddActorToScene(std::move(Fence));
 	}

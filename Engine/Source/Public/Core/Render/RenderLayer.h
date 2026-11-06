@@ -27,6 +27,8 @@ public:
 	
 	void AddComponent(ORenderComponent* component);
 	void RemoveComponent(const ORenderComponent* component);
+	
+	void ClearAll();
 
 	//getters and setters 
 

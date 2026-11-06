@@ -10,6 +10,8 @@
 #include <algorithm>
 #include <iostream>
 
+#include "Core/Manager/RenderManager.h"
+
 
 void SceneManager::LoadScene(std::unique_ptr<OScene> scene)
 {
