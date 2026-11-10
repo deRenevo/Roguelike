@@ -26,7 +26,7 @@ void OEngine::Ini(std::unique_ptr<OScene> scene)
 
 	SetConfigFlags(FLAG_FULLSCREEN_MODE);
 	InitWindow(ScreenWidth, ScreenHeight, "Roguelike");
-	SetTargetFPS(9120); //then edit in settings
+	SetTargetFPS(120); //then edit in settings
 	SetExitKey(0);
 
 	TaskQueueManager::GetInstance().Ini();
