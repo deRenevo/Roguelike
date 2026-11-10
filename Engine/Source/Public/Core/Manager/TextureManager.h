@@ -15,7 +15,7 @@ struct FTextureHandle
 	uint32 Index = UINT32_MAX;
 	uint32 Generation = 0;
 	
-	bool IsValid() const;
+	inline bool IsValid() const;
 };
 
 struct FTextureSlot
@@ -30,7 +30,7 @@ class TextureManager
 {
 	std::vector<std::unique_ptr<FTextureSlot>> TextureSlots;
 	std::vector<uint32> FreeIndex;
-	std::unordered_map<std::string, uint32> TextureIndexMap;
+	std::unordered_map<std::string, uint32> TextureIndexMap; // Path to file and index the slot
 	
 public:
 	FTextureHandle LoadTexture(const std::string& texturePath);
@@ -54,3 +54,8 @@ public:
 		return TM;
 	}
 };
+
+bool FTextureHandle::IsValid() const
+{
+	return TextureManager::GetInstance().IsHandleValid(*this);
+}

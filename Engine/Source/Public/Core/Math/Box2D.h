@@ -10,10 +10,19 @@ struct FBox2D
 	FVector2D Size = FVector2D::ZeroVector; //X == Width Y == Height 
 
 	constexpr FBox2D() = default;
+	
+	constexpr FBox2D(const float x, const float y, const float width, const float height) : Location(x, y), Size(width, height)
+	{
+	}
 
 	constexpr FBox2D(const FVector2D& location, const FVector2D& size)
 		: Location(location), Size(size)
 	{
+	}
+	
+	constexpr operator Rectangle() const
+	{
+		return {Location.X, Location.Y, Size.X, Size.Y};
 	}
 
 	constexpr FVector2D Max() const

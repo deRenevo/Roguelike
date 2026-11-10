@@ -8,6 +8,7 @@
 #include "Core/Manager/InputManager.h"
 #include "Core/Actor/Pawn.h"
 #include "Core/Application/Engine.h"
+#include "Core/Component/AnimationComponent.h"
 #include "Core/Component/CollisionComponent.h"
 
 #include "Core/Component/StaticSpriteComponent.h"
@@ -71,19 +72,24 @@ class ATestPawn : public APawn
 	}
 
 public:
-	OStaticSpriteComponent* StaticSpriteComponent = nullptr;
-
 	ATestPawn()
 	{
-		StaticSpriteComponent = new OStaticSpriteComponent(128);
+		/*OStaticSpriteComponent* StaticSpriteComponent = new OStaticSpriteComponent(128);
 		StaticSpriteComponent->UpdateSprite("Assets/block.png");
 		StaticSpriteComponent->GetCollisionComponent()->SetStatic(false);
 		StaticSpriteComponent->SetAlignment({-static_cast<float>(StaticSpriteComponent->GetSpriteComponent()->GetTexture()->width / 2),
 											-static_cast<float>(StaticSpriteComponent->GetSpriteComponent()->GetTexture()->height / 2)});
 		StaticSpriteComponent->SetCollisionSize({64, 10});
 		StaticSpriteComponent->GetCollisionComponent()->SetAlignment({-32, 30});
-		GetRootSceneComponent()->AddChild(std::unique_ptr<OStaticSpriteComponent>(StaticSpriteComponent));
-
+		GetRootSceneComponent()->AddChild(std::unique_ptr<OStaticSpriteComponent>(StaticSpriteComponent));*/
+		
+		std::unique_ptr<OAnimationComponent> AnimationComponent = std::make_unique<OAnimationComponent>(128);
+		AnimationComponent->LoadTexture("Assets/LoadAnimationSheet_1.png", 33, 0.1f);
+		AnimationComponent->SetRenderAlignment({-64.f, -64.f});
+		AnimationComponent->SetDepthKey(28.f);
+		GetRootSceneComponent()->AddChild(std::move(AnimationComponent));
+		
+		
 		OCameraComponent* CameraComponent = new OCameraComponent();
 		CameraComponent->SetZoom(1.f);
 		SceneManager::GetInstance().GetScene()->SetRootCameraComponent(CameraComponent);

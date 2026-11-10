@@ -22,10 +22,10 @@ OComponent::OComponent(AActor* owner, const std::string& name) : OObject(name)
 	SetOwner(owner);
 }
 
-void OComponent::DoTick(float DeltaTime)
+void OComponent::DoTick(float deltaTime)
 {
 	if (GetIsPendingKill() || !bIsActive) return;
-	Tick(DeltaTime);
+	Tick(deltaTime);
 }
 
 void OComponent::BeginPlay()

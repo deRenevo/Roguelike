@@ -6,12 +6,12 @@
 #include "Core/Manager/CollisionManager.h"
 #include "Core/Manager/InputManager.h"
 #include "Core/Manager/TextureManager.h"
+#include "Core/Manager/AnimationManager.h"
+#include "Core/Manager/RenderManager.h"
+#include "Core/Manager/TaskQueueManager.h"
 
 #include <algorithm>
 #include <iostream>
-
-#include "Core/Manager/RenderManager.h"
-
 
 void SceneManager::LoadScene(std::unique_ptr<OScene> scene)
 {
@@ -28,7 +28,9 @@ void SceneManager::LoadScene(std::unique_ptr<OScene> scene)
 	{
 		HUDViewport.clear();
 	}
-
+	
+	AnimationManager::GetInstance().ClearAnimationMap();
+	RenderManager::GetInstance().ClearAll();
 	TextureManager::GetInstance().ClearTextureMap();
 	CollisionManager::GetInstance().ClearCollisionComponents();
 	InputManager::GetInstance().ClearSubscribedKeys();

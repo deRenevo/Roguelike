@@ -30,7 +30,7 @@ public:
 	void RemoveComponent(const ORenderComponent* component) const;
 	void AddLayer(std::unique_ptr<RRenderLayer> renderLayer, uint8 layerIndex);
 	void RemoveLayer(RRenderLayer* renderLayer);
-	void ClearAll();
+	void ClearAll() const;
 	
 	static RenderManager& GetInstance()
 	{

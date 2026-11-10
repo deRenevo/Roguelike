@@ -4,7 +4,7 @@
 
 OStaticSpriteComponent::OStaticSpriteComponent(const std::string& name, uint8 layer) : OSceneComponent(name)
 {
-	std::unique_ptr<ORenderSpriteComponent> Sprite = std::make_unique<ORenderSpriteComponent>(layer);
+	std::unique_ptr<OSpriteComponent> Sprite = std::make_unique<OSpriteComponent>(layer);
 	SpriteComponent = Sprite.get();
 	AddChild(std::move(Sprite));
 

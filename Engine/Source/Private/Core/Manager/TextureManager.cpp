@@ -4,11 +4,6 @@
 
 #include "Core/Manager/TaskQueueManager.h"
 
-bool FTextureHandle::IsValid() const
-{
-	return TextureManager::GetInstance().IsHandleValid(*this);
-}
-
 FTextureHandle TextureManager::LoadTexture(const std::string& texturePath)
 {
 	if (const std::unordered_map<std::string, unsigned>::iterator& It = TextureIndexMap.find(texturePath); It != TextureIndexMap.end())
@@ -45,11 +40,9 @@ FTextureHandle TextureManager::LoadTexture(const std::string& texturePath)
 
 Texture* TextureManager::ResolveTexture(const FTextureHandle textureHandle) const
 {
-	if (TextureSlots[textureHandle.Index]->Generation == textureHandle.Generation)
-	{
-		return TextureSlots[textureHandle.Index]->Texture2D.get();
-	}
-	return nullptr;
+	return TextureSlots[textureHandle.Index]->Generation == textureHandle.Generation
+		? TextureSlots[textureHandle.Index]->Texture2D.get()
+		: nullptr;
 }
 
 void TextureManager::UnloadTexture(const FTextureHandle& textureHandle)
@@ -57,7 +50,7 @@ void TextureManager::UnloadTexture(const FTextureHandle& textureHandle)
 	if (textureHandle.Index >= TextureSlots.size()) return;
 	FTextureSlot* TextureSlot = TextureSlots[textureHandle.Index].get();
 	if (TextureSlot->Generation != textureHandle.Generation) return;
-	
+
 	if (TextureSlot->CountUsing.fetch_sub(1) == 1)
 	{
 		TaskQueueManager::GetInstance().Enqueue(ETaskQueueType::Main, std::function<void()>([this, textureHandle](void)
@@ -75,12 +68,12 @@ void TextureManager::UnloadTextureAsync(const FTextureHandle& textureHandle)
 	});
 }
 
-void TextureManager::FinalizeUnload(FTextureHandle textureHandle)
+void TextureManager::FinalizeUnload(const FTextureHandle textureHandle)
 {
 	FTextureSlot* TextureSlot = TextureSlots[textureHandle.Index].get();
 	if (TextureSlot->Generation != textureHandle.Generation) return;
 	if (TextureSlot->CountUsing.load() > 0) return;
-
+	
 	::UnloadTexture(*TextureSlot->Texture2D);
 	TextureSlot->Texture2D.reset();
 	TextureIndexMap.erase(TextureSlot->TexturePath);
@@ -92,7 +85,7 @@ void TextureManager::FinalizeUnload(FTextureHandle textureHandle)
 
 void TextureManager::ClearTextureMap()
 {
-	for (std::unique_ptr<FTextureSlot>& TextureSlot : TextureSlots)
+	for (const std::unique_ptr<FTextureSlot>& TextureSlot : TextureSlots)
 	{
 		if (TextureSlot->Texture2D)
 		{

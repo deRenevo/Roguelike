@@ -24,7 +24,7 @@ public:
 
 	virtual ~OComponent() override = default;
 
-	virtual void DoTick(float DeltaTime);
+	virtual void DoTick(float deltaTime);
 	virtual void BeginPlay();
 	virtual void EndPlay();
 	virtual void OnAttach();

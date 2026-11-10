@@ -12,7 +12,7 @@
 
 #include "Block/Floor.h"
 #include "Block/Wall.h"
-#include "Core/Component/RenderSpriteComponent.h"
+#include "Core/Component/SpriteComponent.h"
 #include "HUD/DebugHUD.h"
 
 void OMenuScene::SceneConstruction()

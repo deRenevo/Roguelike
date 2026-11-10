@@ -13,8 +13,10 @@ class ORenderComponent : public OSceneComponent
 	uint8 RenderLayerIndex = 64; // default layer is floor tile
 	
 protected:
-	//virtual void OnRegisterScene(); 
-	//virtual void OnUnregisterScene();
+	virtual void Tick(float deltaTime) override
+	{
+		OSceneComponent::Tick(deltaTime);
+	}
 	
 public:
 	ORenderComponent();

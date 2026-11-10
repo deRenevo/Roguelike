@@ -3,11 +3,11 @@
 #pragma once
 
 #include "CollisionComponent.h"
-#include "Core/Component/RenderSpriteComponent.h"
+#include "Core/Component/SpriteComponent.h"
 
 class OStaticSpriteComponent : public OSceneComponent
 {
-	ORenderSpriteComponent* SpriteComponent = nullptr;
+	OSpriteComponent* SpriteComponent = nullptr;
 	OCollisionComponent* CollisionComponent = nullptr;
 
 	bool bIsAutoSize = true;
@@ -45,7 +45,7 @@ public:
 		}
 	}
 
-	ORenderSpriteComponent* GetSpriteComponent() const
+	OSpriteComponent* GetSpriteComponent() const
 	{
 		return SpriteComponent;
 	}

@@ -150,7 +150,7 @@ void RenderManager::RemoveComponent(const ORenderComponent* component) const
 	AllRenderLayers[component->GetRenderLayer()]->RemoveComponent(component);
 }
 
-void RenderManager::ClearAll()
+void RenderManager::ClearAll() const
 {        
 	for (auto& layer : AllRenderLayers)
 	{
