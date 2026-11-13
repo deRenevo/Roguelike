@@ -6,10 +6,12 @@
 
 class APlayerStart : public AActor
 {
+	FVector2D WorldLocation;
+
 public:
 	APlayerStart();
-	APlayerStart(FVector2D worldLocation, std::string name);
-	APlayerStart(FVector2D worldLocation);
+	APlayerStart(FVector2D worldLocation, const std::string& name);
+	explicit APlayerStart(FVector2D worldLocation);
 
 	virtual void BeginPlay() override;
 };

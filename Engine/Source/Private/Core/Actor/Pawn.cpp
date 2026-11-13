@@ -9,22 +9,22 @@ void APawn::SetupPlayerInputComponent(InputManager& inputManager)
 	//Test system using Instance class Input manager 
 }
 
-void APawn::Tick(float deltaTime)
+void APawn::Tick(const float deltaTime)
 {
 	AActor::Tick(deltaTime);
 }
 
-APawn::APawn() : AActor()
+APawn::APawn() : APawn(FVector2D::ZeroVector, "Pawn")
 {
 
 }
 
-APawn::APawn(FVector2D worldLocation) : AActor(worldLocation)
+APawn::APawn(const FVector2D worldLocation) : APawn(worldLocation, "Pawn")
 {
 
 }
 
-APawn::APawn(FVector2D worldLocation, const std::string& name) : AActor(worldLocation, name)
+APawn::APawn(const FVector2D worldLocation, const std::string& name) : AActor(worldLocation, name)
 {
 
 }

@@ -2,7 +2,9 @@
 
 #pragma once
 
-#include "CollisionComponent.h"
+#include "Core/Component/SceneComponent.h"
+
+#include "Core/Component/CollisionComponent.h"
 #include "Core/Component/SpriteComponent.h"
 
 class OStaticSpriteComponent : public OSceneComponent
@@ -14,14 +16,21 @@ class OStaticSpriteComponent : public OSceneComponent
 	FVector2D Alignment = FVector2D::ZeroVector;
 
 public:
-	OStaticSpriteComponent(const std::string& name, uint8 layer = 64);
-	OStaticSpriteComponent(const uint8 layer);
+	explicit OStaticSpriteComponent(const std::string& name, uint8 layer = 64);
+	explicit OStaticSpriteComponent(uint8 layer);
 	OStaticSpriteComponent();
 
 	void UpdateSprite(const std::string& spritePath) const;
 	void AutoSize() const;
 
-	//setters and getters
+	//setters
+	void SetAutoSize();
+
+	void SetAutoSize(const bool isAutoSize)
+	{
+		bIsAutoSize = isAutoSize;
+	}
+
 	void SetCollisionSize(const FVector2D& size) const
 	{
 		if (CollisionComponent)
@@ -38,13 +47,14 @@ public:
 		{
 			SpriteComponent->SetRenderAlignment(alignment);
 		}
-    
+
 		if (CollisionComponent)
 		{
 			CollisionComponent->SetAlignment(alignment);
 		}
 	}
 
+	//getters
 	OSpriteComponent* GetSpriteComponent() const
 	{
 		return SpriteComponent;
@@ -59,13 +69,4 @@ public:
 	{
 		return Alignment;
 	}
-
-	void SetAutoSize(bool isAutoSize)
-	{
-		bIsAutoSize = isAutoSize;
-	}
-
-	virtual void OnAttach() override;
-
-	void SetAutoSize();
 };

@@ -3,12 +3,9 @@
 #pragma once
 
 #include "Core/Object/Object.h"
-#include "Core/Actor/Actor.h"
-#include "Core/Game/GameMode.h"
-#include "Core/Component/CameraComponent.h"
 
-#include <vector>
-#include <memory>
+#include "Core/Component/CameraComponent.h"
+#include "Core/Game/GameMode.h"
 
 class APlayerStart;
 
@@ -41,8 +38,6 @@ public:
 	void RemoveActorOnScene(AActor* actor);
 
 	//setters
-	std::vector<AActor*> GetActorsOnScene() const;
-
 	void SetRootCameraComponent(OCameraComponent* rootCameraComponent)
 	{
 		RootCameraComponent = rootCameraComponent;
@@ -59,6 +54,8 @@ public:
 	}
 
 	//getters
+	std::vector<AActor*> GetActorsOnScene() const;
+	
 	OGameMode* GetGameMode() const
 	{
 		return GameMode.get();

@@ -15,7 +15,6 @@ class OCollisionComponent : public OSceneComponent
 
 	bool bIsCollidingOldFrame = false;
 	bool bIsColliding = false;
-	
 	bool bIsStatic = true;
 
 public:
@@ -23,15 +22,14 @@ public:
 	MulticastDelegate<> OnCollisionDelegate;
 	MulticastDelegate<> OnEndCollisionDelegate;
 
-	//===
 protected:
 	virtual void Tick(float deltaTime) override;
 
 public:
 	virtual void OnAttach() override;
 	virtual void OnDetach() override;
-	
-	//getters and setters 
+
+	//setters 
 	void SetSize(const FVector2D& size)
 	{
 		Size = size;
@@ -52,12 +50,13 @@ public:
 	{
 		bIsColliding = isColliding;
 	}
-	
+
 	void SetStatic(const bool& isStatic)
 	{
 		bIsStatic = isStatic;
 	}
 
+	//getters
 	FVector2D GetSize() const
 	{
 		return Size;
@@ -65,14 +64,14 @@ public:
 
 	FBox2D GetBox() const
 	{
-		FVector2D Location = GetLocation();
-		return {FVector2D(Location.X + Size.X, Location.Y + Size.Y/2), Size};
+		const FVector2D Location = GetLocation();
+		return {FVector2D(Location.X + Size.X, Location.Y + Size.Y / 2), Size};
 	}
 
 	FBox2D GetWorldBox2D() const
 	{
-		FVector2D Location = GetWorldLocation();
-		return {FVector2D(Location.X + Size.X/2 + Alignment.X, Location.Y + Size.Y/2 + Alignment.Y), Size};
+		const FVector2D Location = GetWorldLocation();
+		return {FVector2D(Location.X + Size.X / 2 + Alignment.X, Location.Y + Size.Y / 2 + Alignment.Y), Size};
 	}
 
 	FVector2D GetAlignment() const
@@ -84,7 +83,7 @@ public:
 	{
 		return bIsColliding;
 	}
-	
+
 	bool GetIsStatic() const
 	{
 		return bIsStatic;

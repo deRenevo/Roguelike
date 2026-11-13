@@ -3,10 +3,9 @@
 #pragma once
 
 #include "Core/Actor/Actor.h"
-#include "Core/Actor/PlayerController.h"
 
-#include <memory>
-
+class InputManager;
+class APlayerController;
 class OInputManager;
 
 class APawn : public AActor
@@ -18,7 +17,7 @@ protected:
 
 public:
 	APawn();
-	APawn(FVector2D worldLocation);
+	explicit APawn(FVector2D worldLocation);
 	APawn(FVector2D worldLocation, const std::string& name);
 	virtual void SetupPlayerInputComponent(InputManager& inputManager);
 

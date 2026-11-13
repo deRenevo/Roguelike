@@ -2,15 +2,17 @@
 
 #include "Core/Component/AnimationComponent.h"
 
-OAnimationComponent::OAnimationComponent() : OAnimationComponent("AnimationComponent")
+#include "Core/Math/CollisionMath.h"
+
+OAnimationComponent::OAnimationComponent() : OAnimationComponent(static_cast<uint8>(64), "AnimationComponent")
 {
 }
 
-OAnimationComponent::OAnimationComponent(const std::string& name) : ORenderComponent(name)
+OAnimationComponent::OAnimationComponent(const std::string& name) : OAnimationComponent(static_cast<uint8>(64), name)
 {
 }
 
-OAnimationComponent::OAnimationComponent(const uint8 layer) : ORenderComponent(layer)
+OAnimationComponent::OAnimationComponent(const uint8 layer) : OAnimationComponent(layer, "AnimationComponent")
 {
 }
 
@@ -31,14 +33,12 @@ void OAnimationComponent::Render(const FBox2D& cameraViewBox)
 	}
 
 	const FAnimationClip* AnimationClip = AnimationManager::GetInstance().ResolveAnimationClip(AnimationHandle);
-
 	if (!AnimationClip)
 	{
 		return;
 	}
 
 	const Texture2D* Texture = TextureManager::GetInstance().ResolveTexture(AnimationClip->TextureHandle);
-
 	if (!Texture)
 	{
 		return;
@@ -57,7 +57,13 @@ void OAnimationComponent::Tick(float deltaTime)
 {
 	ORenderComponent::Tick(deltaTime);
 
-	if (const FAnimationClip* AnimationClip = AnimationManager::GetInstance().ResolveAnimationClip(AnimationHandle); UpdateFrameTime < AnimationClip->UpdateFrameTime)
+	const FAnimationClip* AnimationClip = AnimationManager::GetInstance().ResolveAnimationClip(AnimationHandle);
+	if (!AnimationClip)
+	{
+		return;
+	}
+
+	if (UpdateFrameTime < AnimationClip->UpdateFrameTime)
 	{
 		UpdateFrameTime += deltaTime;
 	}
@@ -74,7 +80,7 @@ void OAnimationComponent::LoadTexture(const std::string& path, const uint8 count
 	{
 		AnimationManager::GetInstance().UnloadAnimation(AnimationHandle);
 	}
-		
+
 	AnimationHandle = AnimationManager::GetInstance().LoadAnimation(path, countFrame, updateFrameTime);
 }
 
@@ -84,7 +90,7 @@ void OAnimationComponent::UnloadTexture() const
 	{
 		return;
 	}
-	
+
 	AnimationManager::GetInstance().UnloadAnimation(AnimationHandle);
 }
 
@@ -94,15 +100,15 @@ FBox2D OAnimationComponent::GetWorldBox()
 	{
 		return FBox2D();
 	}
-	
+
 	const FAnimationClip* AnimationClip = AnimationManager::GetInstance().ResolveAnimationClip(AnimationHandle);
 	if (!AnimationClip)
 	{
 		return FBox2D();
 	}
-	
+
 	FVector2D Size = {static_cast<float>(AnimationClip->FrameWidth), static_cast<float>(AnimationClip->FrameHeight)};
 	const FVector2D Location = GetWorldLocation();
-	
+
 	return {Location - Size / 2, Size};
 }

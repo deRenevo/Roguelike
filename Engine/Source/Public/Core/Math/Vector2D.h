@@ -19,7 +19,7 @@ struct FVector2D
 	{
 	}
 
-	constexpr FVector2D(const Vector2& rayVector2) : X(rayVector2.x), Y(rayVector2.y)
+	explicit constexpr FVector2D(const Vector2& rayVector2) : X(rayVector2.x), Y(rayVector2.y)
 	{
 	}
 

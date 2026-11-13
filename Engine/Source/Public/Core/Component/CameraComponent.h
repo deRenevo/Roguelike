@@ -3,6 +3,7 @@
 #pragma once
 
 #include "Core/Component/SceneComponent.h"
+
 #include "Core/Math/Box2D.h"
 
 
@@ -15,11 +16,10 @@ class OCameraComponent : public OSceneComponent
 
 public:
 	OCameraComponent();
-	OCameraComponent(const std::string& name);
+	explicit OCameraComponent(const std::string& name);
 	virtual ~OCameraComponent() override = default;
 
 	//setters
-
 	void SetZoom(const float& zoom)
 	{
 		Zoom = zoom;
@@ -36,7 +36,6 @@ public:
 	}
 
 	//getters
-
 	Camera2D GetCamera() const
 	{
 		Camera2D Camera;
@@ -47,16 +46,16 @@ public:
 
 		return Camera;
 	}
-	
+
 	FBox2D GetViewBox() const
 	{
 		const float ScreenWidth = static_cast<float>(GetScreenWidth());
 		const float ScreenHeight = static_cast<float>(GetScreenHeight());
-		
-		FVector2D Center = GetWorldLocation();
-		
-		FVector2D Size(ScreenWidth / Zoom * 1.1, ScreenHeight / Zoom * 1.1); // for not visiting breaks in drawing at the corners
-    
+
+		const FVector2D Center = GetWorldLocation();
+
+		const FVector2D Size(ScreenWidth / Zoom * 1.1, ScreenHeight / Zoom * 1.1); // for not visiting breaks in drawing at the corners
+
 		return FBox2D(Center, Size);
 	}
 };

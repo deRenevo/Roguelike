@@ -2,14 +2,9 @@
 
 #pragma once
 
-#include "Core/Object/Object.h"
-
 #include "Core/Utility/MulticastDelegate.h"
 
 #include "raylib.h"
-
-#include <functional>
-#include <vector>
 
 enum class EInputType
 {
@@ -25,33 +20,34 @@ struct FKeyAction
 	EInputType InputType;
 };
 
-class InputManager : public OObject
+class InputManager
 {
 	std::vector<FKeyAction> KeyActions;
 	std::vector<KeyboardKey> OldKeyInput;
 
 	InputManager() = default;
-	virtual ~InputManager() override = default;
+	virtual ~InputManager() = default;
 
 public:
-	
 	InputManager(const InputManager&) = delete;
 	InputManager& operator=(const InputManager&) = delete;
 	InputManager(InputManager&) = delete;
 	InputManager& operator=(InputManager&&) = delete;
-	
+
 	void UpdateKeyInput();
+
 	static InputManager& GetInstance()
 	{
 		static InputManager IM;
 		return IM;
 	}
-	
+
 	FMulticastDelegateHandle SubscribeKey(KeyboardKey key, EInputType inputType, const std::function<void()>& callback);
+
 	void ClearSubscribedKeys()
 	{
 		KeyActions.clear();
 	}
-	
+
 	void UnsubscribeKey(FMulticastDelegateHandle keyDelegateHandle);
 };

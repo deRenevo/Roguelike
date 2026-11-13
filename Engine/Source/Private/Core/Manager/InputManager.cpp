@@ -2,11 +2,6 @@
 
 #include "Core/Manager/InputManager.h"
 
-#include "Core/Math/BasicTypes.h"
-
-#include <algorithm>
-#include <ostream>
-
 void InputManager::UpdateKeyInput()
 {
 	std::vector<KeyboardKey> KeysInput;
@@ -57,7 +52,7 @@ FMulticastDelegateHandle InputManager::SubscribeKey(const KeyboardKey key, const
 	}
 
 	KeyActions.push_back({});
-	FKeyAction& NewAction = KeyActions.back(); 
+	FKeyAction& NewAction = KeyActions.back();
 	NewAction.Key = key;
 	NewAction.InputType = inputType;
 	return NewAction.Callback.Add(callback);
@@ -71,7 +66,7 @@ void InputManager::UnsubscribeKey(const FMulticastDelegateHandle keyDelegateHand
 	for (auto It = KeyActions.begin(); It != KeyActions.end(); ++It)
 	{
 		const void* DelegatePtr = static_cast<void*>(&It->Callback);
-		
+
 		if (DelegatePtr == keyDelegateHandle.MulticastDelegate)
 		{
 			It->Callback.Remove(keyDelegateHandle);

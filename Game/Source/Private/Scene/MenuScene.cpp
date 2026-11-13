@@ -21,7 +21,7 @@ void OMenuScene::SceneConstruction()
 	{
 		return new ATestPawn();
 	}));
-	APlayerStart* PlayerStart = new APlayerStart(Vector2(960, 960));
+	APlayerStart* PlayerStart = new APlayerStart(FVector2D(960, 960));
 	AddActorToScene(std::unique_ptr<APlayerStart>(PlayerStart));
 
 	OScene::SceneConstruction();

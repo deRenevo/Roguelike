@@ -19,7 +19,7 @@ OComponent::OComponent(AActor* owner) : OComponent(owner, "Component")
 
 OComponent::OComponent(AActor* owner, const std::string& name) : OObject(name)
 {
-	SetOwner(owner);
+	OComponent::SetOwner(owner);
 }
 
 void OComponent::DoTick(float deltaTime)
@@ -41,13 +41,13 @@ void OComponent::EndPlay()
 
 void OComponent::OnAttach()
 {
-	
+
 }
 
 void OComponent::OnDetach()
 {
 }
 
-void OComponent::Tick(float deltaTime)
+void OComponent::Tick(const float deltaTime)
 {
 }

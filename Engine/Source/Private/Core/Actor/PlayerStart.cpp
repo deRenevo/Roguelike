@@ -1,18 +1,19 @@
 // Copyright deRenevo. All rights reserved.
 
 #include "Core/Actor/PlayerStart.h"
+
 #include "Core/Manager/SceneManager.h"
 #include "Core/Scene/Scene.h"
 
-APlayerStart::APlayerStart() : AActor()
+APlayerStart::APlayerStart() : APlayerStart(FVector2D::ZeroVector, "PlayerStart")
 {
 }
 
-APlayerStart::APlayerStart(FVector2D worldLocation, std::string name) : AActor(worldLocation, name)
+APlayerStart::APlayerStart(const FVector2D worldLocation) : APlayerStart(worldLocation, "PlayerStart")
 {
 }
 
-APlayerStart::APlayerStart(FVector2D worldLocation) : AActor(worldLocation)
+APlayerStart::APlayerStart(const FVector2D worldLocation, const std::string& name) : AActor(worldLocation, name), WorldLocation(worldLocation)
 {
 }
 

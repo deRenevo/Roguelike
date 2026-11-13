@@ -2,8 +2,6 @@
 
 #include "Core/Manager/AnimationManager.h"
 
-#include <ostream>
-
 FAnimationHandle AnimationManager::LoadAnimation(const std::string& texturePath, const uint8 countFrame, const float updateFrameTime = 1.f)
 {
 	if (const std::unordered_map<std::string, unsigned>::iterator& it = AnimationMap.find(texturePath); it != AnimationMap.end())
@@ -37,6 +35,11 @@ FAnimationHandle AnimationManager::LoadAnimation(const std::string& texturePath,
 	AnimationClip->TextureHandle = TextureHandle;
 
 	const Texture2D* Texture = TextureManager::GetInstance().ResolveTexture(TextureHandle);
+
+	if (!Texture)
+	{
+		return FAnimationHandle();
+	}
 
 	AnimationClip->FrameWidth = Texture->width / countFrame;
 	AnimationClip->FrameHeight = Texture->height;
@@ -85,7 +88,7 @@ void AnimationManager::ClearAnimationMap()
 			TextureManager::GetInstance().UnloadTextureAsync(AnimationSlot->AnimationClip->TextureHandle);
 		}
 	}
-	
+
 	AnimationSlots.clear();
 	FreeIndex.clear();
 	AnimationMap.clear();

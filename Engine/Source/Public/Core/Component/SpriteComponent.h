@@ -3,7 +3,8 @@
 #pragma once
 
 #include "Core/Component/RenderComponent.h"
-	#include "Core/Manager/TextureManager.h"
+
+#include "Core/Manager/TextureManager.h"
 
 class OSpriteComponent : public ORenderComponent
 {
@@ -15,8 +16,8 @@ protected:
 
 public:
 	OSpriteComponent();
-	OSpriteComponent(const std::string& name);
-	OSpriteComponent(const uint8 layer);
+	explicit OSpriteComponent(const std::string& name);
+	explicit OSpriteComponent(const uint8 layer);
 
 	virtual ~OSpriteComponent() override;
 
@@ -32,11 +33,10 @@ public:
 		TextureHandle = TextureManager::GetInstance().LoadTexture(texturePath);
 	}
 
-	// Setters and Getters
-
+	//Getters
 	FBox2D GetWorldBox() override;
 
-	const Texture* GetTexture() const // Can return nullptr
+	const Texture2D* GetTexture() const // Can return nullptr
 	{
 		return TextureManager::GetInstance().ResolveTexture(TextureHandle);
 	}

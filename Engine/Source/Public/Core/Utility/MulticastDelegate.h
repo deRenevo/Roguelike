@@ -3,7 +3,6 @@
 #include "Core/Utility/MulticastDelegateHandle.h"
 
 #include <functional>
-#include <vector>
 
 template <typename... Args>
 class MulticastDelegate

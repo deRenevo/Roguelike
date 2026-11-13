@@ -1,11 +1,6 @@
 // Copyright deRenevo. All rights reserved.
 
 #include "Core/Component/SceneComponent.h"
-#include "Core/Actor/Actor.h"
-
-#include <algorithm>
-
-#include "Core/Math/Box2D.h"
 
 OSceneComponent::OSceneComponent() : OSceneComponent(nullptr, {0, 0}, "SceneComponent")
 {
@@ -40,7 +35,7 @@ OSceneComponent::~OSceneComponent()
 
 }
 
-void OSceneComponent::Tick(float deltaTime)
+void OSceneComponent::Tick(const float deltaTime)
 {
 	OComponent::Tick(deltaTime);
 	for (const std::unique_ptr<OComponent>& Child : Children)
@@ -53,7 +48,7 @@ void OSceneComponent::EndPlay()
 {
 	OComponent::EndPlay();
 
-	for (std::unique_ptr<OComponent>& Child : Children)
+	for (const std::unique_ptr<OComponent>& Child : Children)
 	{
 		Child->OnDetach();
 		Child->EndPlay();
@@ -89,7 +84,7 @@ void OSceneComponent::RemoveChild(OComponent* child)
 {
 	if (!child) return;
 
-	auto It = std::ranges::find_if(Children,
+	const auto It = std::ranges::find_if(Children,
 		[child](const std::unique_ptr<OComponent>& ptr)
 		{
 			return ptr.get() == child;

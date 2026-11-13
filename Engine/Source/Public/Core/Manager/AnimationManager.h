@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "TextureManager.h"
+#include "Core/Manager/TextureManager.h"
 #include "Core/Math/Box2D.h"
 
 struct FAnimationHandle
@@ -57,6 +57,7 @@ public:
 		return AnimationSlots[animationHandle.Index]->Generation == animationHandle.Generation;
 	}
 
+	//getters
 	static AnimationManager& GetInstance()
 	{
 		static AnimationManager AM;
@@ -68,4 +69,3 @@ bool FAnimationHandle::IsValid() const
 {
 	return AnimationManager::GetInstance().IsHandleValid(*this);
 }
-

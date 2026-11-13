@@ -5,21 +5,13 @@
 
 #include "Core/Manager/CollisionManager.h"
 #include "Core/Manager/InputManager.h"
-#include "Core/Manager/TextureManager.h"
 #include "Core/Manager/AnimationManager.h"
 #include "Core/Manager/RenderManager.h"
-#include "Core/Manager/TaskQueueManager.h"
-
-#include <algorithm>
-#include <iostream>
 
 void SceneManager::LoadScene(std::unique_ptr<OScene> scene)
 {
-	std::cout << "LoadScene | LoadScene START, scene = " << scene.get() << "\n";
-
 	if (CorrectScene)
 	{
-		std::cout << "LoadScene | Exiting old scene\n";
 		CorrectScene->OnExit();
 		CorrectScene.reset();
 	}
@@ -28,7 +20,7 @@ void SceneManager::LoadScene(std::unique_ptr<OScene> scene)
 	{
 		HUDViewport.clear();
 	}
-	
+
 	AnimationManager::GetInstance().ClearAnimationMap();
 	RenderManager::GetInstance().ClearAll();
 	TextureManager::GetInstance().ClearTextureMap();
@@ -36,16 +28,11 @@ void SceneManager::LoadScene(std::unique_ptr<OScene> scene)
 	InputManager::GetInstance().ClearSubscribedKeys();
 
 	CorrectScene = std::move(scene);
-	std::cout << "LoadScene | Scene moved, CorrectScene = " << CorrectScene.get() << "\n";
 
 	if (CorrectScene)
 	{
-		std::cout << "LoadScene | Entering new scene\n";
 		CorrectScene->OnEnter();
-		std::cout << "LoadScene | Scene entered\n";
 	}
-
-	std::cout << "LoadScene | LoadScene END\n";
 }
 
 void SceneManager::AddToViewport(std::unique_ptr<HUD> hud)
@@ -72,17 +59,17 @@ void SceneManager::RemoveHUD(HUD* hud)
 	}
 }
 
-void SceneManager::Tick(float deltaTime)
+void SceneManager::Tick(const float deltaTime)
 {
 	if (CorrectScene)
 	{
 		CorrectScene->DoTick(deltaTime);
 	}
 
-	for (const auto& hud : HUDViewport)
+	for (const auto& Hud : HUDViewport)
 	{
-		if (!hud) continue;;
-		hud->DoTick(deltaTime);
+		if (!Hud) continue;;
+		Hud->DoTick(deltaTime);
 	};
 }
 
@@ -93,10 +80,10 @@ void SceneManager::Draw()
 		CorrectScene->DoDraw();
 	}
 
-	for (auto& hud : HUDViewport)
+	for (const auto& Hud : HUDViewport)
 	{
-		if (!hud) continue;;
-		hud->DoDraw();
+		if (!Hud) continue;;
+		Hud->DoDraw();
 	}
 }
 
@@ -113,8 +100,6 @@ void SceneManager::Shutdown()
 		CorrectScene.reset();
 	}
 }
-
-//=>getter and setter
 
 SceneManager& SceneManager::GetInstance()
 {

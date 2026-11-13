@@ -73,7 +73,7 @@ void TextureManager::FinalizeUnload(const FTextureHandle textureHandle)
 	FTextureSlot* TextureSlot = TextureSlots[textureHandle.Index].get();
 	if (TextureSlot->Generation != textureHandle.Generation) return;
 	if (TextureSlot->CountUsing.load() > 0) return;
-	
+
 	::UnloadTexture(*TextureSlot->Texture2D);
 	TextureSlot->Texture2D.reset();
 	TextureIndexMap.erase(TextureSlot->TexturePath);

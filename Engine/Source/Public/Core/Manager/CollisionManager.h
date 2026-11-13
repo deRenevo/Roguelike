@@ -9,16 +9,16 @@ class OCollisionComponent;
 class CollisionManager
 {
 	std::vector<OCollisionComponent*> CollisionComponents;
+
 public:
 	virtual ~CollisionManager() = default;
 	virtual void Tick(float deltaTime);
-	
+
 	void AddCollisionComponent(OCollisionComponent* collisionComponent)
 	{
 		CollisionComponents.push_back(collisionComponent);
 	}
-	
-	
+
 	void RemoveCollisionComponent(OCollisionComponent* collisionComponent)
 	{
 		if (!collisionComponent)
@@ -35,14 +35,13 @@ public:
 			CollisionComponents.erase(It);
 		}
 	}
-	
+
 	void ClearCollisionComponents()
 	{
 		CollisionComponents.clear();
 	}
 
-	//getters and setters
-
+	//getters
 	static CollisionManager& GetInstance()
 	{
 		static CollisionManager CM;

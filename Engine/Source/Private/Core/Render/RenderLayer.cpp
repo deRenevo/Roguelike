@@ -4,6 +4,8 @@
 
 #include "Core/Component/RenderComponent.h"
 
+#include <algorithm>
+
 void RRenderLayer::Render(const FBox2D& cameraViewBox)
 {
 	if (bIsSortByDepthEveryFrame)
@@ -12,7 +14,7 @@ void RRenderLayer::Render(const FBox2D& cameraViewBox)
 			[](const ORenderComponent* componentA, const ORenderComponent* componentB)
 			{
 				return componentA->GetWorldLocation().Y + componentA->GetDepthKey() <
-					   componentB->GetWorldLocation().Y + componentB->GetDepthKey();
+					componentB->GetWorldLocation().Y + componentB->GetDepthKey();
 			});
 
 		uint32 CurrentIndex = 0;
@@ -21,9 +23,9 @@ void RRenderLayer::Render(const FBox2D& cameraViewBox)
 			if (!Component)
 			{
 				printf("Critical error component is nullptr\n");
-				return;	
+				return;
 			}
-			
+
 			Component->SetRegistryRenderIndex(CurrentIndex);
 			CurrentIndex++;
 		}
@@ -59,7 +61,7 @@ void RRenderLayer::AddComponent(ORenderComponent* component)
 
 		const auto InsertedIt = AllRenderComponents.insert(It, component);
 		uint32 CurrentIndex = static_cast<uint32>(std::distance(AllRenderComponents.begin(), InsertedIt));
-		
+
 		for (auto i = InsertedIt; i != AllRenderComponents.end(); ++i)
 		{
 			(*i)->SetRegistryRenderIndex(CurrentIndex);
@@ -69,7 +71,7 @@ void RRenderLayer::AddComponent(ORenderComponent* component)
 	else
 	{
 		component->SetRegistryRenderIndex(static_cast<uint32>(AllRenderComponents.size()));
-		AllRenderComponents.push_back(component);	
+		AllRenderComponents.push_back(component);
 	}
 }
 
@@ -80,17 +82,17 @@ void RRenderLayer::RemoveComponent(const ORenderComponent* component)
 		printf("Error component is nullptr\n");
 		return;
 	}
-	
+
 	if (component->GetRegistryRenderIndex() >= AllRenderComponents.size() || AllRenderComponents[component->GetRegistryRenderIndex()] != component)
 	{
-		return; 
+		return;
 	}
 
 	if (bIsSortByDepthWhenAdded)
 	{
 		const auto It = AllRenderComponents.begin() + component->GetRegistryRenderIndex();
 		const auto NextIt = AllRenderComponents.erase(It);
-		
+
 		uint32 CurrentIndex = component->GetRegistryRenderIndex();
 		for (auto i = NextIt; i != AllRenderComponents.end(); ++i)
 		{
@@ -113,7 +115,7 @@ void RRenderLayer::ClearAll()
 {
 	for (auto* comp : AllRenderComponents)
 	{
-		if (comp) 
+		if (comp)
 		{
 			comp->SetRegistryRenderIndex(UINT32_MAX);
 		}

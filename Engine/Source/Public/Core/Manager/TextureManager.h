@@ -4,7 +4,7 @@
 
 #include "Core/Object/Object.h"
 
-#include <raylib.h>
+#include "raylib.h"
 
 #include <memory>
 #include <atomic>
@@ -14,7 +14,7 @@ struct FTextureHandle
 {
 	uint32 Index = UINT32_MAX;
 	uint32 Generation = 0;
-	
+
 	inline bool IsValid() const;
 };
 
@@ -31,7 +31,7 @@ class TextureManager
 	std::vector<std::unique_ptr<FTextureSlot>> TextureSlots;
 	std::vector<uint32> FreeIndex;
 	std::unordered_map<std::string, uint32> TextureIndexMap; // Path to file and index the slot
-	
+
 public:
 	FTextureHandle LoadTexture(const std::string& texturePath);
 	Texture* ResolveTexture(FTextureHandle textureHandle) const;
@@ -39,15 +39,15 @@ public:
 	void UnloadTextureAsync(const FTextureHandle& textureHandle);
 	void FinalizeUnload(FTextureHandle textureHandle);
 	void ClearTextureMap();
-	
+
 	bool IsHandleValid(const FTextureHandle& textureHandle) const
 	{
 		if (textureHandle.Index >= TextureSlots.size()) return false;
 		return TextureSlots[textureHandle.Index]->Generation == textureHandle.Generation;
- 	}
-	
-	//getters and setters
-	
+	}
+
+	//getters
+
 	static TextureManager& GetInstance()
 	{
 		static TextureManager TM;

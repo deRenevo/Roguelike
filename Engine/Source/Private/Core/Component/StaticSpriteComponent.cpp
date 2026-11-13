@@ -16,7 +16,6 @@ OStaticSpriteComponent::OStaticSpriteComponent(const std::string& name, uint8 la
 
 OStaticSpriteComponent::OStaticSpriteComponent(const uint8 layer) : OStaticSpriteComponent("StaticSpriteComponent", layer)
 {
-	
 }
 
 OStaticSpriteComponent::OStaticSpriteComponent() : OStaticSpriteComponent("StaticSpriteComponent")
@@ -48,13 +47,6 @@ void OStaticSpriteComponent::AutoSize() const
 		static_cast<float>(SpriteComponent->GetTexture()->width),
 		static_cast<float>(SpriteComponent->GetTexture()->height)
 	});
-}
-
-
-void OStaticSpriteComponent::OnAttach()
-{
-	OSceneComponent::OnAttach();
-
 }
 
 void OStaticSpriteComponent::SetAutoSize()
