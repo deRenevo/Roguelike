@@ -3,10 +3,10 @@
 #pragma once
 
 #include "Core/Component/Component.h"
+
 #include "Core/Math/Vector2D.h"
 
 #include <memory>
-
 
 struct FBox2D;
 
@@ -14,7 +14,7 @@ class OSceneComponent : public OComponent
 {
 	std::vector<std::unique_ptr<OComponent>> Children;
 	OSceneComponent* Parent = nullptr;
-	FVector2D Location = FVector2D(0, 0);
+	FVector2D Location = FVector2D::ZeroVector;
 
 protected:
 	virtual void Tick(float deltaTime) override;
@@ -36,7 +36,6 @@ public:
 	void RemoveChild(OComponent* child);
 
 	//setters
-
 	virtual void SetOwner(AActor* owner) override
 	{
 		OComponent::SetOwner(owner);
@@ -51,7 +50,6 @@ public:
 	{
 		Parent = parent;
 	}
-	
 
 	//getters
 	FVector2D GetLocation() const

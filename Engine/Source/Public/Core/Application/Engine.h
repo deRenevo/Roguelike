@@ -2,33 +2,32 @@
 
 #pragma once
 
-#include "Core/Object/Object.h"
-#include "Core/Scene/Scene.h"
-
 #include <memory>
 
-class OEngine : public OObject
+class OScene;
+
+class OEngine
 {
 	bool bIsRunning = false;
 	std::unique_ptr<OScene> LoadThenScene = nullptr;
 
 protected:
 	virtual void Run();
-	
+
 public:
 	OEngine();
-	virtual ~OEngine() override = default;
-	
+	virtual ~OEngine() = default;
+
 	OEngine(const OEngine&) = delete;
 	OEngine& operator=(const OEngine&) = delete;
 	OEngine(OEngine&) = delete;
 	OEngine& operator=(OEngine&&) = delete;
 
 	static OEngine& GetInstance();
-	
+
 	virtual void Ini(std::unique_ptr<OScene> scene);
 
 	virtual void Stop();
-	
+
 	void LoadScene(std::unique_ptr<OScene> scene);
 };

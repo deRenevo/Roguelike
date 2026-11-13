@@ -6,26 +6,26 @@
 #include "Core/Component/CollisionComponent.h"
 #include "Core/Math/CollisionMath.h"
 
-void CollisionManager::Tick(float deltaTime)
+void CollisionManager::Tick(const float deltaTime)
 {
 	const uint32 Count = CollisionComponents.size();
-	
+
 	for (uint32 i = 0; i < Count; ++i)
 	{
 		OCollisionComponent* ComponentA = CollisionComponents[i];
 		const FBox2D BoxA = ComponentA->GetWorldBox2D();
-		
+
 		for (int32 j = i + 1; j < Count; ++j)
 		{
 			OCollisionComponent* ComponentB = CollisionComponents[j];
-			
+
 			if (ComponentA->GetIsStatic() && ComponentB->GetIsStatic())
 			{
 				continue;
 			}
-            
+
 			const FBox2D BoxB = ComponentB->GetWorldBox2D();
-			
+
 			if (CollisionMath::Intersect(BoxA, BoxB))
 			{
 				ComponentA->SetIsColliding(true);

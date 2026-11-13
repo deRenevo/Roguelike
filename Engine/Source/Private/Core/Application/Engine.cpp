@@ -1,14 +1,13 @@
 // Copyright deRenevo. All rights reserved.
 
 #include "Core/Application/Engine.h"
+
 #include "Core/Manager/SceneManager.h"
 #include "Core/Manager/InputManager.h"
 #include "Core/Manager/TaskQueueManager.h"
-
-#include "raylib.h"
 #include "Core/Manager/RenderManager.h"
 
-OEngine::OEngine() : OObject()
+OEngine::OEngine()
 {
 }
 
@@ -49,7 +48,7 @@ void OEngine::Run()
 
 		BeginDrawing();
 		ClearBackground(BLACK);
-		
+
 		SceneManager::GetInstance().Draw();
 		EndDrawing();
 

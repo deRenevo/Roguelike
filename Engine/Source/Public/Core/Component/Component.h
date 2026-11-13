@@ -9,17 +9,17 @@ class AActor;
 
 class OComponent : public OObject
 {
-	AActor* Owner = nullptr;
 	bool bIsActive = true;
 	bool bIsHasBeginPlay = false;
+	AActor* Owner = nullptr;
 
 protected:
 	virtual void Tick(float deltaTime);
 
 public:
 	OComponent();
-	OComponent(AActor* owner);
-	OComponent(const std::string& name);
+	explicit OComponent(AActor* owner);
+	explicit OComponent(const std::string& name);
 	OComponent(AActor* owner, const std::string& name);
 
 	virtual ~OComponent() override = default;
@@ -30,7 +30,7 @@ public:
 	virtual void OnAttach();
 	virtual void OnDetach();
 
-	//getters and setters
+	//setters
 	virtual void SetOwner(AActor* owner)
 	{
 		Owner = owner;
@@ -40,7 +40,8 @@ public:
 	{
 		bIsActive = isActive;
 	}
-	
+
+	//getters
 	AActor* GetOwner() const
 	{
 		return Owner;
@@ -50,6 +51,4 @@ public:
 	{
 		return bIsActive;
 	}
-
-
 };

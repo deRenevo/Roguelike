@@ -16,7 +16,7 @@ class OGameMode : public OObject
 
 public:
 	OGameMode() = default;
-	OGameMode(const std::function<APlayerController*()>& controllerClass);
+	explicit OGameMode(const std::function<APlayerController*()>& controllerClass);
 	OGameMode(const std::function<APlayerController*()>& controllerClass, const std::function<APawn*()>& pawnClass);
 
 	virtual void BeginPlay();

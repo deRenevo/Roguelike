@@ -4,14 +4,14 @@
 
 #include "Core/Manager/RenderManager.h"
 
-ORenderComponent::ORenderComponent() : OSceneComponent("SpriteComponent")
+ORenderComponent::ORenderComponent() : ORenderComponent("SpriteComponent")
 {
-	
+
 }
 
 ORenderComponent::ORenderComponent(const std::string& name) : OSceneComponent(name)
 {
-	
+
 }
 
 ORenderComponent::ORenderComponent(const uint8 renderLayer) : ORenderComponent()

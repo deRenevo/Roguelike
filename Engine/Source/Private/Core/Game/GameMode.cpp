@@ -3,7 +3,6 @@
 #include "Core/Game/GameMode.h"
 
 #include "Core/Manager/SceneManager.h"
-#include "Core/Scene/Scene.h"
 #include "Core/Actor/Pawn.h"
 #include "Core/Actor/PlayerController.h"
 #include "Core/Actor/PlayerStart.h"
@@ -51,7 +50,7 @@ void OGameMode::AddNewPlayer()
 	}
 	else
 	{
-		StartPointLocation = {0, 0};
+		StartPointLocation = FVector2D::ZeroVector;
 	}
 
 	PC->SetLocation(StartPointLocation);

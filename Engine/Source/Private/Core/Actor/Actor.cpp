@@ -1,8 +1,6 @@
 // Copyright deRenevo. All rights reserved.
 
 #include "Core/Actor/Actor.h"
-#include "Core/Manager/SceneManager.h"
-#include "Core/Scene/Scene.h"
 
 AActor::AActor()
 	: AActor(FVector2D{0, 0}, "Actor")
@@ -44,7 +42,7 @@ void AActor::PostInitializeComponents()
 
 AActor::~AActor()
 {
-	
+
 }
 
 void AActor::DoInitialize()
@@ -65,7 +63,7 @@ void AActor::BeginPlay()
 	}
 }
 
-void AActor::Tick(float deltaTime)
+void AActor::Tick(const float deltaTime)
 {
 	if (RootSceneComponent)
 	{

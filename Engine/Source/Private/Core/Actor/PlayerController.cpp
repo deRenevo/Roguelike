@@ -1,28 +1,21 @@
 // Copyright deRenevo. All rights reserved.
 
-
 #include "Core/Actor/PlayerController.h"
+
 #include "Core/Manager/InputManager.h"
 #include "Core/Actor/Pawn.h"
 
-#include <memory>
-
-void APlayerController::SetupPlayerInputComponent(InputManager& inputManager)
+APlayerController::APlayerController() : APlayerController(FVector2D::ZeroVector, "PlayerController")
 {
 
 }
 
-APlayerController::APlayerController() : AActor()
+APlayerController::APlayerController(const FVector2D worldLocation) : APlayerController(worldLocation, "PlayerController")
 {
 
 }
 
-APlayerController::APlayerController(FVector2D worldLocation) : AActor(worldLocation)
-{
-
-}
-
-APlayerController::APlayerController(FVector2D worldLocation, std::string name) : AActor(worldLocation, name)
+APlayerController::APlayerController(const FVector2D worldLocation, const std::string& name) : AActor(worldLocation, name)
 {
 
 }
@@ -52,4 +45,9 @@ void APlayerController::UnPossess()
 		PlayerPawn->UnPossessed();
 		PlayerPawn = nullptr;
 	}
+}
+
+void APlayerController::SetupPlayerInputComponent(InputManager& inputManager)
+{
+
 }

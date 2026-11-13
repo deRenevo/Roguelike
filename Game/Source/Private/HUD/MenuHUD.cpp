@@ -20,10 +20,10 @@ void MenuHUD::HUDConstruction()
 		std::string TitleRich =
 			"[Size=50][Color=RAYWHITE]Roguelike[/Color][/Size]\n[Size=24]Press [Color=SKYBLUE][Size=28]SPACE[Size=24][/Color] to open the menu[/Size]";
 
-		Vector2 TitlePos =
+		FVector2D TitlePos =
 		{
-			(float)ScreenW / 2.0f,
-			(float)ScreenH / 2.0f
+			static_cast<float>(ScreenW) / 2.0f,
+			static_cast<float>(ScreenH) / 2.0f
 		};
 
 		FRichTextStyle Style;
@@ -45,7 +45,7 @@ void MenuHUD::HUDConstruction()
 		std::string ExitHintRich =
 			"[Size=20][Color=SKYBLUE]ESC[/Color] - EXIT[/Size]";
 
-		Vector2 ExitHintPos = {
+		FVector2D ExitHintPos = {
 			16.0f,
 			16.0f
 		};

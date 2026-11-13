@@ -30,7 +30,7 @@ void HUD::OnExit()
 {
 }
 
-void HUD::Tick(float deltaTime)
+void HUD::Tick(const float deltaTime)
 {
 	if (RootWidget && RootWidget->GetVisible())
 	{

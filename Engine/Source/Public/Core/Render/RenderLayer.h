@@ -1,6 +1,7 @@
 // Copyright deRenevo. All rights reserved.
 
 #pragma once
+
 #include "Core/Object/Object.h"
 
 class ORenderComponent;
@@ -24,49 +25,49 @@ public:
 	virtual void OnEndRender()
 	{
 	}
-	
+
 	void AddComponent(ORenderComponent* component);
 	void RemoveComponent(const ORenderComponent* component);
-	
+
 	void ClearAll();
 
-	//getters and setters 
-
+	//setters 
 	void SetRenderLayerIndex(const uint8 index)
 	{
 		RenderLayerIndex = index;
 	}
-	
+
 	void SetIsActiveRenderLayer(const bool isActive)
 	{
 		bIsActiveLayer = isActive;
 	}
-	
+
 	void SetIsSortEveryFrame(const bool isSort)
 	{
 		bIsSortByDepthEveryFrame = isSort;
 	}
-	
+
 	void SetIsSortWhenAdded(const bool isSort)
 	{
 		bIsSortByDepthWhenAdded = isSort;
 	}
 
+	//getters
 	uint8 GetRenderLayerIndex() const
 	{
 		return RenderLayerIndex;
 	}
-	
+
 	bool GetIsActiveRenderLayer() const
 	{
 		return bIsActiveLayer;
 	}
-	
+
 	bool GetIsSortByDepthEveryFrame() const
 	{
 		return bIsSortByDepthEveryFrame;
 	}
-	
+
 	bool GetIsSortWhenAdded() const
 	{
 		return bIsSortByDepthWhenAdded;

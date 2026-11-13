@@ -6,29 +6,24 @@
 #include "Core/HUD/HUD.h"
 
 #include <memory>
-#include <vector>
 
 class SceneManager
 {
+	std::unique_ptr<OScene> CorrectScene;
+	std::vector<std::unique_ptr<HUD>> HUDViewport;
+
+	SceneManager() = default;
+	~SceneManager() = default;
 
 public:
-	static SceneManager& GetInstance();
-
 	virtual void LoadScene(std::unique_ptr<OScene> scene);
-	//virtual void LoadHUD(std::unique_ptr<HUD> hud);
 	virtual void AddToViewport(std::unique_ptr<HUD> hud);
 	virtual void RemoveHUD(HUD* hud);
 	virtual void Tick(float deltaTime); //-> every frame is processed
 	virtual void Draw();
-	virtual OScene* GetScene();
-	
 	void Shutdown();
 
-private:
-	SceneManager() = default;
-	~SceneManager() = default;
-
-	std::unique_ptr<OScene> CorrectScene;
-	//std::unique_ptr<HUD> CorrectHUD;
-	std::vector<std::unique_ptr<HUD>> HUDViewport;
+	//getters
+	static SceneManager& GetInstance();
+	virtual OScene* GetScene();
 };

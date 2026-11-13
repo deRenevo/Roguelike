@@ -2,11 +2,9 @@
 
 #pragma once
 
-#include <vector>
-
-#include "Core/HUD/HUD.h"
 #include "Core/Render/RenderLayer.h"
 
+#include <memory>
 
 class ORenderComponent;
 struct FBox2D;
@@ -24,14 +22,14 @@ class RenderManager
 
 public:
 	void Ini();
-	
+
 	void Render(const FBox2D& cameraViewBox) const;
 	void AddComponent(ORenderComponent* component, uint8 layer);
 	void RemoveComponent(const ORenderComponent* component) const;
 	void AddLayer(std::unique_ptr<RRenderLayer> renderLayer, uint8 layerIndex);
 	void RemoveLayer(RRenderLayer* renderLayer);
 	void ClearAll() const;
-	
+
 	static RenderManager& GetInstance()
 	{
 		static RenderManager DM;

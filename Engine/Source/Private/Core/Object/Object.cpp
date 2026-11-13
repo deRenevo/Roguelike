@@ -2,8 +2,6 @@
 
 #include "Core/Object/Object.h"
 
-#include <ostream>
-
 OObject::OObject(const std::string& objectName) : ObjectName(objectName), UniqueId(GenerateUniqueId())
 {
 	RegistryIndex = AllObjects.size();
@@ -17,8 +15,7 @@ OObject::OObject() : OObject("Object")
 
 OObject::~OObject()
 {
-	const uint32 Last = AllObjects.size() - 1;
-	if (RegistryIndex != Last)
+	if (const uint32 Last = AllObjects.size() - 1; RegistryIndex != Last)
 	{
 		AllObjects[RegistryIndex] = AllObjects[Last];
 		AllObjects[RegistryIndex]->RegistryIndex = RegistryIndex;

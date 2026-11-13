@@ -29,7 +29,8 @@ protected:
 
 	//setters
 	void SetRootWidget(std::unique_ptr<WWidget> rootWidget);
-	void SetIsVisible(bool isVisible)
+
+	void SetIsVisible(const bool isVisible)
 	{
 		bIsVisible = isVisible;
 	}
@@ -39,7 +40,7 @@ protected:
 	{
 		return RootWidget.get();
 	}
-	
+
 	bool GetIsVisible() const
 	{
 		return bIsVisible;

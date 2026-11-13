@@ -3,6 +3,7 @@
 #pragma once
 
 #include "Core/Object/Object.h"
+
 #include "Core/Component/SceneComponent.h"
 #include "Core/Math/Vector2D.h"
 
@@ -25,8 +26,8 @@ protected:
 
 public:
 	AActor();
-	AActor(const FVector2D& location);
-	AActor(const std::string& name);
+	explicit AActor(const FVector2D& location);
+	explicit AActor(const std::string& name);
 	AActor(const FVector2D& location, const std::string& name);
 
 	virtual ~AActor() override;
@@ -37,14 +38,14 @@ public:
 	virtual void EndPlay();
 	virtual void DoTick(float deltaTime) final;
 
-	void SetRootSceneComponent(std::unique_ptr<OSceneComponent> rootSceneComponent);
-
 	//setters
+	void SetRootSceneComponent(std::unique_ptr<OSceneComponent> rootSceneComponent);
+	
 	void SetLocation(const FVector2D& location) const
 	{
 		RootSceneComponent->SetLocation(location);
 	}
-	
+
 	void SetIsTickable(const bool isTickable)
 	{
 		bIsTickable = isTickable;
@@ -65,7 +66,7 @@ public:
 	{
 		return RootSceneComponent.get();
 	}
-	
+
 	bool GetIsTickable() const
 	{
 		return bIsTickable;

@@ -4,7 +4,6 @@
 #include "Core/Application/Engine.h"
 #include "Scene/MenuScene.h"
 
-#include <ostream>
 #include <memory>
 
 using namespace std;

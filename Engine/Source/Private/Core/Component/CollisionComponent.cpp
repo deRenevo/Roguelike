@@ -3,27 +3,26 @@
 #include "Core/Component/CollisionComponent.h"
 
 #include "Core/Manager/CollisionManager.h"
-#include "Core/Manager/DebugManager.h"
 
-void OCollisionComponent::Tick(float deltaTime)
+void OCollisionComponent::Tick(const float deltaTime)
 {
 	OSceneComponent::Tick(deltaTime);
-	
+
 	if (bIsColliding)
 	{
 		OnCollisionDelegate.Broadcast();
 	}
-	
+
 	if (bIsCollidingOldFrame && !bIsColliding)
 	{
 		OnEndCollisionDelegate.Broadcast();
 	}
-	
+
 	if (!bIsCollidingOldFrame && bIsColliding)
 	{
 		OnStartCollisionDelegate.Broadcast();
 	}
-	
+
 	bIsCollidingOldFrame = bIsColliding;
 	bIsColliding = false;
 }
