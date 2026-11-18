@@ -53,7 +53,7 @@ void OAnimationComponent::Render(const FBox2D& cameraViewBox)
 		GetWorldLocation() + GetRenderAlignment(), WHITE); // if needing mirror update to fn DrawTexturePro() <- RayLib
 }
 
-void OAnimationComponent::Tick(float deltaTime)
+void OAnimationComponent::Tick(const float deltaTime)
 {
 	ORenderComponent::Tick(deltaTime);
 
@@ -63,7 +63,7 @@ void OAnimationComponent::Tick(float deltaTime)
 		return;
 	}
 
-	if (UpdateFrameTime < AnimationClip->UpdateFrameTime)
+	if (UpdateFrameTime < AnimationUpdateTime)
 	{
 		UpdateFrameTime += deltaTime;
 	}
@@ -74,14 +74,15 @@ void OAnimationComponent::Tick(float deltaTime)
 	}
 }
 
-void OAnimationComponent::LoadTexture(const std::string& path, const uint8 countFrame, const float updateFrameTime)
+void OAnimationComponent::LoadTexture(const std::string& path, const uint8 countFrame, const float animationUpdateTime = .1f)
 {
 	if (AnimationHandle.IsValid())
 	{
 		AnimationManager::GetInstance().UnloadAnimation(AnimationHandle);
 	}
 
-	AnimationHandle = AnimationManager::GetInstance().LoadAnimation(path, countFrame, updateFrameTime);
+	AnimationHandle = AnimationManager::GetInstance().LoadAnimation(path, countFrame);
+	AnimationUpdateTime = animationUpdateTime;
 }
 
 void OAnimationComponent::UnloadTexture() const

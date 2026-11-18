@@ -2,8 +2,6 @@
 
 #pragma once
 
-#include <functional>
-
 #include "Core/Component/SceneComponent.h"
 #include "Core/Math/Box2D.h"
 #include "Core/Utility/MulticastDelegate.h"

@@ -24,7 +24,7 @@ public:
 		if (!collisionComponent)
 			return;
 
-		auto It = std::ranges::find_if(CollisionComponents,
+		const auto It = std::ranges::find_if(CollisionComponents,
 			[collisionComponent](const OCollisionComponent* ptr)
 			{
 				return ptr == collisionComponent;

@@ -34,6 +34,7 @@ class TextureManager
 
 public:
 	FTextureHandle LoadTexture(const std::string& texturePath);
+	const FTextureSlot* GetTextureSlot(const FTextureHandle& textureHandle) const;
 	Texture* ResolveTexture(FTextureHandle textureHandle) const;
 	void UnloadTexture(const FTextureHandle& textureHandle);
 	void UnloadTextureAsync(const FTextureHandle& textureHandle);

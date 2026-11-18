@@ -83,7 +83,7 @@ void AActor::EndPlay()
 	}
 }
 
-void AActor::DoTick(float deltaTime)
+void AActor::DoTick(const float deltaTime)
 {
 	if (GetIsPendingKill() || !bIsTickable) return;
 	Tick(deltaTime);

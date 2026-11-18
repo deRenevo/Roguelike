@@ -2,7 +2,7 @@
 
 #include "Core/Manager/AnimationManager.h"
 
-FAnimationHandle AnimationManager::LoadAnimation(const std::string& texturePath, const uint8 countFrame, const float updateFrameTime = 1.f)
+FAnimationHandle AnimationManager::LoadAnimation(const std::string& texturePath, const uint8 countFrame)
 {
 	if (const std::unordered_map<std::string, unsigned>::iterator& it = AnimationMap.find(texturePath); it != AnimationMap.end())
 	{
@@ -38,13 +38,12 @@ FAnimationHandle AnimationManager::LoadAnimation(const std::string& texturePath,
 
 	if (!Texture)
 	{
-		return FAnimationHandle();
+		return {};
 	}
 
 	AnimationClip->FrameWidth = Texture->width / countFrame;
 	AnimationClip->FrameHeight = Texture->height;
 	AnimationClip->FrameCount = countFrame;
-	AnimationClip->UpdateFrameTime = updateFrameTime;
 
 	FAnimationSlot* AnimationSlot = AnimationSlots[Index].get();
 	AnimationSlot->AnimationClip = std::move(AnimationClip);
@@ -71,12 +70,16 @@ void AnimationManager::UnloadAnimation(const FAnimationHandle animationHandle)
 
 	if (AnimationSlot->CountUsing == 0)
 	{
-		TextureManager::GetInstance().UnloadTextureAsync(AnimationSlots[animationHandle.Index]->
-														AnimationClip->TextureHandle);
+		AnimationMap.erase(TextureManager::GetInstance().GetTextureSlot(AnimationSlot[animationHandle.Index].AnimationClip->TextureHandle)->TexturePath);
+		
+		TextureManager::GetInstance().UnloadTextureAsync(AnimationSlots[animationHandle.Index]->AnimationClip->TextureHandle);
+		
 		AnimationSlot->AnimationClip.reset();
 		++AnimationSlot->Generation;
 		FreeIndex.push_back(animationHandle.Index);
 	}
+	
+	fflush(stdout);
 }
 
 void AnimationManager::ClearAnimationMap()

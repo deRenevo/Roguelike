@@ -19,7 +19,6 @@ struct FAnimationClip
 	uint16 FrameWidth = 0;
 	uint16 FrameHeight = 0;
 	uint16 FrameCount = 0;
-	float UpdateFrameTime = 10;
 
 	FBox2D GetFrameBox(const uint8 frameCount) const
 	{
@@ -42,7 +41,7 @@ class AnimationManager
 	std::unordered_map<std::string, uint32> AnimationMap; // Path to file and index the slot
 
 public:
-	FAnimationHandle LoadAnimation(const std::string& texturePath, uint8 countFrame, float updateFrameTime);
+	FAnimationHandle LoadAnimation(const std::string& texturePath, uint8 countFrame);
 	FAnimationClip* ResolveAnimationClip(FAnimationHandle animationHandle) const;
 	void UnloadAnimation(FAnimationHandle animationHandle);
 	void ClearAnimationMap();

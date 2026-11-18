@@ -34,6 +34,7 @@ FTextureHandle TextureManager::LoadTexture(const std::string& texturePath)
 	FTextureSlot* TextureSlot = TextureSlots[Index].get();
 	TextureSlot->Texture2D = std::make_unique<Texture>(Texture2D);
 	TextureSlot->CountUsing = 1;
+	TextureSlot->TexturePath = texturePath;
 	TextureIndexMap[texturePath] = Index;
 	return {Index, TextureSlot->Generation};
 }
@@ -42,6 +43,13 @@ Texture* TextureManager::ResolveTexture(const FTextureHandle textureHandle) cons
 {
 	return TextureSlots[textureHandle.Index]->Generation == textureHandle.Generation
 		? TextureSlots[textureHandle.Index]->Texture2D.get()
+		: nullptr;
+}
+
+const FTextureSlot* TextureManager::GetTextureSlot(const FTextureHandle& textureHandle) const
+{
+	return TextureSlots[textureHandle.Index]->Generation == textureHandle.Generation
+		? TextureSlots[textureHandle.Index].get()
 		: nullptr;
 }
 
