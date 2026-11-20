@@ -92,7 +92,6 @@ void OSceneComponent::RemoveChild(OComponent* child)
 
 	if (It != Children.end())
 	{
-		(*It)->EndPlay();
 		Children.erase(It);
 		child->OnDetach();
 	}

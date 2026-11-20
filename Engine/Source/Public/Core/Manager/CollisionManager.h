@@ -4,6 +4,8 @@
 
 #include <vector>
 
+#include "Core/Component/CollisionComponent.h"
+
 class OCollisionComponent;
 
 class CollisionManager
@@ -16,26 +18,34 @@ public:
 
 	void AddCollisionComponent(OCollisionComponent* collisionComponent)
 	{
+		const uint32 Size = static_cast<uint32>(CollisionComponents.size()); 
+		if (Size == UINT32_MAX)
+		{
+			printf("[ERROR]Size is overflow in collision component list\n");
+			return;
+		}
+		
+		collisionComponent->SetRegistryIndex(Size);
 		CollisionComponents.push_back(collisionComponent);
 	}
 
 	void RemoveCollisionComponent(OCollisionComponent* collisionComponent)
 	{
-		if (!collisionComponent)
-			return;
-
-		const auto It = std::ranges::find_if(CollisionComponents,
-			[collisionComponent](const OCollisionComponent* ptr)
-			{
-				return ptr == collisionComponent;
-			});
-
-		if (It != CollisionComponents.end())
+		if (collisionComponent->GetRegistryIndex() == UINT32_MAX)
 		{
-			CollisionComponents.erase(It);
+			printf("[CRITICAL ERROR] Collision nor remove because component not authorized\n");
+			return;
 		}
+		
+		if (const uint32 Last = CollisionComponents.size() - 1; collisionComponent->GetRegistryIndex() != Last)
+		{
+			CollisionComponents[collisionComponent->GetRegistryIndex()] = CollisionComponents[Last];
+			CollisionComponents[collisionComponent->GetRegistryIndex()]->SetRegistryIndex(collisionComponent->GetRegistryIndex());
+		}
+		CollisionComponents.pop_back();
+		collisionComponent->SetRegistryIndex(UINT32_MAX);
 	}
-
+	
 	void ClearCollisionComponents()
 	{
 		CollisionComponents.clear();

@@ -4,14 +4,16 @@
 
 #include "Core/Object/Object.h"
 
-struct FBox2D;
+class OSceneComponent;
 class AActor;
+struct FBox2D;
 
 class OComponent : public OObject
 {
 	bool bIsActive = true;
 	bool bIsHasBeginPlay = false;
 	AActor* Owner = nullptr;
+	OSceneComponent* Parent = nullptr;
 
 protected:
 	virtual void Tick(float deltaTime);
@@ -22,7 +24,7 @@ public:
 	explicit OComponent(const std::string& name);
 	OComponent(AActor* owner, const std::string& name);
 
-	virtual ~OComponent() override = default;
+	virtual ~OComponent() override;
 
 	virtual void DoTick(float deltaTime);
 	virtual void BeginPlay();
@@ -40,6 +42,11 @@ public:
 	{
 		bIsActive = isActive;
 	}
+	
+	void SetParent(OSceneComponent* parent)
+	{
+		Parent = parent;
+	}
 
 	//getters
 	AActor* GetOwner() const
@@ -50,5 +57,10 @@ public:
 	bool IsActive() const
 	{
 		return bIsActive;
+	}
+	
+	OSceneComponent* GetParent() const
+	{
+		return Parent;
 	}
 };

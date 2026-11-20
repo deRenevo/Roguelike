@@ -23,35 +23,35 @@ class ATestPawn : public APawn
 {
 	virtual void SetupPlayerInputComponent(InputManager& inputManager) override
 	{
-		inputManager.SubscribeKey(KeyboardKey::KEY_ESCAPE, EInputType::Pressed, [](void)
+		SubscribeKey(KeyboardKey::KEY_ESCAPE, EInputType::Pressed, [](void)
 		{
 			OEngine::GetInstance().Stop();
 		});
-		inputManager.SubscribeKey(KeyboardKey::KEY_A, EInputType::Held, [this](void)
+		SubscribeKey(KeyboardKey::KEY_A, EInputType::Held, [this](void)
 		{
 			this->Move({-1, 0});
 		});
-		inputManager.SubscribeKey(KeyboardKey::KEY_D, EInputType::Held, [this](void)
+		SubscribeKey(KeyboardKey::KEY_D, EInputType::Held, [this](void)
 		{
 			this->Move({1, 0});
 		});
-		inputManager.SubscribeKey(KeyboardKey::KEY_W, EInputType::Held, [this](void)
+		SubscribeKey(KeyboardKey::KEY_W, EInputType::Held, [this](void)
 		{
 			this->Move({0, -1});
 		});
-		inputManager.SubscribeKey(KeyboardKey::KEY_S, EInputType::Held, [this](void)
+		SubscribeKey(KeyboardKey::KEY_S, EInputType::Held, [this](void)
 		{
 			this->Move({0, 1});
 		});
-		inputManager.SubscribeKey(KeyboardKey::KEY_LEFT_SHIFT, EInputType::Pressed, [this](void)
+		SubscribeKey(KeyboardKey::KEY_LEFT_SHIFT, EInputType::Pressed, [this](void)
 		{
 			this->SetFastMove(true);
 		});
-		inputManager.SubscribeKey(KeyboardKey::KEY_LEFT_SHIFT, EInputType::Released, [this](void)
+		SubscribeKey(KeyboardKey::KEY_LEFT_SHIFT, EInputType::Released, [this](void)
 		{
 			this->SetFastMove(false);
 		});
-		inputManager.SubscribeKey(KeyboardKey::KEY_R, EInputType::Pressed, [this](void)
+		SubscribeKey(KeyboardKey::KEY_R, EInputType::Pressed, [this](void)
 		{
 			this->LoadScene();
 		});

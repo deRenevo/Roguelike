@@ -1,6 +1,6 @@
 // Copyright deRenevo. All rights reserved.
 
-#include <Core/Manager/CollisionManager.h>
+#include "Core/Manager/CollisionManager.h"
 
 #include "Core/Actor/Actor.h"
 #include "Core/Component/CollisionComponent.h"
@@ -24,9 +24,7 @@ void CollisionManager::Tick(const float deltaTime)
 				continue;
 			}
 
-			const FBox2D BoxB = ComponentB->GetWorldBox2D();
-
-			if (CollisionMath::Intersect(BoxA, BoxB))
+			if (const FBox2D BoxB = ComponentB->GetWorldBox2D(); CollisionMath::Intersect(BoxA, BoxB))
 			{
 				ComponentA->SetIsColliding(true);
 				ComponentB->SetIsColliding(true);

@@ -20,6 +20,14 @@ APlayerController::APlayerController(const FVector2D worldLocation, const std::s
 
 }
 
+APlayerController::~APlayerController()
+{
+	for (const auto& inputHandler : InputHandlers)
+	{
+		InputManager::GetInstance().UnsubscribeKey(inputHandler);
+	}
+}
+
 void APlayerController::BeginPlay()
 {
 	SetupPlayerInputComponent(InputManager::GetInstance());
@@ -49,5 +57,12 @@ void APlayerController::UnPossess()
 
 void APlayerController::SetupPlayerInputComponent(InputManager& inputManager)
 {
+	//Test function. Processing input used global input system for Test input system.
+	//Next rework system (Player controller for input control)
+	//Test system using Instance class Input manager 
+}
 
+void APlayerController::SubscribeKey(KeyboardKey key, EInputType inputType, const std::function<void()>& callback)
+{
+	InputHandlers.push_back(InputManager::GetInstance().SubscribeKey(key, inputType, callback));
 }

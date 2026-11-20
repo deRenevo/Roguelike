@@ -4,6 +4,11 @@
 
 #include "Core/Manager/CollisionManager.h"
 
+OCollisionComponent::~OCollisionComponent()
+{
+	CollisionManager::GetInstance().RemoveCollisionComponent(this);
+}
+
 void OCollisionComponent::Tick(const float deltaTime)
 {
 	OSceneComponent::Tick(deltaTime);
@@ -37,6 +42,4 @@ void OCollisionComponent::OnAttach()
 void OCollisionComponent::OnDetach()
 {
 	OSceneComponent::OnDetach();
-
-	CollisionManager::GetInstance().RemoveCollisionComponent(this);
 }

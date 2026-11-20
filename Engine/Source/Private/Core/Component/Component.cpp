@@ -2,6 +2,8 @@
 
 #include "Core/Component/Component.h"
 
+#include "Core/Component/SceneComponent.h"
+
 OComponent::OComponent() : OComponent(nullptr, "Component")
 {
 
@@ -20,6 +22,11 @@ OComponent::OComponent(AActor* owner) : OComponent(owner, "Component")
 OComponent::OComponent(AActor* owner, const std::string& name) : OObject(name)
 {
 	OComponent::SetOwner(owner);
+}
+
+OComponent::~OComponent()
+{
+	OComponent::EndPlay();
 }
 
 void OComponent::DoTick(float deltaTime)

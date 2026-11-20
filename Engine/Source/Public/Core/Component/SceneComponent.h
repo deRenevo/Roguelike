@@ -13,7 +13,6 @@ struct FBox2D;
 class OSceneComponent : public OComponent
 {
 	std::vector<std::unique_ptr<OComponent>> Children;
-	OSceneComponent* Parent = nullptr;
 	FVector2D Location = FVector2D::ZeroVector;
 
 protected:
@@ -40,15 +39,10 @@ public:
 	{
 		OComponent::SetOwner(owner);
 
-		for (std::unique_ptr<OComponent>& child : Children)
+		for (const std::unique_ptr<OComponent>& child : Children)
 		{
 			child->SetOwner(owner);
 		}
-	}
-
-	void SetParent(OSceneComponent* parent)
-	{
-		Parent = parent;
 	}
 
 	//getters
@@ -59,17 +53,12 @@ public:
 
 	FVector2D GetWorldLocation() const
 	{
-		if (Parent)
+		if (GetParent())
 		{
-			const FVector2D ParentLocation = Parent->GetWorldLocation();
+			const FVector2D ParentLocation = GetParent()->GetWorldLocation();
 			return {ParentLocation.X + Location.X, ParentLocation.Y + Location.Y};
 		}
 
 		return Location;
-	}
-
-	OSceneComponent* GetParent() const
-	{
-		return Parent;
 	}
 };

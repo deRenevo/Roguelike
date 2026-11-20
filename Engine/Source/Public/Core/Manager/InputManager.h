@@ -6,6 +6,8 @@
 
 #include "raylib.h"
 
+#include <list>
+
 enum class EInputType
 {
 	Pressed,
@@ -15,14 +17,14 @@ enum class EInputType
 
 struct FKeyAction
 {
+	EInputType InputType;
 	KeyboardKey Key;
 	MulticastDelegate<> Callback;
-	EInputType InputType;
 };
 
 class InputManager
 {
-	std::vector<FKeyAction> KeyActions;
+	std::list<FKeyAction> KeyActions;
 	std::vector<KeyboardKey> OldKeyInput;
 
 	InputManager() = default;

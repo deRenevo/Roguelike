@@ -10,6 +10,7 @@ class OCollisionComponent : public OSceneComponent
 {
 	FVector2D Size = FVector2D::ZeroVector;
 	FVector2D Alignment = FVector2D::ZeroVector;
+	uint32 RegistryIndex = UINT32_MAX;
 
 	bool bIsCollidingOldFrame = false;
 	bool bIsColliding = false;
@@ -20,6 +21,8 @@ public:
 	MulticastDelegate<> OnCollisionDelegate;
 	MulticastDelegate<> OnEndCollisionDelegate;
 
+	virtual ~OCollisionComponent() override;
+	
 protected:
 	virtual void Tick(float deltaTime) override;
 
@@ -53,6 +56,11 @@ public:
 	{
 		bIsStatic = isStatic;
 	}
+	
+	void SetRegistryIndex(const uint32& registryIndex)
+	{
+		RegistryIndex = registryIndex;
+	}
 
 	//getters
 	FVector2D GetSize() const
@@ -85,5 +93,10 @@ public:
 	bool GetIsStatic() const
 	{
 		return bIsStatic;
+	}
+	
+	uint32 GetRegistryIndex() const
+	{
+		return RegistryIndex;
 	}
 };

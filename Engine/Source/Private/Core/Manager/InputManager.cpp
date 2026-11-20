@@ -61,13 +61,13 @@ FMulticastDelegateHandle InputManager::SubscribeKey(const KeyboardKey key, const
 void InputManager::UnsubscribeKey(const FMulticastDelegateHandle keyDelegateHandle)
 {
 	if (!keyDelegateHandle.IsValid())
+	{
 		return;
+	}
 
 	for (auto It = KeyActions.begin(); It != KeyActions.end(); ++It)
 	{
-		const void* DelegatePtr = static_cast<void*>(&It->Callback);
-
-		if (DelegatePtr == keyDelegateHandle.MulticastDelegate)
+		if (const void* DelegatePtr = static_cast<void*>(&It->Callback); DelegatePtr == keyDelegateHandle.MulticastDelegate)
 		{
 			It->Callback.Remove(keyDelegateHandle);
 			if (It->Callback.IsEmpty())
